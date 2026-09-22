@@ -254,38 +254,41 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onOpenContact }) => {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0 }}
                   onClick={handleOpenChat}
-                  className="hidden md:flex items-center gap-2 mr-3 px-3.5 py-1.5 rounded-full bg-obsidian-900/90 border border-ember/30 shadow-glow-sm cursor-pointer hover:border-ember transition-colors backdrop-blur-md"
+                  className="relative z-30 flex items-center gap-2 mr-3 px-3.5 py-1.5 rounded-full bg-[#0D0E12] border border-ember/50 shadow-[0_4px_25px_rgba(0,0,0,0.85)] cursor-pointer hover:border-ember transition-all group backdrop-blur-xl"
                 >
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[11px] font-medium text-zinc-200">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+                  <span className="text-[11px] sm:text-xs font-semibold text-white tracking-wide select-none group-hover:text-ember transition-colors">
                     Ask GROWECH AI Concierge
                   </span>
-                  <ChevronRight className="w-3 h-3 text-ember" />
+                  <ChevronRight className="w-3.5 h-3.5 text-ember flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
                 </motion.div>
               )}
 
-              {/* Glowing Pulse Ring behind launcher */}
-              <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-ember via-tangerine to-ember opacity-70 blur-md animate-pulse pointer-events-none" />
+              {/* Launcher Button Container with Isolated Glow */}
+              <div className="relative flex-shrink-0 z-20">
+                {/* Glowing Pulse Ring strictly around launcher button */}
+                <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-ember via-tangerine to-ember opacity-75 blur-md animate-pulse pointer-events-none -z-10" />
 
-              {/* Main Button */}
-              <button
-                onClick={handleOpenChat}
-                aria-label="Open GROWECH AI Assistant"
-                className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-obsidian-950 border border-white/20 hover:border-ember text-white shadow-2xl flex items-center justify-center group overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
-              >
-                {/* Internal gradient shine */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-ember/20 via-transparent to-white/10 opacity-80 group-hover:opacity-100 transition-opacity" />
+                {/* Main Button */}
+                <button
+                  onClick={handleOpenChat}
+                  aria-label="Open GROWECH AI Assistant"
+                  className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-obsidian-950 border border-white/20 hover:border-ember text-white shadow-2xl flex items-center justify-center group overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
+                >
+                  {/* Internal gradient shine */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-ember/20 via-transparent to-white/10 opacity-80 group-hover:opacity-100 transition-opacity" />
 
-                {/* 3D Branded Mark / Bot Icon */}
-                <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center">
-                  <LogoMark className="w-full h-full" glow={false} />
-                </div>
+                  {/* 3D Branded Mark / Bot Icon */}
+                  <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center">
+                    <LogoMark className="w-full h-full" glow={false} />
+                  </div>
 
-                {/* Live Online Badge Indicator */}
-                <span className="absolute top-2 right-2 w-3.5 h-3.5 rounded-full bg-obsidian-950 border-2 border-obsidian-950 flex items-center justify-center">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                </span>
-              </button>
+                  {/* Live Online Badge Indicator */}
+                  <span className="absolute top-2 right-2 w-3.5 h-3.5 rounded-full bg-obsidian-950 border-2 border-obsidian-950 flex items-center justify-center">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  </span>
+                </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
