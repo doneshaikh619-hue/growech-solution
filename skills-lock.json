@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "animejs": {
+      "source": "bowtiedswan/animejs-skills",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "05d6c7613de9726228efd16613c84d2264a21ebe132abf663a97141ceb8bb324"
+    },
     "gsap-core": {
       "source": "greensock/gsap-skills",
       "sourceType": "github",
