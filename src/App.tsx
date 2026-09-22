@@ -13,6 +13,7 @@ import { FAQSection } from './components/FAQSection';
 import { HorizonCTA } from './components/HorizonCTA';
 import { Footer } from './components/Footer';
 import { ContactModal } from './components/ContactModal';
+import { Chatbot } from './components/Chatbot';
 import { SEO } from './components/SEO';
 
 export function App() {
@@ -87,6 +88,11 @@ export function App() {
       <ContactModal
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
+      />
+
+      {/* Floating AI Agency Chatbot */}
+      <Chatbot
+        onOpenContact={() => setIsContactOpen(true)}
       />
     </div>
   );

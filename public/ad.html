@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GROWECH SOLUTION — Motion Advertisement Reel (9:16)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 25px rgba(255, 85, 0, 0.35); }
+      50% { box-shadow: 0 0 55px rgba(255, 85, 0, 0.7); }
+    }
+    .phone-container {
+      aspect-ratio: 9 / 16;
+      max-height: 720px;
+    }
+  </style>
+</head>
+<body class="bg-[#070709] text-zinc-100 min-h-screen flex flex-col items-center justify-center p-3 sm:p-6 font-sans select-none antialiased">
+
+  <!-- Main Container -->
+  <div class="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-center gap-8">
+    
+    <!-- Left: 9:16 Video Canvas / Phone Mockup Frame -->
+    <div class="relative w-full max-w-[360px] sm:max-w-[390px] phone-container rounded-[44px] bg-[#0A0A0B] border-[6px] border-[#22242D] shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(255,85,0,0.2)] overflow-hidden flex flex-col justify-between">
+      
+      <!-- Top Speaker Notch & Dynamic Island -->
+      <div class="absolute top-2 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center gap-2 px-4 py-1 rounded-full bg-black/80 border border-white/10 backdrop-blur-md">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="text-[10px] font-mono text-zinc-300 font-bold uppercase tracking-wider">GROWECH &bull; LIVE AD</span>
+      </div>
+
+      <!-- Top Story Bar Progress Indicators (6 Scenes) -->
+      <div class="absolute top-8 left-4 right-4 z-40 flex items-center gap-1.5">
+        <div class="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+          <div id="prog-0" class="h-full bg-gradient-to-r from-[#FF5500] to-[#FF8800] w-0 transition-all duration-100"></div>
+        </div>
+        <div class="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+          <div id="prog-1" class="h-full bg-gradient-to-r from-[#FF5500] to-[#FF8800] w-0 transition-all duration-100"></div>
+        </div>
+        <div class="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+          <div id="prog-2" class="h-full bg-gradient-to-r from-[#FF5500] to-[#FF8800] w-0 transition-all duration-100"></div>
+        </div>
+        <div class="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+          <div id="prog-3" class="h-full bg-gradient-to-r from-[#FF5500] to-[#FF8800] w-0 transition-all duration-100"></div>
+        </div>
+        <div class="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+          <div id="prog-4" class="h-full bg-gradient-to-r from-[#FF5500] to-[#FF8800] w-0 transition-all duration-100"></div>
+        </div>
+        <div class="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+          <div id="prog-5" class="h-full bg-gradient-to-r from-[#FF5500] to-[#FF8800] w-0 transition-all duration-100"></div>
+        </div>
+      </div>
+
+      <!-- Main Video Canvas Content Area -->
+      <div id="ad-canvas" class="relative w-full h-full flex flex-col justify-between p-5 pt-16 pb-20 overflow-hidden bg-gradient-to-b from-[#0A0A0B] via-[#0E0F14] to-[#0A0A0B]">
+        
+        <!-- Ambient Laser Glow Background -->
+        <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-[#FF5500]/15 blur-[90px] pointer-events-none"></div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-[#FF8800]/10 blur-[80px] pointer-events-none"></div>
+
+        <!-- ================= SCENE 1: THE HOOK (00:00 - 00:06) ================= -->
+        <div id="scene-0" class="scene absolute inset-0 flex flex-col items-center justify-center p-6 text-center transition-all duration-500 opacity-100 z-20">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5500]/15 border border-[#FF5500]/30 text-[#FF5500] text-[11px] font-mono font-bold tracking-widest uppercase mb-4 animate-bounce">
+            🔥 Attention Business Owners
+          </div>
+          
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight uppercase">
+            Kya Aapke Business Ka Apna <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5500] via-[#FF8800] to-yellow-400">AUTOMATED SYSTEM</span> Hai?
+          </h2>
+
+          <div class="relative mt-8 w-28 h-28 rounded-full bg-[#13141B] border-2 border-[#FF5500] flex items-center justify-center shadow-[0_0_35px_rgba(255,85,0,0.5)]">
+            <svg class="w-14 h-14 text-[#FF5500] animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+
+          <p class="mt-6 text-xs text-zinc-300 font-mono tracking-wide">
+            24/7 Leads &bull; Zero Delay &bull; Maximum Profit
+          </p>
+        </div>
+
+        <!-- ================= SCENE 2: THE PAIN POINT (00:06 - 00:12) ================= -->
+        <div id="scene-1" class="scene absolute inset-0 flex flex-col items-center justify-center p-6 text-center transition-all duration-500 opacity-0 pointer-events-none z-10">
+          <div class="px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-400 text-[11px] font-mono font-bold tracking-wider uppercase mb-4">
+            ⚠️ The Real Problem
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight uppercase">
+            Manual Calls Aur Third-Party Apps Par <br/>
+            <span class="text-red-400">Depend Rehna Band Karein!</span>
+          </h2>
+
+          <!-- Pain Point Cards Crossed Out -->
+          <div class="mt-6 flex flex-col gap-3 w-full max-w-[280px]">
+            <div class="flex items-center justify-between p-3 rounded-xl bg-red-950/30 border border-red-500/40 text-left relative overflow-hidden">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">⏳</span>
+                <div>
+                  <div class="text-xs font-bold text-white">Delayed WhatsApp Replies</div>
+                  <div class="text-[10px] text-zinc-400">Customers wait & buy from competitors</div>
+                </div>
+              </div>
+              <div class="absolute inset-0 bg-red-600/10 flex items-center justify-center">
+                <div class="w-full h-0.5 bg-red-500 rotate-6"></div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 rounded-xl bg-red-950/30 border border-red-500/40 text-left relative overflow-hidden">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">💸</span>
+                <div>
+                  <div class="text-xs font-bold text-white">Hefty 25% Third-Party Cut</div>
+                  <div class="text-[10px] text-zinc-400">Loss of customer database & margin</div>
+                </div>
+              </div>
+              <div class="absolute inset-0 bg-red-600/10 flex items-center justify-center">
+                <div class="w-full h-0.5 bg-red-500 -rotate-6"></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-5 text-[11px] text-zinc-400 font-mono">
+            Kyunki aapka customer aapka apna asset hona chahiye!
+          </p>
+        </div>
+
+        <!-- ================= SCENE 3: LIVE SOLUTION (00:12 - 00:22) ================= -->
+        <div id="scene-2" class="scene absolute inset-0 flex flex-col items-center justify-center p-6 text-center transition-all duration-500 opacity-0 pointer-events-none z-10">
+          <div class="px-3 py-1 rounded-full bg-[#FF5500]/15 border border-[#FF5500]/30 text-[#FF5500] text-[11px] font-mono font-bold tracking-wider uppercase mb-2">
+            🚀 The GROWECH Solution
+          </div>
+
+          <h3 class="text-xl font-extrabold text-white uppercase">
+            Official WhatsApp &bull; Web Platform
+          </h3>
+
+          <!-- Simulated Live Chat Box -->
+          <div class="mt-4 w-full max-w-[280px] p-3 rounded-2xl bg-[#111218] border border-white/10 text-left shadow-xl">
+            <div class="flex items-center gap-2 pb-2 border-b border-white/10 mb-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-[10px] font-bold text-white">GROWECH AI ASSISTANT</span>
+              <span class="text-[8px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 ml-auto font-bold">VERIFIED</span>
+            </div>
+
+            <div class="space-y-2 text-[10px]">
+              <div class="bg-white/10 p-2 rounded-xl text-zinc-200 max-w-[85%]">
+                "Hello! Can I see your catalog and book a consultation?"
+              </div>
+              <div class="bg-[#FF5500]/20 border border-[#FF5500]/30 p-2 rounded-xl text-white ml-auto max-w-[90%]">
+                ✅ "Welcome! Here is our full service catalog. Your consultation is booked for 3:00 PM!"
+              </div>
+            </div>
+
+            <!-- Instant Order / Action Pill -->
+            <div class="mt-3 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-[9px] text-emerald-300 font-bold">
+              <span>⚡ Lead Qualified & Synced</span>
+              <span>1.2s Response</span>
+            </div>
+          </div>
+
+          <p class="mt-3 text-[10px] text-zinc-300 font-mono">
+            Direct orders & instant booking straight to your CRM!
+          </p>
+        </div>
+
+        <!-- ================= SCENE 4: CENTRAL DASHBOARD (00:22 - 00:30) ================= -->
+        <div id="scene-3" class="scene absolute inset-0 flex flex-col items-center justify-center p-6 text-center transition-all duration-500 opacity-0 pointer-events-none z-10">
+          <div class="px-3 py-1 rounded-full bg-[#FF5500]/15 border border-[#FF5500]/30 text-[#FF5500] text-[11px] font-mono font-bold tracking-wider uppercase mb-2">
+            📊 Central Orchestrator
+          </div>
+
+          <h3 class="text-xl font-extrabold text-white uppercase leading-snug">
+            All Orders &amp; Leads <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5500] to-yellow-400">Ek Hi Jagah Se Control</span>
+          </h3>
+
+          <!-- Simulated Dashboard Mockup -->
+          <div class="mt-4 w-full max-w-[280px] p-3 rounded-2xl bg-[#111218] border border-white/10 text-left shadow-2xl">
+            <div class="flex items-center justify-between text-[9px] font-mono text-zinc-400 mb-2">
+              <span>ACTIVE PIPELINE</span>
+              <span class="text-emerald-400 font-bold">+184% Growth</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mb-3">
+              <div class="p-2 rounded-xl bg-white/5 border border-white/5">
+                <div class="text-[9px] text-zinc-400">Total Inquiries</div>
+                <div class="text-sm font-bold text-white">1,482</div>
+              </div>
+              <div class="p-2 rounded-xl bg-[#FF5500]/10 border border-[#FF5500]/20">
+                <div class="text-[9px] text-[#FF5500]">Auto Closed</div>
+                <div class="text-sm font-bold text-[#FF5500]">94.2%</div>
+              </div>
+            </div>
+
+            <div class="p-2 rounded-lg bg-white/5 flex items-center justify-between text-[9px]">
+              <span class="text-zinc-300">Deterministic RAG Agent</span>
+              <span class="text-emerald-400 font-mono">ONLINE</span>
+            </div>
+          </div>
+
+          <p class="mt-3 text-[10px] text-zinc-400 font-mono">
+            Zero manual chaos. 100% visibility & real-time analytics.
+          </p>
+        </div>
+
+        <!-- ================= SCENE 5: 6-NODE ECOSYSTEM (00:30 - 00:36) ================= -->
+        <div id="scene-4" class="scene absolute inset-0 flex flex-col items-center justify-center p-5 text-center transition-all duration-500 opacity-0 pointer-events-none z-10">
+          <div class="px-2.5 py-0.5 rounded-full bg-[#FF5500]/15 border border-[#FF5500]/30 text-[#FF5500] text-[10px] font-mono font-bold tracking-wider uppercase mb-2">
+            ⚡ Full 6-Node Architecture
+          </div>
+
+          <h3 class="text-xl font-extrabold text-white uppercase leading-snug">
+            Sab Kuch Ek Connected Engine Mein!
+          </h3>
+
+          <!-- 6 Grid Services Badges -->
+          <div class="mt-3 grid grid-cols-2 gap-1.5 w-full max-w-[290px] text-left text-[9px] font-mono">
+            <div class="p-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+              <span class="text-amber-400">🌐</span>
+              <span class="text-white font-bold truncate">Web Platforms</span>
+            </div>
+            <div class="p-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+              <span class="text-amber-400">🛍️</span>
+              <span class="text-white font-bold truncate">E-Commerce</span>
+            </div>
+            <div class="p-2 rounded-xl bg-[#FF5500]/15 border border-[#FF5500]/40 flex items-center gap-1.5">
+              <span class="text-emerald-400">💬</span>
+              <span class="text-white font-bold truncate">WhatsApp Cloud</span>
+            </div>
+            <div class="p-2 rounded-xl bg-[#FF5500]/15 border border-[#FF5500]/40 flex items-center gap-1.5">
+              <span class="text-amber-400">⚙️</span>
+              <span class="text-white font-bold truncate">AI Workflows</span>
+            </div>
+            <div class="p-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+              <span class="text-purple-400">🤖</span>
+              <span class="text-white font-bold truncate">AI Agents</span>
+            </div>
+            <div class="p-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+              <span class="text-cyan-400">📈</span>
+              <span class="text-white font-bold truncate">Lead Funnels</span>
+            </div>
+          </div>
+
+          <!-- Pulsing Hub Badge -->
+          <div class="mt-3 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5500] text-black font-bold text-[10px] tracking-wider uppercase shadow-[0_0_15px_#FF5500]">
+            <span>GROWECH UNIFIED ENGINE</span>
+          </div>
+        </div>
+
+        <!-- ================= SCENE 6: CALL TO ACTION & OUTRO (00:36 - 00:42) ================= -->
+        <div id="scene-5" class="scene absolute inset-0 flex flex-col items-center justify-center p-6 text-center transition-all duration-500 opacity-0 pointer-events-none z-10">
+          
+          <!-- 3D Brand Logo -->
+          <div class="relative w-20 h-20 rounded-full bg-[#111218] border-2 border-[#FF5500] flex items-center justify-center p-3 shadow-[0_0_40px_rgba(255,85,0,0.6)] mb-3">
+            <span class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-yellow-300 via-amber-500 to-orange-600">G</span>
+          </div>
+
+          <h2 class="text-2xl font-black text-white uppercase tracking-tight">
+            GROWECH SOLUTION
+          </h2>
+          <p class="text-xs text-[#FF5500] font-mono tracking-widest uppercase font-semibold">
+            Architecting Your Digital Growth
+          </p>
+
+          <div class="mt-5 w-full max-w-[270px] space-y-2">
+            <div class="w-full py-3 rounded-full bg-gradient-to-r from-[#FF5500] to-[#FF8800] text-white font-bold text-xs shadow-[0_0_20px_rgba(255,85,0,0.4)] flex items-center justify-center gap-2 cursor-pointer hover:scale-105 transition-transform">
+              <span>📲 BOOK FREE DEMO ON WHATSAPP</span>
+            </div>
+
+            <div class="p-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300">
+              🌐 growechsolution.com
+            </div>
+          </div>
+
+          <p class="mt-4 text-[9px] text-zinc-400">
+            High-Performance Websites &bull; WhatsApp Cloud &bull; AI Agents
+          </p>
+        </div>
+
+        <!-- Bottom Dynamic Voiceover Subtitle Strip -->
+        <div class="absolute bottom-4 left-4 right-4 z-40 bg-black/85 backdrop-blur-md border border-white/15 rounded-2xl p-2.5 text-center shadow-lg">
+          <div class="text-[9px] font-mono text-amber-400 font-bold uppercase tracking-wider mb-0.5">
+            VOICEOVER SUBTITLES (URDU / ENG)
+          </div>
+          <div id="subtitles" class="text-xs font-semibold text-white transition-opacity duration-300 leading-snug">
+            "Kya aapke business ka apna automated system hai?"
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Video Control Overlays -->
+      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3">
+        <button id="btn-toggle-sound" class="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-zinc-300 text-xs">
+          🔊 Sound ON
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Production Panel & Controls -->
+    <div class="w-full lg:w-[480px] flex flex-col gap-5">
+      
+      <!-- Header Info Card -->
+      <div class="p-5 rounded-2xl bg-[#0D0E12] border border-white/10 shadow-xl">
+        <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
+          <div>
+            <h1 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#FF5500]"></span>
+              GROWECH Motion Advertisement
+            </h1>
+            <p class="text-xs text-zinc-400">Exact Instagram Reel Motion Ad Blueprint (9:16 Vertical)</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-[#FF5500]/20 text-[#FF5500] font-bold">
+            42s Duration
+          </span>
+        </div>
+
+        <!-- Master Playback Controls -->
+        <div class="flex items-center gap-3 mt-3">
+          <button id="btn-play" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#FF5500] to-[#FF8800] text-white font-bold text-xs shadow-md hover:brightness-110 flex items-center justify-center gap-2">
+            <span id="play-icon">▶ Play Motion Ad</span>
+          </button>
+          <button id="btn-restart" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold">
+            🔄 Replay
+          </button>
+        </div>
+      </div>
+
+      <!-- Scene Navigator Tabs -->
+      <div class="p-5 rounded-2xl bg-[#0D0E12] border border-white/10 shadow-xl">
+        <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-3">Jump to Scene</div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-left">
+          <button onclick="jumpToScene(0)" class="scene-tab p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#FF5500]/50 text-left transition-all">
+            <div class="text-[9px] text-[#FF5500] font-mono font-bold">01 &bull; 00:00</div>
+            <div class="text-[11px] font-bold text-white truncate">The Hook</div>
+          </button>
+          <button onclick="jumpToScene(1)" class="scene-tab p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#FF5500]/50 text-left transition-all">
+            <div class="text-[9px] text-[#FF5500] font-mono font-bold">02 &bull; 00:06</div>
+            <div class="text-[11px] font-bold text-white truncate">The Pain Point</div>
+          </button>
+          <button onclick="jumpToScene(2)" class="scene-tab p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#FF5500]/50 text-left transition-all">
+            <div class="text-[9px] text-[#FF5500] font-mono font-bold">03 &bull; 00:12</div>
+            <div class="text-[11px] font-bold text-white truncate">Live Solution</div>
+          </button>
+          <button onclick="jumpToScene(3)" class="scene-tab p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#FF5500]/50 text-left transition-all">
+            <div class="text-[9px] text-[#FF5500] font-mono font-bold">04 &bull; 00:22</div>
+            <div class="text-[11px] font-bold text-white truncate">Dashboard Hub</div>
+          </button>
+          <button onclick="jumpToScene(4)" class="scene-tab p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#FF5500]/50 text-left transition-all">
+            <div class="text-[9px] text-[#FF5500] font-mono font-bold">05 &bull; 00:30</div>
+            <div class="text-[11px] font-bold text-white truncate">6-Node Ecosystem</div>
+          </button>
+          <button onclick="jumpToScene(5)" class="scene-tab p-2.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#FF5500]/50 text-left transition-all">
+            <div class="text-[9px] text-[#FF5500] font-mono font-bold">06 &bull; 00:36</div>
+            <div class="text-[11px] font-bold text-white truncate">Outro &amp; CTA</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Exact Urdu Voiceover Script Card -->
+      <div class="p-5 rounded-2xl bg-[#0D0E12] border border-white/10 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-xs font-mono text-[#FF5500] font-bold uppercase tracking-wider">🎙️ Exact Ad Script (For Recording / Voiceover)</div>
+          <button onclick="copyScript()" class="text-[10px] px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-zinc-300">
+            📋 Copy Script
+          </button>
+        </div>
+        <div id="script-box" class="text-xs text-zinc-300 space-y-2 font-sans bg-black/40 p-3 rounded-xl max-h-48 overflow-y-auto leading-relaxed border border-white/5">
+          <p><strong>00:00 - 00:06 (Hook):</strong> "Kya aapke business ka apna modern digital infrastructure aur automated system hai?"</p>
+          <p><strong>00:06 - 00:12 (Pain Point):</strong> "Online customers aur leads ke liye sirf manual phone calls ya expensive third-party platforms par depend rehna zaroori nahi!"</p>
+          <p><strong>00:12 - 00:22 (Solution):</strong> "GROWECH SOLUTION ke saath apne business ka ultra-fast web platform aur official WhatsApp automation launch karein. Aapke customers direct WhatsApp par catalog dekhein, instant inquiry karein aur seedha order ya consultation book karein!"</p>
+          <p><strong>00:22 - 00:30 (Dashboard):</strong> "Aur tamam inquiries aur orders ko ek hi centralized dashboard se effortlessly track aur manage karein!"</p>
+          <p><strong>00:30 - 00:36 (Ecosystem):</strong> "Sirf websites hi nahi — E-Commerce, WhatsApp Cloud, AI Workflows, Autonomous AI Agents aur Lead Funnels, sab kuch ek connected powerhouse mein!"</p>
+          <p><strong>00:36 - 00:42 (Outro CTA):</strong> "Apne business ko digital banayein aur apna automated system aaj hi launch karein! Growech Solution ka free demo book karne ke liye abhi WhatsApp karein ya growechsolution.com visit karein!"</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Interactive Logic & Audio Engine -->
+  <script>
+    let isPlaying = false;
+    let soundEnabled = true;
+    let currentScene = 0;
+    let elapsedSeconds = 0;
+    let timer = null;
+
+    // Web Audio Synthesizer for high-tech SFX
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    function playSfx(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioCtx();
+        if (ctx.state === 'suspended') ctx.resume();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        const now = ctx.currentTime;
+        if (type === 'whoosh') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        } else if (type === 'ping') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(659, now);
+          osc.frequency.setValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.26);
+        } else if (type === 'bass') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(110, now);
+          osc.frequency.exponentialRampToValueAtTime(45, now + 0.3);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        }
+      } catch (e) {
+        console.log('Audio disabled', e);
+      }
+    }
+
+    const sceneDurations = [6, 6, 10, 8, 6, 6]; // 42 seconds total
+    const sceneSubtitles = [
+      "\"Kya aapke business ka apna modern digital infrastructure aur automated system hai?\"",
+      "\"Online customers aur leads ke liye sirf manual calls ya 3rd-party apps par depend rehna band karein!\"",
+      "\"GROWECH SOLUTION ke saath ultra-fast web platform aur official WhatsApp automation launch karein!\"",
+      "\"Aur tamaam inquiries aur orders ko ek hi centralized dashboard se manage karein!\"",
+      "\"Websites, E-Commerce, WhatsApp Cloud, AI Agents aur Lead Funnels — Sab kuch aik connected engine mein!\"",
+      "\"Apne business ko digital banayein! Aaj hi Growech Solution par free demo aur strategy call book karein!\""
+    ];
+
+    function updateSceneDisplay(idx) {
+      currentScene = idx;
+      // Update Scene Containers
+      for (let i = 0; i < 6; i++) {
+        const el = document.getElementById(`scene-${i}`);
+        if (i === idx) {
+          el.classList.remove('opacity-0', 'pointer-events-none');
+          el.classList.add('opacity-100');
+        } else {
+          el.classList.remove('opacity-100');
+          el.classList.add('opacity-0', 'pointer-events-none');
+        }
+      }
+
+      // Update Subtitles
+      document.getElementById('subtitles').innerText = sceneSubtitles[idx];
+
+      // Update Story Progress Bars
+      for (let i = 0; i < 6; i++) {
+        const bar = document.getElementById(`prog-${i}`);
+        if (i < idx) {
+          bar.style.width = '100%';
+        } else if (i === idx) {
+          bar.style.width = '100%';
+        } else {
+          bar.style.width = '0%';
+        }
+      }
+
+      // Update Active Tab Highlight
+      const tabs = document.querySelectorAll('.scene-tab');
+      tabs.forEach((tab, i) => {
+        if (i === idx) {
+          tab.classList.add('border-[#FF5500]', 'bg-[#FF5500]/10');
+        } else {
+          tab.classList.remove('border-[#FF5500]', 'bg-[#FF5500]/10');
+        }
+      });
+
+      playSfx(idx === 0 ? 'bass' : 'whoosh');
+    }
+
+    function jumpToScene(idx) {
+      elapsedSeconds = 0;
+      for (let i = 0; i < idx; i++) {
+        elapsedSeconds += sceneDurations[i];
+      }
+      updateSceneDisplay(idx);
+    }
+
+    function tick() {
+      elapsedSeconds += 0.5;
+
+      let accumulated = 0;
+      let targetScene = 0;
+      for (let i = 0; i < sceneDurations.length; i++) {
+        if (elapsedSeconds < accumulated + sceneDurations[i]) {
+          targetScene = i;
+          break;
+        }
+        accumulated += sceneDurations[i];
+        if (i === sceneDurations.length - 1) {
+          targetScene = 5;
+        }
+      }
+
+      if (targetScene !== currentScene) {
+        updateSceneDisplay(targetScene);
+      }
+
+      // Progress bar within active scene
+      const sceneStart = accumulated;
+      const sceneLen = sceneDurations[targetScene];
+      const sceneFraction = Math.min(100, Math.max(0, ((elapsedSeconds - sceneStart) / sceneLen) * 100));
+      const activeBar = document.getElementById(`prog-${targetScene}`);
+      if (activeBar) {
+        activeBar.style.width = `${sceneFraction}%`;
+      }
+
+      // End of video loop
+      const totalDur = sceneDurations.reduce((a, b) => a + b, 0);
+      if (elapsedSeconds >= totalDur) {
+        elapsedSeconds = 0;
+        updateSceneDisplay(0);
+      }
+    }
+
+    function togglePlay() {
+      const btn = document.getElementById('play-icon');
+      if (isPlaying) {
+        clearInterval(timer);
+        isPlaying = false;
+        btn.innerText = '▶ Resume Motion Ad';
+      } else {
+        getAudioCtx();
+        timer = setInterval(tick, 500);
+        isPlaying = true;
+        btn.innerText = '⏸ Pause Motion Ad';
+      }
+    }
+
+    function restartAd() {
+      clearInterval(timer);
+      isPlaying = false;
+      elapsedSeconds = 0;
+      updateSceneDisplay(0);
+      togglePlay();
+    }
+
+    document.getElementById('btn-play').addEventListener('click', togglePlay);
+    document.getElementById('btn-restart').addEventListener('click', restartAd);
+
+    document.getElementById('btn-toggle-sound').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('btn-toggle-sound').innerText = soundEnabled ? '🔊 Sound ON' : '🔇 Sound OFF';
+    });
+
+    function copyScript() {
+      const text = document.getElementById('script-box').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Voiceover Script copied to clipboard!');
+    }
+
+    // Auto-initialize on Scene 0
+    updateSceneDisplay(0);
+  </script>
+</body>
+</html>
