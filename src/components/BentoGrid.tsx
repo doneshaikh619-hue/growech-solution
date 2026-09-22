@@ -1,5 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animate } from 'animejs';
 import { useMouseSpotlight } from '../hooks/useMouseSpotlight';
 import {
   MessageSquare,
@@ -8,11 +10,10 @@ import {
   Workflow,
   ShieldCheck,
   Zap,
-  ArrowUpRight,
-  Database,
   Lock,
-  Globe2,
 } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface BentoCardProps {
   children: React.ReactNode;
@@ -20,15 +21,15 @@ interface BentoCardProps {
 }
 
 const BentoCard: React.FC<BentoCardProps> = ({ children, className = '' }) => {
-  const { coords, handleMouseMove, handleMouseLeave, spotlightStyle } = useMouseSpotlight();
+  const { handleMouseMove, handleMouseLeave, spotlightStyle } = useMouseSpotlight();
 
   return (
     <div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl p-6 sm:p-8 bg-obsidian-850/80 border border-white/10 hover:border-white/25 transition-all duration-300 overflow-hidden group ${className}`}
+      className={`bento-card relative rounded-3xl p-6 sm:p-8 bg-obsidian-850/80 border border-white/10 hover:border-ember/40 transition-colors duration-300 overflow-hidden group will-change-transform ${className}`}
     >
-      {/* Interactive Cursor Spotlight */}
+      {/* Interactive Cursor Spotlight with 0 React re-renders */}
       <div
         className="pointer-events-none absolute -inset-px rounded-3xl z-0"
         style={spotlightStyle}
@@ -38,11 +39,76 @@ const BentoCard: React.FC<BentoCardProps> = ({ children, className = '' }) => {
   );
 };
 
-export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
+export const BentoGrid: React.FC<{ onOpenContact: () => void }> = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const counterRef = useRef<HTMLSpanElement | null>(null);
+  const flowLineRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. GSAP ScrollTrigger Staggered 3D Perspective Reveal
+      gsap.fromTo(
+        '.bento-card',
+        {
+          opacity: 0,
+          y: 45,
+          scale: 0.96,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.85,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 78%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, sectionRef);
+
+    // 2. Anime.js High-Tech Counter for 99+ Lighthouse Score
+    let counterObj = { val: 0 };
+    const counterObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && counterRef.current) {
+          animate(counterObj, {
+            val: 99,
+            duration: 1400,
+            ease: 'outExpo',
+            onUpdate: () => {
+              if (counterRef.current) {
+                counterRef.current.textContent = `${Math.round(counterObj.val)}+`;
+              }
+            },
+          });
+          counterObserver.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    if (counterRef.current) {
+      counterObserver.observe(counterRef.current);
+    }
+
+    return () => {
+      ctx.revert();
+      counterObserver.disconnect();
+    };
+  }, []);
+
   return (
-    <section id="bento" className="relative py-32 bg-[#0A0A0B] text-white overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="bento"
+      className="relative py-28 sm:py-32 bg-[#0A0A0B] text-white overflow-hidden"
+    >
       {/* Background Ember Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-ember/10 blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-ember/10 blur-[130px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
@@ -68,7 +134,7 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
           <BentoCard className="md:col-span-2 lg:col-span-2 flex flex-col justify-between min-h-[340px]">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex">
+                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex shadow-inner">
                   <MessageSquare className="w-6 h-6" />
                 </div>
                 <span className="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
@@ -88,7 +154,7 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
             <div className="mt-6 p-3 rounded-xl bg-obsidian-950/80 border border-white/5 space-y-2">
               <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500">
                 <span>SIMULATED CHAT ENGINE</span>
-                <span className="text-ember">Latency: 0.8s</span>
+                <span className="text-ember font-semibold">Latency: 0.8s</span>
               </div>
               <div className="flex gap-2 text-xs">
                 <div className="px-3 py-1.5 rounded-2xl rounded-tl-none bg-white/10 text-zinc-300">
@@ -96,7 +162,7 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
                 </div>
               </div>
               <div className="flex justify-end gap-2 text-xs">
-                <div className="px-3 py-1.5 rounded-2xl rounded-tr-none bg-gradient-to-r from-ember/90 to-tangerine text-white font-medium">
+                <div className="px-3 py-1.5 rounded-2xl rounded-tr-none bg-gradient-to-r from-ember/90 to-tangerine text-white font-medium shadow-glow-sm">
                   &ldquo;Verified! Slot held for tomorrow 2:00 PM. Confirmation sent to your calendar.&rdquo;
                 </div>
               </div>
@@ -107,7 +173,7 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
           <BentoCard className="md:col-span-1 lg:col-span-2 flex flex-col justify-between min-h-[340px]">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex">
+                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex shadow-inner">
                   <Bot className="w-6 h-6" />
                 </div>
                 <span className="text-xs font-mono text-zinc-400">RAG + Guardrails</span>
@@ -122,11 +188,11 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
 
             {/* Telemetry micro pills */}
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/15 transition-colors">
                 <div className="text-[11px] text-zinc-500 font-mono">Accuracy Target</div>
                 <div className="text-lg font-bold text-white font-mono">Deterministic</div>
               </div>
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-emerald-500/20 transition-colors">
                 <div className="text-[11px] text-zinc-500 font-mono">Fallback Mode</div>
                 <div className="text-lg font-bold text-emerald-400 font-mono">Human Routing</div>
               </div>
@@ -136,7 +202,7 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
           {/* Card 3: Bespoke Websites & Headless E-Commerce (Span 1) */}
           <BentoCard className="md:col-span-1 lg:col-span-1 flex flex-col justify-between">
             <div>
-              <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex mb-4">
+              <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex mb-4 shadow-inner">
                 <Gauge className="w-5 h-5" />
               </div>
               <h4 className="text-lg font-bold font-display">Bespoke Web &amp; E-Commerce</h4>
@@ -145,7 +211,12 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
               </p>
             </div>
             <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
-              <span className="text-2xl font-extrabold text-emerald-400 font-mono">99+</span>
+              <span
+                ref={counterRef}
+                className="text-2xl font-extrabold text-emerald-400 font-mono"
+              >
+                99+
+              </span>
               <span className="text-[10px] uppercase font-mono text-zinc-500">Google Lighthouse</span>
             </div>
           </BentoCard>
@@ -154,7 +225,7 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
           <BentoCard className="md:col-span-2 lg:col-span-2 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex">
+                <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex shadow-inner">
                   <Workflow className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-mono text-zinc-400">Zero Manual Transfer</span>
@@ -164,24 +235,27 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = ({ onOpenConta
                 Connect billing, customer forms, cloud storage, and task assignment into automated pipelines that execute automatically upon event triggers.
               </p>
             </div>
-            <div className="mt-4 flex items-center gap-2 text-xs font-mono text-zinc-300">
-              <span className="px-2 py-1 rounded bg-white/5 border border-white/10">Inbound Form</span>
-              <span>&rarr;</span>
-              <span className="px-2 py-1 rounded bg-white/5 border border-white/10">AI Extraction</span>
-              <span>&rarr;</span>
-              <span className="px-2 py-1 rounded bg-ember/20 text-ember border border-ember/30">Auto CRM</span>
+            <div
+              ref={flowLineRef}
+              className="mt-4 flex flex-wrap items-center gap-2 text-xs font-mono text-zinc-300"
+            >
+              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">Inbound Form</span>
+              <span className="text-ember">&rarr;</span>
+              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">AI Extraction</span>
+              <span className="text-ember">&rarr;</span>
+              <span className="px-2.5 py-1 rounded-lg bg-ember/20 text-ember border border-ember/30 font-semibold shadow-glow-sm">Auto CRM</span>
             </div>
           </BentoCard>
 
           {/* Card 5: Enterprise Security & Compliance (Span 1) */}
           <BentoCard className="md:col-span-1 lg:col-span-1 flex flex-col justify-between">
             <div>
-              <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex mb-4">
+              <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex mb-4 shadow-inner">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h4 className="text-lg font-bold font-display">Zero Data Leakage</h4>
               <p className="mt-2 text-xs text-zinc-400 leading-relaxed">
-                Strict enterprise privacy. Your internal company records are never used to train public public AI models.
+                Strict enterprise privacy. Your internal company records are never used to train public AI models.
               </p>
             </div>
             <div className="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs text-zinc-400">

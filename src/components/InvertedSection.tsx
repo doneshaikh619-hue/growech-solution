@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animate } from 'animejs';
 import { servicesData, ServiceDetail } from '../data/services';
 import {
   MessageSquare,
   Bot,
-  Layout,
   Cpu,
-  ShoppingCart,
-  Zap,
-  Sparkles,
-  Layers,
   ArrowRight,
   CheckCircle,
   Clock,
@@ -17,20 +14,14 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
-const iconMap: Record<string, React.ElementType> = {
-  MessageSquare,
-  Bot,
-  Layout,
-  Cpu,
-  ShoppingCart,
-  Zap,
-  Sparkles,
-  Layers,
-};
+gsap.registerPlugin(ScrollTrigger);
 
 export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
   const [selectedService, setSelectedService] = useState<ServiceDetail>(servicesData[0]);
-  const [simulatingStep, setSimulatingStep] = useState(2);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const leftColRef = useRef<HTMLDivElement | null>(null);
+  const rightColRef = useRef<HTMLDivElement | null>(null);
+  const detailCardRef = useRef<HTMLDivElement | null>(null);
 
   const capabilityChips = [
     'Custom Business Websites',
@@ -43,8 +34,86 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
     'Zero Server Maintenance',
   ];
 
+  // GSAP ScrollTrigger Entrance Animation for Section Elements
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate columns smoothly on scroll
+      if (leftColRef.current && rightColRef.current) {
+        gsap.fromTo(
+          leftColRef.current,
+          { opacity: 0, x: -35 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+
+        gsap.fromTo(
+          rightColRef.current,
+          { opacity: 0, x: 35 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+
+      // Animate capability chips with smooth stagger
+      gsap.fromTo(
+        '.capability-chip',
+        { opacity: 0, y: 15, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          stagger: 0.05,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Anime.js Morph & Fade on Service Switch
+  const handleSelectService = (srv: ServiceDetail) => {
+    if (srv.id === selectedService.id) return;
+
+    if (detailCardRef.current) {
+      animate(detailCardRef.current, {
+        opacity: [1, 0.3, 1],
+        translateY: [0, -6, 0],
+        duration: 400,
+        ease: 'outQuad',
+      });
+    }
+
+    setSelectedService(srv);
+  };
+
   return (
     <section
+      ref={sectionRef}
       id="solutions"
       className="relative py-28 bg-[#FFFFFF] text-zinc-900 transition-colors duration-500 overflow-hidden"
     >
@@ -70,17 +139,13 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
 
           {/* Staggered Tag Chips */}
           <div className="mt-6 flex flex-wrap gap-2">
-            {capabilityChips.map((chip, idx) => (
-              <motion.span
+            {capabilityChips.map((chip) => (
+              <span
                 key={chip}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.05, duration: 0.4 }}
-                className="px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300/80 transition-colors cursor-default"
+                className="capability-chip px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300/80 transition-colors cursor-default"
               >
                 {chip}
-              </motion.span>
+              </span>
             ))}
           </div>
         </div>
@@ -90,7 +155,10 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
         {/* ======================================================== */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Interactive Dark Glowing Card (Workflow Simulator) */}
-          <div className="lg:col-span-5 bg-obsidian-900 rounded-3xl p-6 sm:p-8 text-white border border-zinc-800 shadow-2xl relative overflow-hidden">
+          <div
+            ref={leftColRef}
+            className="lg:col-span-5 bg-obsidian-900 rounded-3xl p-6 sm:p-8 text-white border border-zinc-800 shadow-2xl relative overflow-hidden will-change-transform"
+          >
             {/* Ambient orange glow in the card */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-ember/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -108,13 +176,13 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
 
             {/* Workflow steps interactive display */}
             <div className="space-y-4 relative">
-              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-colors">
                 <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-1">
                   <span>STEP 1: INBOUND CAPTURE</span>
                   <span className="text-emerald-400 font-semibold">Instant (0.4s)</span>
                 </div>
                 <div className="text-sm font-medium text-white flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 text-ember" />
+                  <MessageSquare className="w-4 h-4 text-ember flex-shrink-0" />
                   <span>Customer sends inquiry via official WhatsApp Cloud API</span>
                 </div>
               </div>
@@ -125,7 +193,7 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
                   <span className="text-ember font-semibold">Autonomous AI</span>
                 </div>
                 <div className="text-sm font-medium text-white flex items-center gap-2">
-                  <Bot className="w-4 h-4 text-ember" />
+                  <Bot className="w-4 h-4 text-ember flex-shrink-0" />
                   <span>AI Agent extracts requirements against business guidelines</span>
                 </div>
                 <div className="mt-2 text-xs bg-obsidian-950 p-2.5 rounded-lg font-mono text-zinc-300 border border-white/5">
@@ -133,24 +201,24 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-colors">
                 <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-1">
                   <span>STEP 3: SYSTEM ACTION &amp; CRM SYNC</span>
                   <span className="text-emerald-400 font-semibold">2-Way Webhook</span>
                 </div>
                 <div className="text-sm font-medium text-white flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-ember" />
+                  <Cpu className="w-4 h-4 text-ember flex-shrink-0" />
                   <span>Calendar slot reserved &bull; Record synced to CRM database</span>
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-colors">
                 <div className="flex items-center justify-between text-xs text-zinc-400 font-mono mb-1">
                   <span>STEP 4: CONFIRMATION &amp; TEAM NOTIFICATION</span>
                   <span className="text-zinc-400 font-semibold">Automated</span>
                 </div>
                 <div className="text-sm font-medium text-white flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                   <span>Interactive confirmation sent to customer &bull; Team alert pushed</span>
                 </div>
               </div>
@@ -164,7 +232,7 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
               </div>
               <button
                 onClick={onOpenContact}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-ember hover:bg-ember-600 transition-colors flex items-center gap-1.5 shadow-glow-sm"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-ember hover:bg-ember-600 transition-colors flex items-center gap-1.5 shadow-glow-sm active:scale-95"
               >
                 <span>Automate This</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -173,16 +241,16 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
           </div>
 
           {/* Right Column: Deep Business Value Breakdown & Service Navigation */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
+          <div ref={rightColRef} className="lg:col-span-7 flex flex-col gap-6 will-change-transform">
             {/* Service selector tabs */}
             <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
               {servicesData.slice(0, 4).map((srv) => (
                 <button
                   key={srv.id}
-                  onClick={() => setSelectedService(srv)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                  onClick={() => handleSelectService(srv)}
+                  className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
                     selectedService.id === srv.id
-                      ? 'bg-zinc-950 text-white shadow-md'
+                      ? 'bg-zinc-950 text-white shadow-md scale-[1.02]'
                       : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
                   }`}
                 >
@@ -191,8 +259,11 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
               ))}
             </div>
 
-            {/* Selected Service Card Detailed Breakdown */}
-            <div className="bg-zinc-50 border border-zinc-200/80 rounded-3xl p-6 sm:p-8 shadow-sm">
+            {/* Selected Service Card Detailed Breakdown with Anime.js micro-transition */}
+            <div
+              ref={detailCardRef}
+              className="bg-zinc-50 border border-zinc-200/80 rounded-3xl p-6 sm:p-8 shadow-sm will-change-transform"
+            >
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs font-mono uppercase tracking-wider text-ember font-bold">
                   {selectedService.category}

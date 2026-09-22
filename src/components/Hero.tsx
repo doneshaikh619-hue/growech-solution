@@ -28,8 +28,8 @@ interface CoreSystem {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
-  // Turn-by-turn sequential energy cycle across all 6 nodes (0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 0)
-  const [activeCycle, setActiveCycle] = useState<number>(0);
+  // Simultaneous 6-Node Architecture: All 6 nodes are continuously active and energized
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [manualSelect, setManualSelect] = useState<number | null>(null);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -105,24 +105,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
     },
   ];
 
-  // Automatic rhythmic sequential rotation (2.2 seconds per node)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveCycle((prev) => (prev + 1) % 6);
-    }, 2200);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Handle manual interaction with auto-resume
+  // Auto-reset manual selection after 8 seconds
   useEffect(() => {
     if (manualSelect === null) return;
     const timer = setTimeout(() => {
       setManualSelect(null);
-    }, 6000);
+    }, 8000);
     return () => clearTimeout(timer);
   }, [manualSelect]);
 
-  const currentActive = manualSelect !== null ? manualSelect : activeCycle;
+  const focusedNode = hoveredIdx !== null ? hoveredIdx : manualSelect;
 
   // Calculate clean direct straight lines from Core Hub to all 6 cards on desktop
   const updatePaths = useCallback(() => {
@@ -309,15 +301,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
           {/* Section Sub-Header */}
           <div className="relative z-20 flex flex-col sm:flex-row items-center justify-between pb-4 sm:pb-6 border-b border-white/10 mb-6 gap-2 text-center sm:text-left">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-ember shadow-[0_0_8px_#FF5500]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-ember shadow-[0_0_8px_#FF5500] animate-pulse" />
               <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-zinc-200 font-bold">
                 GROWECH CORE ENGINE &bull; 6-NODE UNIFIED ARCHITECTURE
               </span>
             </div>
             <div className="flex items-center gap-2 text-[10px] font-mono">
-              <span className="text-zinc-400">Active Node:</span>
-              <span className="px-2.5 py-0.5 rounded-full bg-ember/20 text-ember border border-ember/30 font-bold">
-                0{currentActive + 1} &bull; {coreSystems[currentActive].name.split('&')[0]}
+              <span className="text-zinc-400">Network Telemetry:</span>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold flex items-center gap-1.5 shadow-[0_0_10px_rgba(52,211,153,0.15)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                6/6 NODES SYNCHRONIZED &bull; SIMULTANEOUS DATA STREAM
               </span>
             </div>
           </div>
@@ -329,80 +322,126 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
             ref={containerRef}
             className="hidden lg:block relative min-h-[560px] py-4"
           >
-            {/* SVG Connecting Lines: Direct Laser Straight from Engine Circle into all 6 Boxes */}
+            {/* SVG Connecting Lines: Simultaneous High-Energy Laser Streams into all 6 Boxes */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
               xmlns="http://www.w3.org/2000/svg"
             >
               <defs>
                 <linearGradient id="activeLaserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#FF5500" />
+                  <stop offset="0%" stopColor="#FF4500" />
+                  <stop offset="50%" stopColor="#FF7700" />
                   <stop offset="100%" stopColor="#FFAA00" />
                 </linearGradient>
               </defs>
 
               {connections.map((conn, idx) => {
                 if (!conn.pathD) return null;
-                const isActive = currentActive === idx;
+                const isHovered = focusedNode === idx;
 
                 return (
                   <g key={`conn-${idx}`}>
-                    {/* 1. Permanent Base Circuit Line */}
+                    {/* 1. Ambient Laser Glow Underlayer */}
                     <path
                       d={conn.pathD}
-                      stroke="rgba(255, 85, 0, 0.22)"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
+                      stroke="rgba(255, 85, 0, 0.28)"
+                      strokeWidth={isHovered ? '6' : '4.5'}
+                      strokeLinecap="round"
                       fill="none"
+                      style={{ filter: 'blur(3px)' }}
                     />
 
-                    {/* 2. Engine Perimeter Anchor Bead */}
+                    {/* 2. Vibrant Laser Conduit */}
+                    <path
+                      d={conn.pathD}
+                      stroke="url(#activeLaserGrad)"
+                      strokeWidth={isHovered ? '3.2' : '2.2'}
+                      strokeLinecap="round"
+                      fill="none"
+                      style={{
+                        filter: isHovered
+                          ? 'drop-shadow(0 0 8px rgba(255, 85, 0, 1))'
+                          : 'drop-shadow(0 0 5px rgba(255, 85, 0, 0.85))',
+                      }}
+                    />
+
+                    {/* 3. Core Electric High-Frequency Pulse Beam */}
+                    <path
+                      d={conn.pathD}
+                      stroke="#FFFFFF"
+                      strokeWidth="0.75"
+                      strokeDasharray="6 8"
+                      strokeOpacity="0.65"
+                      fill="none"
+                      className="circuit-line"
+                    />
+
+                    {/* 4. Engine Hub Perimeter Anchor Bead */}
                     <circle
                       cx={conn.startX}
                       cy={conn.startY}
-                      r="3"
-                      fill={isActive ? '#FF5500' : 'rgba(255, 85, 0, 0.45)'}
-                      stroke="#0A0A0B"
-                      strokeWidth="1"
+                      r={isHovered ? '4.5' : '3.5'}
+                      fill="#FF5500"
+                      stroke="#FFFFFF"
+                      strokeWidth="1.2"
+                      style={{ filter: 'drop-shadow(0 0 5px #FF5500)' }}
                     />
 
-                    {/* 3. Card Port Anchor Bead */}
+                    {/* 5. Container Port Anchor Bead */}
                     <circle
                       cx={conn.endX}
                       cy={conn.endY}
-                      r="3.5"
-                      fill={isActive ? '#FF5500' : 'rgba(255, 255, 255, 0.3)'}
-                      stroke="#0A0A0B"
-                      strokeWidth="1"
+                      r={isHovered ? '5' : '4'}
+                      fill="#FFFFFF"
+                      stroke="#FF5500"
+                      strokeWidth="1.5"
+                      style={{ filter: 'drop-shadow(0 0 6px #FF5500)' }}
                     />
 
-                    {/* 4. Active Laser Beam with Sleek Flowing Photon */}
-                    {isActive && (
-                      <>
-                        <path
-                          d={conn.pathD}
-                          stroke="url(#activeLaserGrad)"
-                          strokeWidth="2.5"
-                          fill="none"
-                          className="circuit-line"
-                          style={{ filter: 'drop-shadow(0 0 5px rgba(255, 85, 0, 0.85))' }}
-                        />
-                        {/* Crisp 3px photon particle gliding along path without any ballooning */}
-                        <circle
-                          key={`photon-${idx}`}
-                          r="3"
-                          fill="#FFFFFF"
-                          stroke="#FF5500"
-                          strokeWidth="1.5"
-                        >
-                          <animateMotion
-                            dur="1.2s"
-                            repeatCount="indefinite"
-                            path={conn.pathD}
-                          />
-                        </circle>
-                      </>
-                    )}
+                    {/* 6. Primary High-Speed Photon Particle */}
+                    <circle
+                      r="3.5"
+                      fill="#FFFFFF"
+                      stroke="#FF5500"
+                      strokeWidth="1.5"
+                      style={{ filter: 'drop-shadow(0 0 6px #FFFFFF)' }}
+                    >
+                      <animateMotion
+                        dur="1.4s"
+                        repeatCount="indefinite"
+                        path={conn.pathD}
+                      />
+                    </circle>
+
+                    {/* 7. Secondary Staggered Energy Particle */}
+                    <circle
+                      r="2.5"
+                      fill="#FFAA00"
+                      stroke="#FFFFFF"
+                      strokeWidth="0.8"
+                      style={{ filter: 'drop-shadow(0 0 4px #FFAA00)' }}
+                    >
+                      <animateMotion
+                        dur="1.4s"
+                        begin="0.7s"
+                        repeatCount="indefinite"
+                        path={conn.pathD}
+                      />
+                    </circle>
+
+                    {/* 8. Third Micro Data Packet for Continuous Flow */}
+                    <circle
+                      r="1.8"
+                      fill="#FFFFFF"
+                      opacity="0.85"
+                    >
+                      <animateMotion
+                        dur="1.4s"
+                        begin="0.35s"
+                        repeatCount="indefinite"
+                        path={conn.pathD}
+                      />
+                    </circle>
                   </g>
                 );
               })}
@@ -415,37 +454,35 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                 {leftIndices.map((idx) => {
                   const item = coreSystems[idx];
                   const Icon = item.icon;
-                  const isActive = currentActive === idx;
+                  const isHovered = focusedNode === idx;
 
                   return (
                     <div
                       key={item.id}
                       ref={(el) => (cardRefs.current[idx] = el)}
-                      onClick={() => setManualSelect(idx)}
+                      onMouseEnter={() => setHoveredIdx(idx)}
+                      onMouseLeave={() => setHoveredIdx(null)}
+                      onClick={() => setManualSelect(manualSelect === idx ? null : idx)}
                       className={`w-full max-w-[305px] p-4 rounded-2xl border text-left cursor-pointer transition-all duration-300 relative ${
-                        isActive
-                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_24px_rgba(255,85,0,0.22)] ring-1 ring-ember/50'
-                          : 'bg-obsidian-900/90 border-white/10 hover:border-white/25 opacity-75'
+                        isHovered
+                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_28px_rgba(255,85,0,0.32)] ring-1 ring-ember/60 scale-[1.02]'
+                          : 'bg-obsidian-850/90 border-ember/35 hover:border-ember/70 shadow-[0_0_16px_rgba(255,85,0,0.1)]'
                       }`}
                     >
                       {/* Explicit Connection Port Dot on Right Border */}
                       <div
                         ref={(el) => (portRefs.current[idx] = el)}
-                        className="absolute top-1/2 -translate-y-1/2 -right-1.5 w-3 h-3 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center z-20"
+                        className="absolute top-1/2 -translate-y-1/2 -right-1.5 w-3.5 h-3.5 rounded-full bg-obsidian-950 border border-ember shadow-[0_0_8px_#FF5500] flex items-center justify-center z-20"
                       >
-                        <div
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isActive ? 'bg-white shadow-[0_0_6px_#FF5500]' : 'bg-ember'
-                          }`}
-                        />
+                        <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#FF5500] animate-pulse" />
                       </div>
 
                       <div className="flex items-center gap-2.5 mb-1.5">
                         <div
-                          className={`p-2 rounded-xl transition-colors ${
-                            isActive
+                          className={`p-2 rounded-xl transition-all duration-300 ${
+                            isHovered
                               ? 'bg-gradient-to-r from-ember to-tangerine text-white shadow-glow-sm'
-                              : 'bg-white/5 text-zinc-300'
+                              : 'bg-ember/15 text-ember border border-ember/30'
                           }`}
                         >
                           <Icon className="w-4 h-4" />
@@ -453,13 +490,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                         <div className="min-w-0 flex-1">
                           <div className="text-xs font-bold text-white truncate">{item.name}</div>
                           <div className="text-[10px] font-mono text-ember flex items-center gap-1.5">
-                            <span
-                              className={`w-1.5 h-1.5 rounded-full inline-block flex-shrink-0 ${
-                                isActive ? 'bg-ember shadow-[0_0_6px_#FF5500]' : 'bg-zinc-500'
-                              }`}
-                            />
-                            <span className="truncate font-semibold">
-                              {isActive ? item.activeStatus : item.badge}
+                            <span className="w-1.5 h-1.5 rounded-full inline-block flex-shrink-0 bg-ember shadow-[0_0_6px_#FF5500] animate-pulse" />
+                            <span className="truncate font-semibold tracking-wider">
+                              {item.activeStatus}
                             </span>
                           </div>
                         </div>
@@ -476,23 +509,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
               <div className="col-span-4 flex flex-col items-center justify-center py-4">
                 <div
                   ref={circleRef}
-                  className="relative w-28 h-28 rounded-full bg-obsidian-900 border-2 border-ember shadow-glow-md flex flex-col items-center justify-center p-3 cursor-pointer group"
-                  onClick={() => setActiveCycle((prev) => (prev + 1) % 6)}
+                  className="relative w-28 h-28 rounded-full bg-obsidian-900 border-2 border-ember shadow-glow-md flex flex-col items-center justify-center p-3 cursor-pointer group transition-transform duration-300 hover:scale-105"
+                  onClick={() => setManualSelect(null)}
                 >
                   {/* Subtle Ambient Amber Glow */}
                   <div className="absolute -inset-3 rounded-full bg-ember/20 blur-md pointer-events-none" />
-                  <div className="w-12 h-12 flex-shrink-0 relative z-10">
+                  <div className="w-10 h-10 flex-shrink-0 relative z-10 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                     <LogoMark className="w-full h-full" glow={true} />
                   </div>
-                  <span className="text-[8px] font-mono uppercase text-ember font-bold mt-1 tracking-wider relative z-10">
+                  <span className="text-[8px] font-mono uppercase text-ember font-bold mt-1.5 tracking-wider relative z-10">
                     CORE ENGINE
                   </span>
                 </div>
-                <span className="text-xs font-bold text-white mt-3 font-display tracking-wide">
+                <span className="text-xs font-bold text-white mt-3 font-display tracking-wide uppercase">
                   GROWECH ORCHESTRATOR
                 </span>
                 <span className="text-[10px] text-zinc-400 font-mono mt-0.5">
-                  6-Node Unified Engine
+                  Simultaneous 6-Node Architecture
                 </span>
               </div>
 
@@ -501,37 +534,35 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                 {rightIndices.map((idx) => {
                   const item = coreSystems[idx];
                   const Icon = item.icon;
-                  const isActive = currentActive === idx;
+                  const isHovered = focusedNode === idx;
 
                   return (
                     <div
                       key={item.id}
                       ref={(el) => (cardRefs.current[idx] = el)}
-                      onClick={() => setManualSelect(idx)}
+                      onMouseEnter={() => setHoveredIdx(idx)}
+                      onMouseLeave={() => setHoveredIdx(null)}
+                      onClick={() => setManualSelect(manualSelect === idx ? null : idx)}
                       className={`w-full max-w-[305px] p-4 rounded-2xl border text-left cursor-pointer transition-all duration-300 relative ${
-                        isActive
-                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_24px_rgba(255,85,0,0.22)] ring-1 ring-ember/50'
-                          : 'bg-obsidian-900/90 border-white/10 hover:border-white/25 opacity-75'
+                        isHovered
+                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_28px_rgba(255,85,0,0.32)] ring-1 ring-ember/60 scale-[1.02]'
+                          : 'bg-obsidian-850/90 border-ember/35 hover:border-ember/70 shadow-[0_0_16px_rgba(255,85,0,0.1)]'
                       }`}
                     >
                       {/* Explicit Connection Port Dot on Left Border */}
                       <div
                         ref={(el) => (portRefs.current[idx] = el)}
-                        className="absolute top-1/2 -translate-y-1/2 -left-1.5 w-3 h-3 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center z-20"
+                        className="absolute top-1/2 -translate-y-1/2 -left-1.5 w-3.5 h-3.5 rounded-full bg-obsidian-950 border border-ember shadow-[0_0_8px_#FF5500] flex items-center justify-center z-20"
                       >
-                        <div
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isActive ? 'bg-white shadow-[0_0_6px_#FF5500]' : 'bg-ember'
-                          }`}
-                        />
+                        <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#FF5500] animate-pulse" />
                       </div>
 
                       <div className="flex items-center gap-2.5 mb-1.5">
                         <div
-                          className={`p-2 rounded-xl transition-colors ${
-                            isActive
+                          className={`p-2 rounded-xl transition-all duration-300 ${
+                            isHovered
                               ? 'bg-gradient-to-r from-ember to-tangerine text-white shadow-glow-sm'
-                              : 'bg-white/5 text-zinc-300'
+                              : 'bg-ember/15 text-ember border border-ember/30'
                           }`}
                         >
                           <Icon className="w-4 h-4" />
@@ -539,13 +570,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                         <div className="min-w-0 flex-1">
                           <div className="text-xs font-bold text-white truncate">{item.name}</div>
                           <div className="text-[10px] font-mono text-ember flex items-center gap-1.5">
-                            <span
-                              className={`w-1.5 h-1.5 rounded-full inline-block flex-shrink-0 ${
-                                isActive ? 'bg-ember shadow-[0_0_6px_#FF5500]' : 'bg-zinc-500'
-                              }`}
-                            />
-                            <span className="truncate font-semibold">
-                              {isActive ? item.activeStatus : item.badge}
+                            <span className="w-1.5 h-1.5 rounded-full inline-block flex-shrink-0 bg-ember shadow-[0_0_6px_#FF5500] animate-pulse" />
+                            <span className="truncate font-semibold tracking-wider">
+                              {item.activeStatus}
                             </span>
                           </div>
                         </div>
@@ -561,7 +588,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
           </div>
 
           {/* =================================================================== */}
-          {/* MOBILE VIEW: Sequential Chain Flow (Top Engine -> 1 -> 2 -> 3 -> 4 -> 5 -> 6) */}
+          {/* MOBILE VIEW: Unified Flow with Synchronized 6-Node Connections      */}
           {/* =================================================================== */}
           <div className="block lg:hidden relative z-20 w-full max-w-md mx-auto">
             {/* 1. Top Central Hub on Mobile */}
@@ -577,68 +604,54 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                   </span>
 
                   {/* Engine Bottom Exit Port Bead */}
-                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center">
-                    <div
-                      className={`w-1.5 h-1.5 rounded-full ${
-                        currentActive === 0 ? 'bg-white shadow-[0_0_6px_#FF5500]' : 'bg-ember'
-                      }`}
-                    />
+                  <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center shadow-[0_0_8px_#FF5500]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#FF5500] animate-pulse" />
                   </div>
                 </div>
               </div>
-              <div className="text-xs font-bold text-white mt-2 font-display">GROWECH CORE ENGINE</div>
-              <div className="text-[10px] text-zinc-400 font-mono">Sequential Connected Chain</div>
+              <div className="text-xs font-bold text-white mt-2 font-display uppercase tracking-wide">GROWECH CORE ENGINE</div>
+              <div className="text-[10px] text-emerald-400 font-mono flex items-center gap-1.5 mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>6/6 Nodes Synchronized &bull; Active</span>
+              </div>
 
               {/* Connecting Conduit from Hub directly down into Card 1 */}
               <div className="flex flex-col items-center my-2 relative">
-                <div
-                  className={`w-[2px] h-8 transition-all duration-300 relative rounded-full ${
-                    currentActive === 0
-                      ? 'bg-gradient-to-b from-ember to-tangerine shadow-[0_0_8px_#FF5500]'
-                      : 'bg-white/20'
-                  }`}
-                >
-                  {currentActive === 0 && (
-                    <div className="w-2 h-2 rounded-full bg-white absolute top-1/2 -translate-y-1/2 -left-[3px] shadow-[0_0_8px_#FF5500]" />
-                  )}
+                <div className="w-[2px] h-8 bg-gradient-to-b from-ember to-tangerine shadow-[0_0_8px_#FF5500] relative rounded-full">
+                  <div className="w-2 h-2 rounded-full bg-white absolute top-1/2 -translate-y-1/2 -left-[3px] shadow-[0_0_8px_#FF5500] animate-pulse" />
                 </div>
               </div>
             </div>
 
-            {/* 2. Sequential Cascade of 6 Cards: Each card connects from underneath to the next card */}
+            {/* 2. Unified Cascade of 6 Cards: Each card connects with glowing active conduits */}
             <div className="flex flex-col items-center w-full">
               {coreSystems.map((item, idx) => {
                 const Icon = item.icon;
-                const isActive = currentActive === idx;
+                const isSelected = manualSelect === idx;
                 const isNotLast = idx < coreSystems.length - 1;
-                const nextIsActive = currentActive === idx + 1;
 
                 return (
                   <React.Fragment key={item.id}>
                     {/* Card Item */}
                     <div
-                      onClick={() => setManualSelect(idx)}
+                      onClick={() => setManualSelect(isSelected ? null : idx)}
                       className={`w-full p-4 rounded-2xl border text-left cursor-pointer transition-all duration-300 relative ${
-                        isActive
-                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_20px_rgba(255,85,0,0.22)] ring-1 ring-ember/50'
-                          : 'bg-obsidian-900/90 border-white/10 opacity-75'
+                        isSelected
+                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_24px_rgba(255,85,0,0.3)] ring-1 ring-ember/60'
+                          : 'bg-obsidian-850/90 border-ember/35 shadow-[0_0_15px_rgba(255,85,0,0.08)]'
                       }`}
                     >
                       {/* Top Entry Port indicator */}
-                      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center z-20">
-                        <div
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isActive ? 'bg-white shadow-[0_0_6px_#FF5500]' : 'bg-ember'
-                          }`}
-                        />
+                      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center z-20 shadow-[0_0_8px_#FF5500]">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#FF5500] animate-pulse" />
                       </div>
 
                       <div className="flex items-center gap-2.5 mb-2">
                         <div
                           className={`p-2 rounded-xl flex-shrink-0 transition-colors ${
-                            isActive
+                            isSelected
                               ? 'bg-gradient-to-r from-ember to-tangerine text-white shadow-glow-sm'
-                              : 'bg-white/5 text-zinc-300'
+                              : 'bg-ember/15 text-ember border border-ember/30'
                           }`}
                         >
                           <Icon className="w-4 h-4" />
@@ -648,13 +661,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                             {item.name}
                           </div>
                           <div className="text-[10px] font-mono text-ember flex items-center gap-1.5">
-                            <span
-                              className={`w-1.5 h-1.5 rounded-full inline-block flex-shrink-0 ${
-                                isActive ? 'bg-ember shadow-[0_0_6px_#FF5500]' : 'bg-zinc-500'
-                              }`}
-                            />
-                            <span className="break-words font-semibold">
-                              {isActive ? item.activeStatus : item.badge}
+                            <span className="w-1.5 h-1.5 rounded-full inline-block flex-shrink-0 bg-ember shadow-[0_0_6px_#FF5500] animate-pulse" />
+                            <span className="break-words font-semibold tracking-wide">
+                              {item.activeStatus}
                             </span>
                           </div>
                         </div>
@@ -666,12 +675,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
 
                       {/* Bottom Exit Port indicator */}
                       {isNotLast && (
-                        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center z-20">
-                          <div
-                            className={`w-1.5 h-1.5 rounded-full ${
-                              nextIsActive ? 'bg-white shadow-[0_0_6px_#FF5500]' : 'bg-ember'
-                            }`}
-                          />
+                        <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-obsidian-950 border border-ember flex items-center justify-center z-20 shadow-[0_0_8px_#FF5500]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#FF5500] animate-pulse" />
                         </div>
                       )}
                     </div>
@@ -679,16 +684,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                     {/* Connecting Vertical Line Between This Card and the Next Card */}
                     {isNotLast && (
                       <div className="flex flex-col items-center my-2 relative">
-                        <div
-                          className={`w-[2px] h-7 transition-all duration-300 relative rounded-full ${
-                            nextIsActive
-                              ? 'bg-gradient-to-b from-ember to-tangerine shadow-[0_0_8px_#FF5500]'
-                              : 'bg-white/20'
-                          }`}
-                        >
-                          {nextIsActive && (
-                            <div className="w-2 h-2 rounded-full bg-white absolute top-1/2 -translate-y-1/2 -left-[3px] shadow-[0_0_8px_#FF5500]" />
-                          )}
+                        <div className="w-[2px] h-7 bg-gradient-to-b from-ember to-tangerine shadow-[0_0_8px_#FF5500] relative rounded-full">
+                          <div className="w-2 h-2 rounded-full bg-white absolute top-1/2 -translate-y-1/2 -left-[3px] shadow-[0_0_8px_#FF5500] animate-pulse" />
                         </div>
                       </div>
                     )}

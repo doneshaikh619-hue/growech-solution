@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animate } from 'animejs';
 import {
   Sparkles,
   Play,
-  CheckCircle,
-  Clock,
   ArrowRight,
-  Database,
-  Calendar,
-  Send,
-  Bot,
   RefreshCw,
 } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Scenario {
   id: string;
@@ -79,14 +77,14 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
           icon: 'Send',
         },
         {
-          title: 'Conversational Qualification Funnel',
-          detail: 'Confirms budget tier ($1.2M - $1.8M), payment timeline, and investor vs end-user status.',
-          latency: '0.8s',
+          title: 'Investor Criteria Assessment',
+          detail: 'Conversational agent parses budget tier, residency status, and required completion date.',
+          latency: '0.5s',
           icon: 'Bot',
         },
         {
-          title: 'High-Res Brochure & Floor Plan Delivery',
-          detail: 'Instantly pushes authenticated PDF dossier and dynamic 3D virtual tour link.',
+          title: 'Dynamic Asset Dispatch',
+          detail: 'Sends encrypted PDF property prospectus and floor plans directly inside WhatsApp.',
           latency: '0.5s',
           icon: 'Database',
         },
@@ -142,6 +140,52 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
   const [isRunning, setIsRunning] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(scenarios[0].steps.length);
 
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const promptBoxRef = useRef<HTMLDivElement | null>(null);
+
+  // GSAP ScrollTrigger for smooth lab container reveal
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (containerRef.current) {
+        gsap.fromTo(
+          containerRef.current,
+          { opacity: 0, y: 35, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const handleSelectScenario = (s: Scenario) => {
+    if (s.id === activeScenario.id) return;
+    setActiveScenario(s);
+    setCurrentStepIndex(s.steps.length);
+    setIsRunning(false);
+
+    if (promptBoxRef.current) {
+      animate(promptBoxRef.current, {
+        opacity: [0.4, 1],
+        translateY: [6, 0],
+        duration: 350,
+        ease: 'outQuad',
+      });
+    }
+  };
+
   const runSimulation = () => {
     setIsRunning(true);
     setCurrentStepIndex(0);
@@ -150,15 +194,26 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
     const interval = setInterval(() => {
       step++;
       setCurrentStepIndex(step);
+
+      // Anime.js bounce on active step card
+      const stepEls = document.querySelectorAll('.sim-step-card');
+      if (stepEls[step - 1]) {
+        animate(stepEls[step - 1], {
+          scale: [0.97, 1.02, 1],
+          duration: 400,
+          ease: 'outBack',
+        });
+      }
+
       if (step >= activeScenario.steps.length) {
         clearInterval(interval);
         setIsRunning(false);
       }
-    }, 700);
+    }, 650);
   };
 
   return (
-    <section id="playground" className="relative py-28 bg-[#FAFAFA] text-zinc-950 overflow-hidden">
+    <section ref={sectionRef} id="playground" className="relative py-28 bg-[#FAFAFA] text-zinc-950 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
@@ -178,20 +233,19 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
         </div>
 
         {/* Soft Curved Capsule Container */}
-        <div className="bg-white rounded-[2.5rem] border border-zinc-200 shadow-xl p-6 sm:p-10 relative overflow-hidden">
+        <div
+          ref={containerRef}
+          className="bg-white rounded-[2.5rem] border border-zinc-200 shadow-xl p-6 sm:p-10 relative overflow-hidden will-change-transform"
+        >
           {/* Scenario Selector Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
             {scenarios.map((s) => (
               <button
                 key={s.id}
-                onClick={() => {
-                  setActiveScenario(s);
-                  setCurrentStepIndex(s.steps.length);
-                  setIsRunning(false);
-                }}
-                className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all ${
+                onClick={() => handleSelectScenario(s)}
+                className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
                   activeScenario.id === s.id
-                    ? 'bg-zinc-950 text-white shadow-md'
+                    ? 'bg-zinc-950 text-white shadow-md scale-[1.02]'
                     : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
                 }`}
               >
@@ -202,7 +256,10 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
           </div>
 
           {/* Prompt Capsule Input Box */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50 border border-zinc-200 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div
+            ref={promptBoxRef}
+            className="p-4 sm:p-5 rounded-2xl bg-zinc-50 border border-zinc-200 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 will-change-transform"
+          >
             <div className="flex-1">
               <div className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
                 Inbound Trigger Event:
@@ -244,11 +301,11 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
               return (
                 <div
                   key={idx}
-                  className={`p-4 rounded-2xl border transition-all duration-300 relative ${
+                  className={`sim-step-card p-4 rounded-2xl border transition-all duration-300 relative will-change-transform ${
                     isPassed
-                      ? 'bg-emerald-50/70 border-emerald-300'
+                      ? 'bg-emerald-50/70 border-emerald-300 shadow-sm'
                       : isCurrent
-                      ? 'bg-amber-50/70 border-amber-400 shadow-sm'
+                      ? 'bg-amber-50/70 border-amber-400 shadow-md ring-2 ring-amber-300/40'
                       : 'bg-zinc-50/60 border-zinc-200 opacity-60'
                   }`}
                 >
@@ -297,7 +354,7 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
 
             <button
               onClick={onOpenContact}
-              className="px-5 py-2 rounded-full text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 transition-colors whitespace-nowrap flex items-center gap-1.5"
+              className="px-5 py-2 rounded-full text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 transition-colors whitespace-nowrap flex items-center gap-1.5 active:scale-95"
             >
               <span>Build This For My Business</span>
               <ArrowRight className="w-3.5 h-3.5" />

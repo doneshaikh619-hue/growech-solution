@@ -72,6 +72,21 @@
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+/* High-Performance Hardware Acceleration & Scroll Smoothness */
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Optimize backdrop blur for high mobile frame rates (60/120fps) */
+@media (max-width: 768px) {
+  .glass-card-dark,
+  .glass-pill {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+  }
+}
+
 /* Radiant Glow Utilities */
 .glow-ember {
   box-shadow: 0 0 25px rgba(255, 85, 0, 0.35);
@@ -104,7 +119,7 @@
 /* Animated Circuit Lines */
 .circuit-line {
   stroke-dasharray: 8 6;
-  animation: circuitFlow 3s linear infinite;
+  animation: circuitFlow 1.6s linear infinite;
 }
 
 @keyframes circuitFlow {

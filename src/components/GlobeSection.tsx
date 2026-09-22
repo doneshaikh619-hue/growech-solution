@@ -154,12 +154,28 @@ export const GlobeSection: React.FC = () => {
         }
       });
 
-      animationFrameId = requestAnimationFrame(render);
+      if (isVisible) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(canvas);
     render();
 
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
       canvas.removeEventListener('mousedown', onMouseDown);
