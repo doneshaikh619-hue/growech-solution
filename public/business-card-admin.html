@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root {
       --obsidian-950: #060607;
@@ -165,7 +166,7 @@
       padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
       box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 85, 0, 0.08);
     }
 
@@ -254,7 +255,7 @@
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 10px;
-      padding: 14px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -292,8 +293,8 @@
     .button-stack {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 6px;
+      gap: 9px;
+      margin-top: 4px;
     }
 
     .btn {
@@ -301,7 +302,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 13px 20px;
+      padding: 12px 18px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -337,12 +338,33 @@
       transform: translateY(-2px);
     }
 
+    .btn-download-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-download-sm {
+      background: rgba(255, 85, 0, 0.12);
+      color: #FFAA00;
+      border: 1px solid rgba(255, 85, 0, 0.4);
+      padding: 10px 12px;
+      font-size: 11.5px;
+    }
+
+    .btn-download-sm:hover {
+      background: rgba(255, 85, 0, 0.22);
+      border-color: #FF5500;
+      color: white;
+      transform: translateY(-2px);
+    }
+
     .notification-pill {
       font-size: 11px;
       font-family: 'JetBrains Mono', monospace;
       color: var(--zinc-400);
       text-align: center;
-      padding-top: 4px;
+      padding-top: 2px;
     }
 
     /* Right Preview Stage */
@@ -439,7 +461,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 32px;
+      padding: 30px;
       text-align: center;
       position: relative;
       z-index: 2;
@@ -478,9 +500,9 @@
 
     .logo-container {
       position: relative;
-      width: 76px;
-      height: 76px;
-      margin-bottom: 12px;
+      width: 68px;
+      height: 68px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -575,7 +597,7 @@
     .back-left {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
     }
 
     .exec-profile {
@@ -586,13 +608,15 @@
 
     .exec-name {
       font-family: 'Outfit', sans-serif;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
       letter-spacing: 0.02em;
       text-transform: uppercase;
       color: var(--white);
       line-height: 1.1;
-      word-break: break-word;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       transition: color 0.2s;
     }
 
@@ -613,6 +637,7 @@
       align-items: center;
       gap: 5px;
       transition: color 0.2s;
+      white-space: nowrap;
     }
 
     .exec-company-badge {
@@ -636,7 +661,7 @@
     .contact-list {
       display: flex;
       flex-direction: column;
-      gap: 6.5px;
+      gap: 6px;
     }
 
     .contact-item {
@@ -645,7 +670,7 @@
       gap: 8px;
       text-decoration: none;
       color: var(--zinc-300);
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 500;
     }
 
@@ -669,8 +694,9 @@
 
     .contact-text-mono {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+      font-size: 9px;
       letter-spacing: 0.02em;
+      white-space: nowrap;
     }
 
     .services-mini-grid {
@@ -682,7 +708,7 @@
 
     .service-mini-pill {
       font-size: 8px;
-      padding: 2.5px 7px;
+      padding: 2px 6px;
       border-radius: 4px;
       background: rgba(255, 85, 0, 0.08);
       border: 1px solid rgba(255, 85, 0, 0.2);
@@ -703,8 +729,8 @@
     }
 
     .qr-frame {
-      width: 106px;
-      height: 106px;
+      width: 100px;
+      height: 100px;
       padding: 6px;
       background: #FFFFFF;
       border-radius: 10px;
@@ -744,13 +770,23 @@
 
     /* Print styles */
     @media print {
-      body {
-        background: transparent !important;
-        padding: 0 !important;
-        margin: 0 !important;
+      @page {
+        size: 3.5in 2.0in;
+        margin: 0mm !important;
       }
 
-      .top-nav, .control-panel, .bg-grid, .stage-title {
+      html, body {
+        background: #000000 !important;
+        background-color: #000000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .top-nav, .control-panel, .bg-grid, .stage-title, .notification-pill, #copyToast {
         display: none !important;
       }
 
@@ -763,13 +799,22 @@
       }
 
       .card-box {
-        page-break-after: always !important;
-        break-after: page !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        height: 100vh !important;
-        width: 100vw !important;
+        width: 3.5in !important;
+        height: 2.0in !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .card-box:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
       }
 
       .visiting-card {
@@ -777,15 +822,229 @@
         transform: none !important;
         width: 3.5in !important;
         height: 2.0in !important;
-        margin: auto !important;
-        border: 1px solid #FF5500 !important;
+        min-width: 3.5in !important;
+        min-height: 2.0in !important;
+        max-width: 3.5in !important;
+        max-height: 2.0in !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(255, 85, 0, 0.4) !important;
+        margin: 0 !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        overflow: hidden !important;
+        position: relative !important;
+        background: #0A0A0B !important;
+        background-color: #0A0A0B !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
-      @page {
-        size: 3.5in 2.0in;
-        margin: 0;
+      /* Corner brackets scale */
+      .corner-bracket {
+        width: 10px !important;
+        height: 10px !important;
+      }
+      .top-left { top: 6px !important; left: 6px !important; }
+      .top-right { top: 6px !important; right: 6px !important; }
+      .bottom-left { bottom: 6px !important; left: 6px !important; }
+      .bottom-right { bottom: 6px !important; right: 6px !important; }
+
+      /* FRONT CARD PRINT OVERRIDES */
+      .front-card {
+        padding: 10px 14px !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+      }
+
+      .front-brand-top {
+        top: 8px !important;
+        left: 12px !important;
+        font-size: 7px !important;
+        letter-spacing: 0.1em !important;
+      }
+
+      .front-edition {
+        top: 8px !important;
+        right: 12px !important;
+        font-size: 7px !important;
+        padding: 1.5px 5px !important;
+        letter-spacing: 0.05em !important;
+      }
+
+      .logo-container {
+        width: 44px !important;
+        height: 44px !important;
+        margin-top: 4px !important;
+        margin-bottom: 5px !important;
+      }
+
+      .logo-img {
+        width: 44px !important;
+        height: 44px !important;
+      }
+
+      .brand-name {
+        margin-bottom: 3px !important;
+        gap: 6px !important;
+      }
+
+      .brand-name .growech,
+      .brand-name .solution {
+        font-size: 16px !important;
+        letter-spacing: 0.04em !important;
+      }
+
+      .brand-tagline {
+        font-size: 7.8px !important;
+        line-height: 1.25 !important;
+        max-width: 290px !important;
+        margin-bottom: 6px !important;
+        color: #D4D4D8 !important;
+      }
+
+      .front-tech-pills {
+        display: flex !important;
+        gap: 4px !important;
+        justify-content: center !important;
+        flex-wrap: nowrap !important;
+      }
+
+      .tech-pill {
+        font-size: 6.2px !important;
+        padding: 2px 5px !important;
+        white-space: nowrap !important;
+        border-radius: 4px !important;
+      }
+
+      /* BACK CARD PRINT OVERRIDES */
+      .back-card {
+        padding: 10px 14px !important;
+        display: grid !important;
+        grid-template-columns: 1fr 78px !important;
+        gap: 10px !important;
+        height: 100% !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+      }
+
+      .back-left {
+        gap: 4.5px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+      }
+
+      .exec-profile {
+        gap: 2px !important;
+      }
+
+      .exec-name {
+        font-size: 14px !important;
+        line-height: 1.1 !important;
+        letter-spacing: 0.02em !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .exec-role-row {
+        gap: 6px !important;
+      }
+
+      .exec-role {
+        font-size: 8px !important;
+        letter-spacing: 0.06em !important;
+        white-space: nowrap !important;
+      }
+
+      .exec-company-badge {
+        font-size: 6.8px !important;
+        padding: 1px 4px !important;
+        letter-spacing: 0.04em !important;
+      }
+
+      .divider-line {
+        margin: 2px 0 !important;
+        height: 1px !important;
+      }
+
+      .contact-list {
+        gap: 3px !important;
+      }
+
+      .contact-item {
+        gap: 6px !important;
+        font-size: 7.8px !important;
+      }
+
+      .contact-icon-box {
+        width: 14px !important;
+        height: 14px !important;
+        border-radius: 3px !important;
+      }
+
+      .contact-icon-box svg {
+        width: 7.5px !important;
+        height: 7.5px !important;
+      }
+
+      .contact-text-mono {
+        font-size: 7.2px !important;
+        letter-spacing: 0.01em !important;
+        white-space: nowrap !important;
+      }
+
+      .services-mini-grid {
+        gap: 2.5px !important;
+        margin-top: 2px !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+      }
+
+      .service-mini-pill {
+        font-size: 6.2px !important;
+        padding: 1.5px 4.5px !important;
+        border-radius: 3px !important;
+        white-space: nowrap !important;
+      }
+
+      .back-right {
+        gap: 4px !important;
+        padding-left: 8px !important;
+        border-left: 1px dashed rgba(255, 85, 0, 0.3) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .qr-frame {
+        width: 68px !important;
+        height: 68px !important;
+        padding: 4px !important;
+        border-radius: 6px !important;
+        border: 1.5px solid #FF5500 !important;
+        box-shadow: none !important;
+      }
+
+      .qr-caption {
+        font-size: 6.8px !important;
+        letter-spacing: 0.06em !important;
+        gap: 3px !important;
+      }
+
+      .qr-caption svg {
+        width: 8px !important;
+        height: 8px !important;
+      }
+
+      .qr-url {
+        font-size: 6.2px !important;
       }
     }
   </style>
@@ -808,6 +1067,9 @@
           <span class="pulse-dot"></span>
           Employee &amp; Executive Access
         </div>
+        <a href="./business-card.html" class="badge-tag" style="text-decoration: none; border-color: rgba(255, 85, 0, 0.4); color: var(--ember);">
+          &larr; Mustafa Executive Card
+        </a>
         <a href="https://growech.site" target="_blank" class="badge-tag" style="text-decoration: none; border-color: rgba(255,255,255,0.15); color: var(--zinc-300);">
           growech.site &rarr;
         </a>
@@ -898,6 +1160,18 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 14h12v8H6z"></path></svg>
             Print / Save as PDF (Ctrl + P)
           </button>
+
+          <div class="btn-download-row">
+            <button class="btn btn-download-sm" onclick="downloadAdminPng('adminFrontCard', 'Front')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Front (PNG)
+            </button>
+            <button class="btn btn-download-sm" onclick="downloadAdminPng('adminBackCard', 'Back')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Back (PNG)
+            </button>
+          </div>
+
           <button class="btn btn-secondary" onclick="copyCardLink()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
             Copy Pre-Filled Card Link
@@ -923,11 +1197,12 @@
             <span class="side">BRAND AUTHORITY</span>
           </div>
 
-          <div class="visiting-card">
+          <div class="visiting-card" id="adminFrontCard">
             <div class="corner-bracket top-left"></div>
             <div class="corner-bracket top-right"></div>
             <div class="corner-bracket bottom-left"></div>
             <div class="corner-bracket bottom-right"></div>
+            <div class="card-laser-border"></div>
             <div class="card-glow-center"></div>
             <div class="card-matrix"></div>
 
@@ -968,11 +1243,12 @@
             <span class="side">CREDENTIALS &bull; LIVE PREVIEW</span>
           </div>
 
-          <div class="visiting-card">
+          <div class="visiting-card" id="adminBackCard">
             <div class="corner-bracket top-left"></div>
             <div class="corner-bracket top-right"></div>
             <div class="corner-bracket bottom-left"></div>
             <div class="corner-bracket bottom-right"></div>
+            <div class="card-laser-border"></div>
             <div class="card-glow-center"></div>
             <div class="card-matrix"></div>
 
@@ -1047,7 +1323,7 @@
       const titleInput = document.getElementById('empTitle').value.trim();
       const phoneInput = document.getElementById('empPhone').value.trim();
 
-      document.getElementById('cardNameDisplay').innerText = nameInput || 'EMPLOYEE NAME';
+      document.getElementById('cardNameDisplay').innerText = (nameInput || 'EMPLOYEE NAME').toUpperCase();
       document.getElementById('cardTitleDisplay').innerText = titleInput || 'Team Member';
       document.getElementById('cardPhoneDisplay').innerText = phoneInput || '+92 000 0000000';
     }
@@ -1078,6 +1354,43 @@
       }).catch(() => {
         prompt('Copy this employee link:', shareUrl);
       });
+    }
+
+    async function downloadAdminPng(cardId, sideName) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      const rawName = document.getElementById('empName').value.trim() || 'Employee';
+      const cleanName = rawName.replace(/[^a-zA-Z0-9]/g, '_');
+      const filename = `Growech_Card_${sideName}_${cleanName}.png`;
+      
+      const btn = event?.currentTarget;
+      let oldHtml = '';
+      if (btn) {
+        oldHtml = btn.innerHTML;
+        btn.innerHTML = '⏳ Saving...';
+        btn.style.opacity = '0.7';
+      }
+
+      try {
+        const canvas = await html2canvas(card, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: '#0A0A0B',
+          logging: false
+        });
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (err) {
+        console.error('Export error:', err);
+        alert('PNG generation note: You can also use Ctrl + P to Save as PDF directly.');
+      } finally {
+        if (btn) {
+          btn.innerHTML = oldHtml;
+          btn.style.opacity = '1';
+        }
+      }
     }
 
     // Auto load query params if provided in URL (e.g. ?name=Ahmed+Khan&title=AI+Engineer)
