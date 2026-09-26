@@ -74,7 +74,7 @@ export const HorizonCTA: React.FC<HorizonCTAProps> = ({ onOpenContact }) => {
           <motion.a
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            href="https://wa.me/923000000000?text=Hello%20GROWECH%20SOLUTION,%20I%20would%20like%20to%20discuss%20a%20digital%20solution%20for%20my%20business."
+            href="https://wa.me/923098178527?text=Hello%20GROWECH%20SOLUTION,%20I%20would%20like%20to%20discuss%20a%20digital%20solution%20for%20my%20business."
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-semibold text-white bg-white/[0.06] border border-white/15 hover:bg-white/[0.1] transition-all flex items-center justify-center gap-2 backdrop-blur-md"

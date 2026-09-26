@@ -51,7 +51,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
     // Open WhatsApp in new tab after brief confirmation
     setTimeout(() => {
-      window.open(`https://wa.me/923000000000?text=${message}`, '_blank');
+      window.open(`https://wa.me/923098178527?text=${message}`, '_blank');
     }, 800);
   };
 

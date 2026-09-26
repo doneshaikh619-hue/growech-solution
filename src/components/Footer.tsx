@@ -58,7 +58,7 @@ export const Footer: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact 
                 <span>Talk to GROWECH</span>
               </button>
               <a
-                href="https://wa.me/923000000000"
+                href="https://wa.me/923098178527"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white transition-colors"

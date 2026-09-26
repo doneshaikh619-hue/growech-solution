@@ -64,8 +64,8 @@ export interface AgencyKnowledgeBase {
 export const AGENCY_KNOWLEDGE: AgencyKnowledgeBase = {
   agencyName: 'GROWECH SOLUTION',
   tagline: 'High-Performance Business Web Platforms, WhatsApp Cloud Automation & Autonomous AI Systems',
-  officialWhatsAppNumber: '923000000000',
-  officialWhatsAppDisplay: '+92 300 0000000',
+  officialWhatsAppNumber: '923098178527',
+  officialWhatsAppDisplay: '+92 309 8178527',
   mission: 'We engineer custom digital business architectures, sub-second web platforms, official Meta WhatsApp Cloud API workflows, and domain-trained autonomous AI agents to eliminate operational bottlenecks and drive scalable growth.',
   corePhilosophy: 'No bloated generic templates, no unreliable unofficial scrapers. Every architecture is bespoke, deterministic, secure, and built for sub-second execution.',
   techStack: [

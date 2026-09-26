@@ -228,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
               </button>
 
               <a
-                href="https://wa.me/923000000000?text=Hello%20GROWECH%20SOLUTION,%20I%20would%20like%20to%20discuss%20a%20digital%20solution."
+                href="https://wa.me/923098178527?text=Hello%20GROWECH%20SOLUTION,%20I%20would%20like%20to%20discuss%20a%20digital%20solution."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2.5 px-4 rounded-xl text-xs font-medium text-zinc-300 bg-white/5 border border-white/10 text-center hover:bg-white/10 transition-colors flex items-center justify-center gap-1.5"
