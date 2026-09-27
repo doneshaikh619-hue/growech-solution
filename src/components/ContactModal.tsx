@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, MessageSquare, CheckCircle, Sparkles, Building, Mail, Phone, User } from 'lucide-react';
+import { X, Send, MessageSquare, CheckCircle, Sparkles, Building, Mail, Phone, User, Loader2 } from 'lucide-react';
+import { submitInboundLead } from '../services/leadCaptureService';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const services = [
     'WhatsApp Automation & CRM',
@@ -40,11 +42,29 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     'Other Service-Based Business',
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
 
-    // Format WhatsApp message
+    // 1. Instantly dispatch lead to 24/7 Cloud (Never sleeps, saved even if laptop is off)
+    try {
+      await submitInboundLead({
+        name: formData.name,
+        company: formData.company,
+        contactValue: formData.contactValue,
+        service: formData.service,
+        industry: formData.industry,
+        notes: formData.notes,
+        source: 'growech.site Discovery Modal'
+      });
+    } catch (err) {
+      console.warn('Lead capture notification note:', err);
+    }
+
+    setSubmitted(true);
+    setIsSubmitting(false);
+
+    // 2. Format WhatsApp message
     const message = encodeURIComponent(
       `Hello GROWECH SOLUTION,\n\nName: ${formData.name}\nCompany: ${formData.company}\nContact: ${formData.contactValue}\nService Required: ${formData.service}\nIndustry: ${formData.industry}\nProject Details: ${formData.notes || 'Inquiry from official website.'}`
     );
@@ -52,7 +72,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     // Open WhatsApp in new tab after brief confirmation
     setTimeout(() => {
       window.open(`https://wa.me/923098178527?text=${message}`, '_blank');
-    }, 800);
+    }, 600);
   };
 
   return (
@@ -199,10 +219,20 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-3.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-ember to-tangerine hover:from-ember-600 hover:to-tangerine shadow-glow-sm flex items-center justify-center gap-2 transition-all active:scale-95"
+                      disabled={isSubmitting}
+                      className="w-full py-3.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-ember to-tangerine hover:from-ember-600 hover:to-tangerine shadow-glow-sm flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-75"
                     >
-                      <MessageSquare className="w-4 h-4" />
-                      <span>Submit &amp; Open WhatsApp Conversation</span>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Dispatching Inquiry &amp; Connecting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <MessageSquare className="w-4 h-4" />
+                          <span>Submit &amp; Open WhatsApp Conversation</span>
+                        </>
+                      )}
                     </button>
                     <div className="text-center text-[10px] text-zinc-500 font-mono mt-2">
                       Zero Spam &bull; 100% Confidential Discovery &bull; No Obligation
