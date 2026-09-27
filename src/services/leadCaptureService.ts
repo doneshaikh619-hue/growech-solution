@@ -31,8 +31,9 @@ export const submitInboundLead = async (lead: InboundLead): Promise<{ success: b
   }
 
   // 2. Cloud Webhook Dispatch (Google Sheets Webhook / Serverless API)
-  // Defaults to configured env or direct webhook
-  const webhookUrl = import.meta.env.VITE_LEAD_WEBHOOK_URL;
+  const webhookUrl =
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_LEAD_WEBHOOK_URL) ||
+    'https://script.google.com/macros/s/AKfycbyuXIVQGuUqyTbaeuNm8hRx8TJGvM4IEr0UgxdmadZIdyjv0JqdqGCbz-p2B6d-mQ/exec';
 
   if (webhookUrl && webhookUrl.trim() !== '') {
     try {
