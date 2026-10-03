@@ -1,0 +1,42 @@
+name: Growech 24/7 Reddit Client Lead Radar
+
+on:
+  schedule:
+    # Runs every 30 minutes around the clock (24/7/365)
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Allows manual trigger from phone/browser anytime
+
+jobs:
+  scan-reddit-leads:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Reddit Lead Radar
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node scripts/reddit-radar/reddit-radar.cjs --once
+
+      - name: Commit Seen Leads State
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scripts/reddit-radar/seen_reddit_posts.json scripts/reddit-radar/radar.log || true
+          if git diff --staged --quiet; then
+            echo "No new leads state to commit."
+          else
+            git commit -m "chore(radar): update seen reddit leads cache [skip ci]"
+            git push origin main
+          fi

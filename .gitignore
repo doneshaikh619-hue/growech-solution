@@ -25,3 +25,6 @@ dist-ssr
 *.ps1
 video_assets/
 /growech_motion_ad.mp4
+.env
+*.env
+scripts/reddit-radar/.env
