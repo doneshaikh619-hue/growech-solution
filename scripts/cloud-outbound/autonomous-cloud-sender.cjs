@@ -188,9 +188,49 @@ async function runCloudOutbound() {
     return;
   }
 
-  // Pick batch of 3-5 leads per scheduled run (prevents spam flags & respects Google limits)
-  const batchSize = Math.min(candidates.length, 3);
-  const currentBatch = candidates.slice(0, batchSize);
+  // Hard deliverability limits to guarantee domain safety
+  const HARD_DAILY_LIMIT = 20;
+  const HARD_HOURLY_LIMIT = 5;
+
+  // Calculate sends in the current Pakistan date & hour
+  const now = new Date();
+  const todayDateStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi' }).format(now);
+  const currentHour = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi', hour: '2-digit', hour12: false }).format(now);
+
+  const sentTodayCount = sentHistory.filter(s => {
+    if (!s.sent_at) return false;
+    const sDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi' }).format(new Date(s.sent_at));
+    return sDate === todayDateStr;
+  }).length;
+
+  const sentThisHourCount = sentHistory.filter(s => {
+    if (!s.sent_at) return false;
+    const sDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi' }).format(new Date(s.sent_at));
+    const sHour = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi', hour: '2-digit', hour12: false }).format(new Date(s.sent_at));
+    return sDate === todayDateStr && sHour === currentHour;
+  }).length;
+
+  console.log(`📊 Deliverability Guard:`);
+  console.log(`   - Sent Today (${todayDateStr}): ${sentTodayCount} / ${HARD_DAILY_LIMIT}`);
+  console.log(`   - Sent This Hour (${currentHour}:00 PKT): ${sentThisHourCount} / ${HARD_HOURLY_LIMIT}`);
+
+  if (sentTodayCount >= HARD_DAILY_LIMIT) {
+    console.log(`🛑 Daily hard limit of ${HARD_DAILY_LIMIT} reached for today. Safely stopping to protect domain reputation.`);
+    return;
+  }
+
+  if (sentThisHourCount >= HARD_HOURLY_LIMIT) {
+    console.log(`🛑 Hourly hard limit of ${HARD_HOURLY_LIMIT} reached for this hour. Safely waiting for next window.`);
+    return;
+  }
+
+  // Safe batch calculation (never exceeds 5 per run and never exceeds 20 per day)
+  const remainingToday = HARD_DAILY_LIMIT - sentTodayCount;
+  const remainingThisHour = HARD_HOURLY_LIMIT - sentThisHourCount;
+  const allowedThisRun = Math.min(candidates.length, remainingThisHour, remainingToday);
+
+  const currentBatch = candidates.slice(0, allowedThisRun);
+  console.log(`🚀 Dispatching batch of ${currentBatch.length} email(s) for this run...\n`);
 
   // Setup Nodemailer Transporter
   const transporter = nodemailer.createTransport({
@@ -270,7 +310,7 @@ Growech Solution | growech.site`;
   // Save updated sent history file
   fs.writeFileSync(SENT_LOG_FILE, JSON.stringify(sentHistory, null, 2), 'utf8');
   console.log(`\n💾 Saved updated dispatch history: ${sentHistory.length} total leads contacted.`);
-  console.log(`🏁 Batch run finished: Sent ${sentCount}/${batchSize} emails successfully.`);
+  console.log(`🏁 Batch run finished: Sent ${sentCount}/${currentBatch.length} emails successfully.`);
 }
 
 runCloudOutbound().then(() => process.exit(0)).catch(err => {
