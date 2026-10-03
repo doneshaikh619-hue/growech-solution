@@ -1,0 +1,27 @@
+name: Test Telegram Alert Connection
+
+on:
+  push:
+    paths:
+      - 'scripts/reddit-radar/test-telegram-cloud.cjs'
+      - '.github/workflows/test-telegram.yml'
+  workflow_dispatch:
+
+jobs:
+  test-telegram:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Send Test Telegram Ping
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          node scripts/reddit-radar/test-telegram-cloud.cjs
