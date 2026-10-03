@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "business_name": "Amer Adnan Associates",
+    "owner_name": "Amer Adnan & Annie Amer",
+    "email": "ceo@ameradnan.com",
+    "domain": "ameradnan.com",
+    "phone": "+92 302 4666366",
+    "website": "https://www.ameradnan.com",
+    "subject": "Quick question for Amer Adnan Associates",
+    "messageId": "<ced32212-4b34-1fc7-dd83-67c0bdb097cc@gmail.com>",
+    "sent_at": "2026-10-03T20:34:23.162Z"
+  },
+  {
+    "business_name": "AenZay Interiors & Architects",
+    "owner_name": "Muhammad Ali Malik",
+    "email": "ali@aenzay.com",
+    "domain": "aenzay.com",
+    "phone": "+92 302 5090909",
+    "website": "https://www.aenzay.com",
+    "subject": "Quick question for AenZay",
+    "messageId": "<ede0617e-2c5c-bb74-0a7c-cf3a1c04945e@gmail.com>",
+    "sent_at": "2026-10-03T20:34:29.702Z"
+  },
+  {
+    "business_name": "Archi-Cubes",
+    "owner_name": "Zaeem Ahmed",
+    "email": "zaeem@archi-cubes.com",
+    "domain": "archi-cubes.com",
+    "phone": "+92 300 8443609",
+    "website": "https://www.archi-cubes.com",
+    "subject": "Archi-Cubes high-ticket client filtering",
+    "messageId": "<ae38c896-271b-71b4-880c-fdb3ec8b0cf3@gmail.com>",
+    "sent_at": "2026-10-03T20:34:35.802Z"
+  }
+]
