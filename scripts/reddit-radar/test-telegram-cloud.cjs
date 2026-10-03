@@ -57,6 +57,31 @@ async function runTest() {
     const sendData = await sendRes.json();
     console.log('Telegram sendMessage Response:', JSON.stringify(sendData));
 
+    // Send Sample Live Lead so user sees the full format
+    const sampleLeadMsg = `🚨 <b>NEW REDDIT CLIENT LEAD! (LIVE DEMO)</b>\n\n` +
+      `🏢 <b>Subreddit:</b> r/forhire\n` +
+      `👤 <b>Client:</b> /u/Disastrous-Ad-8637\n` +
+      `📌 <b>Project:</b> [Hiring] full stack web developer (React/TypeScript, Stripe, Cloudflare)\n` +
+      `🔗 <b>Direct Link:</b> https://www.reddit.com/r/forhire/comments/1wweokd/hiring_full_stack_web_developer/\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `📝 <b>AI TAILORED PITCH (COPY & SEND IN 30s):</b>\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `<code>Hey! Saw your post regarding your photography SaaS platform in CA. At Growech Solution, we specialize in production React/TypeScript architectures, Cloudflare deployments, and custom Stripe payment integrations. \"picture day\" — can I send over a quick 2-minute video walkthrough of a similar SaaS platform we shipped?
+
+Mustafa | Growech Solution
+Portfolio: growech.site</code>\n\n` +
+      `⚡ <b>ACTION:</b> Tap link above, tap Chat on client profile, paste pitch & send!`;
+
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: sampleLeadMsg,
+        parse_mode: 'HTML'
+      })
+    });
+
     if (sendData.ok) {
       console.log('🎉 SUCCESS! Message delivered to user Telegram!');
     } else {
