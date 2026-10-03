@@ -138,7 +138,8 @@ CRITICAL RULES:
 3. Directly reference their exact technical requirement (e.g. Next.js, Stripe, AI webhook, Supabase, Tailwind, etc.).
 4. If the client asked to include a specific word or code phrase (e.g. "include picture day in your message"), YOU MUST naturally include it.
 5. Highlight relevant experience: Growech builds high-speed production web apps and official WhatsApp / web AI triage bots.
-6. Low-friction Call-To-Action: "Can I send over a quick 2-minute Loom walkthrough or relevant live demo?"
+6. The Winning Call-To-Action: Offer to review their exact scope and put together a quick interactive prototype / solution draft for them to test out, e.g.:
+"If you can share a few quick details on your scope in chat, I'd be happy to put together a quick interactive prototype / solution draft for you to review before deciding. Open to a brief chat?"
 7. Sign off as:
 Mustafa | Growech Solution
 Portfolio: growech.site
