@@ -3,7 +3,7 @@ name: Test Telegram Alert Connection
 on:
   push:
     paths:
-      - 'scripts/reddit-radar/test-telegram-cloud.cjs'
+      - 'scripts/facebook-radar/test-telegram-cloud.cjs'
       - '.github/workflows/test-telegram.yml'
   workflow_dispatch:
 
@@ -24,4 +24,4 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          node scripts/reddit-radar/test-telegram-cloud.cjs
+          node scripts/facebook-radar/test-telegram-cloud.cjs
