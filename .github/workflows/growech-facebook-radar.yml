@@ -2,8 +2,8 @@ name: Growech 24/7 Facebook Client Lead Radar
 
 on:
   schedule:
-    # Runs every 45 minutes around the clock (24/7/365)
-    - cron: '*/45 * * * *'
+    # Runs every 10 minutes around the clock (24/7/365)
+    - cron: '*/10 * * * *'
   workflow_dispatch: # Allows manual trigger from phone/browser anytime
 
 jobs:

@@ -33,7 +33,7 @@ const STATE_FILE = path.join(__dirname, 'seen_reddit_posts.json');
 const LOG_FILE = path.join(__dirname, 'radar.log');
 
 // Target high-intent subreddits combined into a single unified multi-feed (0 rate-limit issues)
-const MULTI_SUB_URL = 'https://www.reddit.com/r/forhire+jobbit+freelance_forhire+hiring+Automate+n8n+b2bforhire+webdev+startups+SaaS/new.rss?limit=50';
+const MULTI_SUB_URL = 'https://www.reddit.com/r/forhire+jobbit+freelance_forhire+hiring+Automate+n8n+b2bforhire+webdev+startups+SaaS+freelance+hireaprogrammer+remotework+smallbusiness+ecommerce/new.rss?limit=65';
 
 const TARGET_KEYWORDS = [
   'website', 'web dev', 'web design', 'developer', 'frontend', 'backend',

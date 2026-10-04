@@ -69,6 +69,16 @@ const TARGET_GROUPS = [
     name: 'I Need A Website Designer / Web Developer',
     url: 'https://www.facebook.com/groups/needwebsitedesignerordeveloper/?sorting_setting=CHRONOLOGICAL',
     category: 'Direct Hiring'
+  },
+  {
+    name: 'Pakistan Entrepreneur & Small Businesses Support',
+    url: 'https://www.facebook.com/groups/PESBSupport/?sorting_setting=CHRONOLOGICAL',
+    category: 'Local SME & Businesses'
+  },
+  {
+    name: 'i need a website',
+    url: 'https://www.facebook.com/groups/748333769171864/?sorting_setting=CHRONOLOGICAL',
+    category: 'Website Requests'
   }
 ];
 
