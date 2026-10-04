@@ -12,6 +12,8 @@ import {
   Cpu,
 } from 'lucide-react';
 import { LogoMark } from './LogoMark';
+import { ThreeDHoloCore } from './ThreeDHoloCore';
+import { TiltCard } from './TiltCard';
 
 interface HeroProps {
   onOpenContact: () => void;
@@ -201,6 +203,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
       {/* Ambient Glowing Background */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] sm:w-[850px] h-[500px] bg-gradient-to-b from-[#FF5500]/15 via-[#FF6A00]/5 to-transparent blur-[140px] pointer-events-none" />
       <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
+      <div className="absolute inset-x-0 h-48 bg-gradient-to-b from-transparent via-ember/[0.04] to-transparent pointer-events-none animate-radar-sweep" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full flex flex-col items-center text-center z-10">
         {/* Top Tagline Badge */}
@@ -447,8 +450,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
               })}
             </svg>
 
-            {/* Symmetrical 3-Column Grid: Left 3 Cards | Center Engine Hub | Right 3 Cards */}
-            <div className="grid grid-cols-12 items-center gap-y-6 relative z-20 min-h-[540px]">
+            {/* Symmetrical 3-Column Grid: Left 3 Cards | Center 3D Engine Core | Right 3 Cards */}
+            <div className="grid grid-cols-12 items-center gap-y-6 relative z-20 min-h-[560px]">
               {/* Left Column (Nodes 0, 2, 4) */}
               <div className="col-span-4 flex flex-col justify-between gap-6 items-end">
                 {leftIndices.map((idx) => {
@@ -457,15 +460,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                   const isHovered = focusedNode === idx;
 
                   return (
-                    <div
+                    <TiltCard
                       key={item.id}
                       ref={(el) => (cardRefs.current[idx] = el)}
                       onMouseEnter={() => setHoveredIdx(idx)}
                       onMouseLeave={() => setHoveredIdx(null)}
                       onClick={() => setManualSelect(manualSelect === idx ? null : idx)}
-                      className={`w-full max-w-[305px] p-4 rounded-2xl border text-left cursor-pointer transition-all duration-300 relative ${
+                      className={`w-full max-w-[315px] p-4 rounded-2xl border text-left cursor-pointer transition-all duration-300 relative ${
                         isHovered
-                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_28px_rgba(255,85,0,0.32)] ring-1 ring-ember/60 scale-[1.02]'
+                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_28px_rgba(255,85,0,0.38)] ring-1 ring-ember/60'
                           : 'bg-obsidian-850/90 border-ember/35 hover:border-ember/70 shadow-[0_0_16px_rgba(255,85,0,0.1)]'
                       }`}
                     >
@@ -500,33 +503,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                       <p className="text-[11px] text-zinc-300 leading-snug break-words">
                         {item.description}
                       </p>
-                    </div>
+                      <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
+                        <span className="text-emerald-400 font-semibold">&bull; 99.98% SPEED</span>
+                        <span className="text-zinc-500">ID: #0{idx + 1}_NODE</span>
+                      </div>
+                    </TiltCard>
                   );
                 })}
               </div>
 
-              {/* Center Column: Core Engine Hub */}
-              <div className="col-span-4 flex flex-col items-center justify-center py-4">
-                <div
-                  ref={circleRef}
-                  className="relative w-28 h-28 rounded-full bg-obsidian-900 border-2 border-ember shadow-glow-md flex flex-col items-center justify-center p-3 cursor-pointer group transition-transform duration-300 hover:scale-105"
-                  onClick={() => setManualSelect(null)}
-                >
-                  {/* Subtle Ambient Amber Glow */}
-                  <div className="absolute -inset-3 rounded-full bg-ember/20 blur-md pointer-events-none" />
-                  <div className="w-10 h-10 flex-shrink-0 relative z-10 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                    <LogoMark className="w-full h-full" glow={true} />
-                  </div>
-                  <span className="text-[8px] font-mono uppercase text-ember font-bold mt-1.5 tracking-wider relative z-10">
-                    CORE ENGINE
-                  </span>
-                </div>
-                <span className="text-xs font-bold text-white mt-3 font-display tracking-wide uppercase">
-                  GROWECH ORCHESTRATOR
-                </span>
-                <span className="text-[10px] text-zinc-400 font-mono mt-0.5">
-                  Simultaneous 6-Node Architecture
-                </span>
+              {/* Center Column: 3D Holographic Quantum Core Engine */}
+              <div className="col-span-4 flex flex-col items-center justify-center py-2 relative z-30">
+                <ThreeDHoloCore
+                  onReset={() => setManualSelect(null)}
+                  focusedNode={focusedNode}
+                  circleRef={circleRef}
+                />
               </div>
 
               {/* Right Column (Nodes 1, 3, 5) */}
@@ -537,15 +529,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                   const isHovered = focusedNode === idx;
 
                   return (
-                    <div
+                    <TiltCard
                       key={item.id}
                       ref={(el) => (cardRefs.current[idx] = el)}
                       onMouseEnter={() => setHoveredIdx(idx)}
                       onMouseLeave={() => setHoveredIdx(null)}
                       onClick={() => setManualSelect(manualSelect === idx ? null : idx)}
-                      className={`w-full max-w-[305px] p-4 rounded-2xl border text-left cursor-pointer transition-all duration-300 relative ${
+                      className={`w-full max-w-[315px] p-4 rounded-2xl border text-left cursor-pointer transition-all duration-300 relative ${
                         isHovered
-                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_28px_rgba(255,85,0,0.32)] ring-1 ring-ember/60 scale-[1.02]'
+                          ? 'bg-obsidian-850/95 border-ember shadow-[0_0_28px_rgba(255,85,0,0.38)] ring-1 ring-ember/60'
                           : 'bg-obsidian-850/90 border-ember/35 hover:border-ember/70 shadow-[0_0_16px_rgba(255,85,0,0.1)]'
                       }`}
                     >
@@ -580,12 +572,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                       <p className="text-[11px] text-zinc-300 leading-snug break-words">
                         {item.description}
                       </p>
-                    </div>
+                      <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
+                        <span className="text-emerald-400 font-semibold">&bull; 99.98% SPEED</span>
+                        <span className="text-zinc-500">ID: #0{idx + 1}_NODE</span>
+                      </div>
+                    </TiltCard>
                   );
                 })}
               </div>
             </div>
           </div>
+
 
           {/* =================================================================== */}
           {/* MOBILE VIEW: Unified Flow with Synchronized 6-Node Connections      */}

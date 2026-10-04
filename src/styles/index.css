@@ -141,3 +141,99 @@
   background-size: 32px 32px;
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
 }
+
+/* 3D Perspective & Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-800 {
+  perspective: 800px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* 3D Core Animations */
+@keyframes spin3D {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes spin3DReverse {
+  from {
+    transform: rotateZ(360deg);
+  }
+  to {
+    transform: rotateZ(0deg);
+  }
+}
+
+@keyframes gyroWobble {
+  0% {
+    transform: rotateX(24deg) rotateY(15deg) rotateZ(0deg);
+  }
+  50% {
+    transform: rotateX(32deg) rotateY(-18deg) rotateZ(180deg);
+  }
+  100% {
+    transform: rotateX(24deg) rotateY(15deg) rotateZ(360deg);
+  }
+}
+
+@keyframes laserPulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(255, 85, 0, 0.6));
+    opacity: 0.85;
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(255, 85, 0, 1));
+    opacity: 1;
+  }
+}
+
+@keyframes radarSweep {
+  0% {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+.animate-spin-3d-slow {
+  animation: spin3D 20s linear infinite;
+}
+
+.animate-spin-3d-reverse {
+  animation: spin3DReverse 25s linear infinite;
+}
+
+.animate-spin-3d-fast {
+  animation: spin3D 8s linear infinite;
+}
+
+.animate-gyro {
+  animation: gyroWobble 16s ease-in-out infinite;
+}
+
+.animate-radar-sweep {
+  animation: radarSweep 8s ease-in-out infinite;
+}

@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>GROWECH — Autonomous AI Infrastructure & VIP Intake Systems</title>
+  <meta name="description" content="Award-winning 2026 enterprise AI agency. We engineer autonomous WhatsApp VIP intake engines, voice AI agents, and custom speed-to-lead pipelines for high-ticket market leaders." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Three.js + GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Syne (Awwwards Display), Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#050508',
+            surface: 'rgba(15, 15, 22, 0.65)',
+            surfaceBorder: 'rgba(255, 255, 255, 0.08)',
+            accent: {
+              orange: '#FF5500',
+              indigo: '#6366F1',
+              cyan: '#06B6D4',
+              chrome: '#E2E8F0',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      cursor: none !important;
+    }
+
+    body {
+      background-color: #050508;
+      color: #F8FAFC;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(255, 85, 0, 0.05) 0%, transparent 50%);
+    }
+
+    /* Fullscreen WebGL Canvas */
+    #webgl-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Content Layer */
+    .content-layer {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Custom Magnetic Dual Cursor */
+    #cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    #cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.2s, background 0.2s;
+    }
+
+    /* Glassmorphism Luxury Panels */
+    .luxury-panel {
+      background: rgba(13, 13, 19, 0.65);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8),
+                  0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    }
+
+    /* 3D Magnetic Tilt Cards */
+    .tilt-card {
+      position: relative;
+      background: rgba(14, 14, 22, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .tilt-card:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9),
+                  0 0 30px rgba(255, 85, 0, 0.1);
+    }
+
+    .tilt-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        700px circle at var(--glare-x, 50%) var(--glare-y, 50%),
+        rgba(255, 255, 255, 0.09),
+        transparent 65%
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Subtle Film Grain */
+    .grain-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 5;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Specular Text Shimmer */
+    .text-shimmer {
+      background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-glow-orange {
+      background: linear-gradient(135deg, #FF6611 0%, #FFAA44 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Custom Pill Badges */
+    .pill-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body class="selection:bg-white selection:text-black">
+
+  <!-- Grain Overlay for Filmic Finish -->
+  <div class="grain-overlay"></div>
+
+  <!-- Custom Magnetic Cursor Elements -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Three.js Liquid Chrome WebGL Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- ================= Content Layer ================= -->
+  <div class="content-layer">
+
+    <!-- Floating Minimal HUD Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300">
+      <div class="max-w-7xl mx-auto flex items-center justify-between luxury-panel rounded-full px-7 py-3.5">
+        
+        <!-- Brand Identity -->
+        <a href="#hero" class="flex items-center gap-3.5 group cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-accent-orange to-amber-400 p-[1.5px] shadow-lg shadow-accent-orange/20 group-hover:scale-105 transition-transform">
+            <div class="w-full h-full bg-obsidian rounded-full flex items-center justify-center font-display font-black text-white text-xs">
+              G<span class="text-accent-orange">.</span>
+            </div>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="font-display font-black text-sm tracking-wider text-white">GROWECH</span>
+            <span class="text-[9px] font-mono text-neutral-500 uppercase tracking-widest hidden sm:inline">// 2026 AI ARCHITECTURE</span>
+          </div>
+        </a>
+
+        <!-- Center Nav Items -->
+        <nav class="hidden md:flex items-center gap-8 font-mono text-[11px] uppercase tracking-wider text-neutral-400">
+          <a href="#solutions" class="hover:text-white transition-colors">01 / Solutions</a>
+          <a href="#engine" class="hover:text-white transition-colors">02 / Liquid Core</a>
+          <a href="#simulator" class="hover:text-white transition-colors">03 / Lead ROI Simulator</a>
+          <a href="#founder" class="hover:text-white transition-colors">04 / Founder Brief</a>
+        </nav>
+
+        <!-- Right Action Button -->
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex items-center gap-2 font-mono text-[10px] text-neutral-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>SYSTEM LIVE</span>
+          </div>
+          <a href="https://wa.me/923000000000?text=Salam%20Mustafa%20Sheikh%2C%20I%20am%20interested%20in%20deploying%20Growech%20AI%20Workflows" target="_blank" class="px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 font-heading font-extrabold text-xs tracking-wider uppercase transition shadow-lg shadow-white/10">
+            Book 10-Min Demo
+          </a>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Hero Section (Monumental Typography + Liquid Chrome Canvas) -->
+    <section id="hero" class="min-h-screen flex flex-col justify-center px-6 pt-32 pb-20 max-w-7xl mx-auto">
+      
+      <div class="max-w-4xl">
+        <!-- Live Protocol Pill -->
+        <div class="inline-flex items-center gap-2.5 pill-tag mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-orange animate-ping"></span>
+          <span>ENTERPRISE LEAD INTAKE & AUTONOMOUS 3D SYSTEMS</span>
+        </div>
+
+        <!-- Monumental Syne Display Headline -->
+        <h1 class="font-display text-5xl sm:text-7xl xl:text-8xl font-black tracking-tight leading-[1.02] text-shimmer">
+          STOP LOSING <br />
+          HIGH-TICKET CLIENTS TO <br />
+          <span class="text-glow-orange">CHASKA PARTY</span> LEADS.
+        </h1>
+
+        <p class="mt-8 text-base sm:text-xl text-neutral-400 max-w-2xl font-normal leading-relaxed">
+          Growech replaces broken reception desks and unverified ad clicks with an <strong class="text-white">Automated VIP Lead Intake Engine</strong>. We pre-screen budgets, qualify intent in 15 seconds, and book payment-ready clients into your calendar.
+        </p>
+
+        <!-- Interactive CTAs -->
+        <div class="mt-10 flex flex-wrap items-center gap-5">
+          <a href="#solutions" class="px-8 py-4 rounded-full bg-accent-orange hover:bg-orange-600 text-white font-heading font-extrabold text-xs tracking-widest uppercase transition-all shadow-xl shadow-accent-orange/25 flex items-center gap-3">
+            <span>Explore High-Ticket Solutions</span>
+            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+
+          <a href="#simulator" class="px-7 py-4 rounded-full luxury-panel hover:bg-white/[0.08] text-white font-mono text-xs tracking-wider flex items-center gap-2 transition">
+            <i data-lucide="cpu" class="w-3.5 h-3.5 text-accent-cyan"></i>
+            <span>Calculate Lost Revenue Simulator</span>
+          </a>
+        </div>
+
+        <!-- Telemetry Data Strip -->
+        <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-white/[0.06] max-w-3xl">
+          <div>
+            <div class="font-mono text-2xl font-bold text-white">&lt; 15s</div>
+            <div class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mt-1">Speed to Lead</div>
+          </div>
+          <div>
+            <div class="font-mono text-2xl font-bold text-accent-orange">80%</div>
+            <div class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mt-1">Tire-Kickers Filtered</div>
+          </div>
+          <div>
+            <div class="font-mono text-2xl font-bold text-white">99.4%</div>
+            <div class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mt-1">Official Meta Uptime</div>
+          </div>
+          <div>
+            <div class="font-mono text-2xl font-bold text-emerald-400">3.8x</div>
+            <div class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mt-1">Average Show-Up Rate</div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Section 2: 3 High-Ticket Niche Showcases (3D Tilt Cards) -->
+    <section id="solutions" class="py-28 px-6 max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/[0.06]">
+        <div>
+          <span class="pill-tag">// 01 VERTICAL SPECIALIZATION</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+            Tailored For Luxury Niches <br />
+            <span class="text-neutral-500">Charging Rs 1 Lakh to 10 Lakh</span>
+          </h2>
+        </div>
+        <p class="text-xs font-mono text-neutral-400 mt-4 md:mt-0 max-w-xs leading-relaxed">
+          Hover over any card to inspect tactile 3D perspective and dynamic specular glare.
+        </p>
+      </div>
+
+      <!-- 3 Industry Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+
+        <!-- Card 1: Turnkey Architects -->
+        <div class="tilt-card p-8 group">
+          <div class="flex items-center justify-between mb-8">
+            <span class="pill-tag text-amber-300 border-amber-500/20 bg-amber-500/5">ARCHITECTURE & INTERIOR</span>
+            <span class="font-mono text-xs text-neutral-500">01</span>
+          </div>
+
+          <h3 class="font-display text-2xl font-bold text-white group-hover:text-amber-300 transition-colors">
+            1-Kanal & 2-Kanal Project Triage
+          </h3>
+          <p class="text-xs text-neutral-400 mt-3 leading-relaxed">
+            Eliminates the "Bhai 2 lakh mein poora ghar design ho jayega?" callers. Screens plot location (DHA / Bahria), grey-structure readiness, and construction budget before booking a meeting with your principal architect.
+          </p>
+
+          <div class="mt-8 pt-6 border-t border-white/[0.06] flex items-center justify-between">
+            <div class="text-[11px] font-mono text-neutral-400">
+              Booking: <strong class="text-white">Direct Calendar Sync</strong>
+            </div>
+            <a href="https://wa.me/923000000000?text=Salam%20Mustafa%20Sheikh%2C%20show%20me%20the%20Architect%20Intake%20Engine" target="_blank" class="text-xs font-bold text-amber-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Deploy Workflow →
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Aesthetic & Dental Clinics -->
+        <div class="tilt-card p-8 group">
+          <div class="flex items-center justify-between mb-8">
+            <span class="pill-tag text-cyan-300 border-cyan-500/20 bg-cyan-500/5">CLINICS & COSMETIC SURGERY</span>
+            <span class="font-mono text-xs text-neutral-500">02</span>
+          </div>
+
+          <h3 class="font-display text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">
+            Interactive Patient Assessment
+          </h3>
+          <p class="text-xs text-neutral-400 mt-3 leading-relaxed">
+            24/7 patient intake for Implants, Veneers, and Hair Restoration. Evaluates treatment goals, requests secure photo angles, quotes preliminary tiered pricing, and locks advance consultation deposits via WhatsApp.
+          </p>
+
+          <div class="mt-8 pt-6 border-t border-white/[0.06] flex items-center justify-between">
+            <div class="text-[11px] font-mono text-neutral-400">
+              No-Show Defense: <strong class="text-white">&lt; 4% No-Show Rate</strong>
+            </div>
+            <a href="https://wa.me/923000000000?text=Salam%20Mustafa%20Sheikh%2C%20show%20me%20the%20Clinic%20Intake%20Engine" target="_blank" class="text-xs font-bold text-cyan-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Deploy Workflow →
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: PPF & Car Detailing -->
+        <div class="tilt-card p-8 group">
+          <div class="flex items-center justify-between mb-8">
+            <span class="pill-tag text-emerald-300 border-emerald-500/20 bg-emerald-500/5">LUXURY PPF & CERAMIC</span>
+            <span class="font-mono text-xs text-neutral-500">03</span>
+          </div>
+
+          <h3 class="font-display text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors">
+            PPF Armor Bay Calculator
+          </h3>
+          <p class="text-xs text-neutral-400 mt-3 leading-relaxed">
+            Prioritizes brand-new Land Cruisers, Fortuners, and Audis over Alto window-shoppers. Calculates vehicle tier, educates customers on TPU self-healing films, and fills studio bays with advance slot reservations.
+          </p>
+
+          <div class="mt-8 pt-6 border-t border-white/[0.06] flex items-center justify-between">
+            <div class="text-[11px] font-mono text-neutral-400">
+              Bay Revenue: <strong class="text-white">Rs 250k - 450k / Slot</strong>
+            </div>
+            <a href="https://wa.me/923000000000?text=Salam%20Mustafa%20Sheikh%2C%20show%20me%20the%20Detailing%20Bay%20Calculator" target="_blank" class="text-xs font-bold text-emerald-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Deploy Workflow →
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Section 3: Interactive Lead ROI & Waste Calculator -->
+    <section id="simulator" class="py-24 px-6 max-w-5xl mx-auto">
+      <div class="luxury-panel p-8 sm:p-14 rounded-3xl relative overflow-hidden border border-white/10">
+        
+        <div class="max-w-xl">
+          <span class="pill-tag text-accent-cyan border-accent-cyan/20 bg-accent-cyan/5">// 02 VALUE DIAGNOSTIC</span>
+          <h2 class="font-display text-3xl sm:text-4xl font-black text-white mt-3">
+            Calculate Your "Chaska Party" Drain
+          </h2>
+          <p class="text-xs sm:text-sm text-neutral-400 mt-2">
+            See how many staff hours and high-ticket clients your business loses every month to unverified chat inquiries.
+          </p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          
+          <!-- Controls -->
+          <div class="space-y-6">
+            <div>
+              <label class="block font-mono text-xs text-neutral-400 mb-2">Select Your Industry:</label>
+              <select id="sim-industry" class="w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-sm text-white font-mono focus:outline-none focus:border-accent-orange">
+                <option value="architect">Turnkey Architecture & Interior (Rs 2.5M Avg Deal)</option>
+                <option value="clinic">Aesthetic / Dental Implants (Rs 350K Avg Procedure)</option>
+                <option value="detailing">Luxury Detailing & TPU PPF (Rs 250K Avg Armor)</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="flex justify-between font-mono text-xs text-neutral-400 mb-2">
+                <span>Monthly WhatsApp Inquiries:</span>
+                <span id="inquiry-count-label" class="text-white font-bold">150 / month</span>
+              </div>
+              <input id="inquiry-slider" type="range" min="30" max="600" step="10" value="150" class="w-full accent-accent-orange bg-white/10 h-1.5 rounded-lg appearance-none cursor-pointer" />
+            </div>
+          </div>
+
+          <!-- Dynamic Output Display -->
+          <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-4 font-mono">
+            <div class="flex justify-between items-center pb-3 border-b border-white/10">
+              <span class="text-xs text-neutral-400">Wasted Staff Time:</span>
+              <span id="stat-hours" class="text-sm font-bold text-accent-orange">45 Hours / mo</span>
+            </div>
+            <div class="flex justify-between items-center pb-3 border-b border-white/10">
+              <span class="text-xs text-neutral-400">Unfiltered Non-Serious Clicks:</span>
+              <span id="stat-junk" class="text-sm font-bold text-neutral-300">120 Inquiries</span>
+            </div>
+            <div class="flex justify-between items-center pt-1">
+              <span class="text-xs text-neutral-400">Recoverable High-Ticket Revenue:</span>
+              <span id="stat-revenue" class="text-base sm:text-lg font-black text-emerald-400">Rs 1,500,000+</span>
+            </div>
+            
+            <a href="https://wa.me/923000000000?text=Salam%20Mustafa%20Sheikh%2C%20I%20used%20your%20Growech%20Calculator%20and%20want%20to%20eliminate%20wasted%20inquiries" target="_blank" class="block text-center w-full py-3 mt-4 rounded-xl bg-white text-black font-heading font-extrabold text-xs tracking-wider uppercase hover:bg-neutral-200 transition">
+              Eliminate This Waste Today →
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Founder Callout & Closing Section -->
+    <section id="founder" class="py-24 px-6 max-w-7xl mx-auto">
+      <div class="luxury-panel p-10 sm:p-16 rounded-3xl text-center relative overflow-hidden border border-white/10">
+        
+        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-accent-orange to-indigo-500 mx-auto p-0.5 mb-6 shadow-2xl shadow-accent-orange/20">
+          <div class="w-full h-full bg-obsidian rounded-full flex items-center justify-center font-display font-black text-lg text-white">
+            MS
+          </div>
+        </div>
+
+        <span class="pill-tag text-neutral-400 border-white/10">// DIRECT FOUNDER ENGAGEMENT</span>
+        
+        <h2 class="font-display text-3xl sm:text-5xl font-black text-white mt-4 max-w-3xl mx-auto tracking-tight">
+          "We Don't Sell Generic Marketing. We Engineer High-Ticket Filters."
+        </h2>
+        
+        <p class="text-neutral-400 text-sm sm:text-base max-w-xl mx-auto mt-4 leading-relaxed font-normal">
+          Book a 10-minute Zoom walkthrough with our founder <strong>Mustafa Sheikh</strong>. We will show you the exact automated WhatsApp workflow tailored to your practice or studio before you spend a single rupee.
+        </p>
+
+        <div class="mt-8 flex justify-center">
+          <a href="https://wa.me/923000000000?text=Salam%20Mustafa%20Sheikh%2C%20I%20am%20ready%20for%20a%2010-min%20Zoom%20demo" target="_blank" class="px-9 py-4 rounded-full bg-accent-orange hover:bg-orange-600 text-white font-heading font-black text-xs tracking-widest uppercase transition shadow-2xl shadow-accent-orange/30">
+            Schedule 10-Minute Zoom with Mustafa Sheikh →
+          </a>
+        </div>
+
+        <div class="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-neutral-500">
+          <span>© 2026 GROWECH SOLUTION • 3D NEURAL CLONE BUILD</span>
+          <span class="mt-2 sm:mt-0 text-neutral-400">Founder: Mustafa Sheikh • All Rights Reserved</span>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ================= Three.js GLSL Liquid Chrome Shader Engine ================= -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Custom Magnetic Cursor Physics
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let ringPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      cursorDot.style.left = `${mouse.x}px`;
+      cursorDot.style.top = `${mouse.y}px`;
+    });
+
+    function updateCursor() {
+      ringPos.x += (mouse.x - ringPos.x) * 0.15;
+      ringPos.y += (mouse.y - ringPos.y) * 0.15;
+      cursorRing.style.left = `${ringPos.x}px`;
+      cursorRing.style.top = `${ringPos.y}px`;
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    // Magnetic Cursor Expansion on Interactive Elements
+    document.querySelectorAll('a, button, select, input').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorRing.style.width = '64px';
+        cursorRing.style.height = '64px';
+        cursorRing.style.borderColor = '#FF5500';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.style.width = '44px';
+        cursorRing.style.height = '44px';
+        cursorRing.style.borderColor = 'rgba(255, 255, 255, 0.35)';
+      });
+    });
+
+    // ================= 3D Tilt Card Class with Inertia =================
+    class InteractiveTiltCard {
+      constructor(cardElement) {
+        this.el = cardElement;
+        this.target = { tiltX: 0, tiltY: 0, glareX: 50, glareY: 50 };
+        this.current = { tiltX: 0, tiltY: 0, glareX: 50, glareY: 50 };
+        this.isHovered = false;
+
+        this.init();
+      }
+
+      init() {
+        this.el.addEventListener('mouseenter', () => { this.isHovered = true; });
+        this.el.addEventListener('mouseleave', () => {
+          this.isHovered = false;
+          this.target.tiltX = 0;
+          this.target.tiltY = 0;
+          this.target.glareX = 50;
+          this.target.glareY = 50;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!this.isHovered) return;
+          const rect = this.el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const normX = (x / rect.width) * 2 - 1;
+          const normY = (y / rect.height) * 2 - 1;
+
+          this.target.tiltX = -normY * 10;
+          this.target.tiltY = normX * 10;
+          this.target.glareX = (x / rect.width) * 100;
+          this.target.glareY = (y / rect.height) * 100;
+        });
+
+        this.animate();
+      }
+
+      animate() {
+        requestAnimationFrame(() => this.animate());
+        this.current.tiltX += (this.target.tiltX - this.current.tiltX) * 0.1;
+        this.current.tiltY += (this.target.tiltY - this.current.tiltY) * 0.1;
+        this.current.glareX += (this.target.glareX - this.current.glareX) * 0.15;
+        this.current.glareY += (this.target.glareY - this.current.glareY) * 0.15;
+
+        this.el.style.transform = `perspective(1000px) rotateX(${this.current.tiltX.toFixed(2)}deg) rotateY(${this.current.tiltY.toFixed(2)}deg) translateZ(0)`;
+        this.el.style.setProperty('--glare-x', `${this.current.glareX.toFixed(1)}%`);
+        this.el.style.setProperty('--glare-y', `${this.current.glareY.toFixed(1)}%`);
+      }
+    }
+
+    document.querySelectorAll('.tilt-card').forEach(card => new InteractiveTiltCard(card));
+
+    // ================= Dynamic Simulator Logic =================
+    const industrySelect = document.getElementById('sim-industry');
+    const inquirySlider = document.getElementById('inquiry-slider');
+    const inquiryLabel = document.getElementById('inquiry-count-label');
+    const statHours = document.getElementById('stat-hours');
+    const statJunk = document.getElementById('stat-junk');
+    const statRevenue = document.getElementById('stat-revenue');
+
+    function updateSimulation() {
+      const val = parseInt(inquirySlider.value);
+      inquiryLabel.textContent = `${val} / month`;
+
+      // 80% non-serious
+      const junk = Math.round(val * 0.8);
+      statJunk.textContent = `${junk} Inquiries`;
+
+      // 20 mins per junk inquiry = (junk * 20) / 60 hours
+      const hours = Math.round((junk * 20) / 60);
+      statHours.textContent = `${hours} Hours / mo`;
+
+      const ind = industrySelect.value;
+      let dealVal = 2500000;
+      if (ind === 'clinic') dealVal = 350000;
+      if (ind === 'detailing') dealVal = 250000;
+
+      // 5% extra closing on genuine inquiries
+      const recoveredDeals = Math.max(1, Math.round(val * 0.04));
+      const recoveredRev = recoveredDeals * dealVal;
+      statRevenue.textContent = `Rs ${(recoveredRev / 100000).toFixed(1)} Lakh+`;
+    }
+
+    inquirySlider.addEventListener('input', updateSimulation);
+    industrySelect.addEventListener('change', updateSimulation);
+    updateSimulation();
+
+    // ================= THREE.JS LIQUID CHROME WEBGL SHADER ENGINE =================
+    const canvas = document.getElementById('webgl-canvas');
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(2.5, 0.5, 9.5);
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance"
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // GLSL 3D Simplex Noise Vertex Shader with Finite Difference Normals
+    const vertexShader = `
+      vec4 permute(vec4 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
+      vec4 taylorInvSqrt(vec4 r){ return 1.79284291400159 - 0.85373472095314 * r; }
+      
+      float snoise(vec3 v){
+        const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+        const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+        vec3 i  = floor(v + dot(v, C.yyy));
+        vec3 x0 = v - i + dot(i, C.xxx);
+        vec3 g = step(x0.yzx, x0.xyz);
+        vec3 l = 1.0 - g;
+        vec3 i1 = min(g.xyz, l.zxy);
+        vec3 i2 = max(g.xyz, l.zxy);
+        vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+        vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+        vec3 x3 = x0 - D.yyy;
+        i = mod(i, 289.0);
+        vec4 p = permute(permute(permute(
+                   i.z + vec4(0.0, i1.z, i2.z, 1.0))
+                 + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+                 + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+        float n_ = 0.142857142857;
+        vec3 ns = n_ * D.wyz - D.xzx;
+        vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+        vec4 x_ = floor(j * ns.z);
+        vec4 y_ = floor(j - 7.0 * x_);
+        vec4 x = x_ * ns.x + ns.yyyy;
+        vec4 y = y_ * ns.x + ns.yyyy;
+        vec4 h = 1.0 - abs(x) - abs(y);
+        vec4 b0 = vec4(x.xy, y.xy);
+        vec4 b1 = vec4(x.zw, y.zw);
+        vec4 s0 = floor(b0)*2.0 + 1.0;
+        vec4 s1 = floor(b1)*2.0 + 1.0;
+        vec4 sh = -step(h, vec4(0.0));
+        vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+        vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+        vec3 p0 = vec3(a0.xy, h.x);
+        vec3 p1 = vec3(a0.zw, h.y);
+        vec3 p2 = vec3(a1.xy, h.z);
+        vec3 p3 = vec3(a1.zw, h.w);
+        vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+        p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+        vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+        m = m * m;
+        return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+      }
+
+      uniform float uTime;
+      uniform float uNoiseFreq;
+      uniform float uNoiseAmp;
+      uniform vec2 uMouse;
+
+      varying vec3 vNormal;
+      varying vec3 vViewPosition;
+
+      void main() {
+        vec3 coords = position * uNoiseFreq + vec3(0.0, 0.0, uTime * 0.35);
+        float noise = snoise(coords);
+        
+        vec3 displacedPos = position + normal * (noise * uNoiseAmp);
+
+        // Analytical normal recalculation for liquid surface
+        float offset = 0.015;
+        vec3 tangent = normalize(abs(normal.y) < 0.999 ? cross(normal, vec3(0.0, 1.0, 0.0)) : cross(normal, vec3(1.0, 0.0, 0.0)));
+        vec3 bitangent = cross(normal, tangent);
+
+        vec3 p1 = position + tangent * offset;
+        vec3 p2 = position + bitangent * offset;
+
+        float n1 = snoise(p1 * uNoiseFreq + vec3(0.0, 0.0, uTime * 0.35));
+        float n2 = snoise(p2 * uNoiseFreq + vec3(0.0, 0.0, uTime * 0.35));
+
+        vec3 dp1 = p1 + normal * (n1 * uNoiseAmp);
+        vec3 dp2 = p2 + normal * (n2 * uNoiseAmp);
+
+        vec3 computedNormal = normalize(cross(dp1 - displacedPos, dp2 - displacedPos));
+
+        vNormal = normalMatrix * computedNormal;
+        vec4 modelViewPos = modelViewMatrix * vec4(displacedPos, 1.0);
+        vViewPosition = -modelViewPos.xyz;
+
+        gl_Position = projectionMatrix * modelViewPos;
+      }
+    `;
+
+    // GLSL Liquid Chrome / Iridescent Fresnel Fragment Shader
+    const fragmentShader = `
+      varying vec3 vNormal;
+      varying vec3 vViewPosition;
+
+      uniform vec3 uColorBase;
+      uniform vec3 uColorAccent;
+      uniform float uFresnelPower;
+
+      void main() {
+        vec3 N = normalize(vNormal);
+        vec3 V = normalize(vViewPosition);
+
+        vec3 R = reflect(-V, N);
+
+        // Matcap specular light map simulation
+        float m = 2.0 * sqrt(pow(R.x, 2.0) + pow(R.y, 2.0) + pow(R.z + 1.0, 2.0));
+        vec2 matcapUV = R.xy / m + 0.5;
+
+        // Specular chrome reflection bands
+        float chromeBands = sin(matcapUV.y * 14.0 + N.x * 5.0) * 0.5 + 0.5;
+        chromeBands = pow(chromeBands, 4.0);
+
+        // Fresnel edge sheen
+        float fresnel = pow(1.0 - max(dot(N, V), 0.0), uFresnelPower);
+
+        // Liquid platinum / iridescent chromatic shift
+        vec3 iridescence = 0.5 + 0.5 * cos(6.28318 * (fresnel * 1.5 + vec3(0.0, 0.33, 0.67)));
+
+        vec3 baseColor = mix(uColorBase, vec3(1.0), chromeBands * 0.85);
+        vec3 finalColor = mix(baseColor, uColorAccent, fresnel * 0.5);
+        finalColor += iridescence * (fresnel * 0.45);
+        finalColor += vec3(fresnel * 0.9); // Metallic glint
+
+        gl_FragColor = vec4(finalColor, 1.0);
+      }
+    `;
+
+    // 128x128 High-Density Sphere for Silky Liquid Mesh
+    const geometry = new THREE.SphereGeometry(3.2, 128, 128);
+
+    const uniforms = {
+      uTime: { value: 0 },
+      uNoiseFreq: { value: 0.55 },
+      uNoiseAmp: { value: 0.75 },
+      uMouse: { value: new THREE.Vector2(0, 0) },
+      uColorBase: { value: new THREE.Color(0x94A3B8) },    // Platinum Silver Chrome
+      uColorAccent: { value: new THREE.Color(0xFF5500) },  // Growech Signature Flame
+      uFresnelPower: { value: 3.0 }
+    };
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader: vertexShader,
+      fragmentShader: fragmentShader,
+      uniforms: uniforms,
+      wireframe: false
+    });
+
+    const liquidOrb = new THREE.Mesh(geometry, material);
+    liquidOrb.position.set(3.2, 0, 0); // Offset to the right for editorial balance
+    scene.add(liquidOrb);
+
+    // Dynamic Starfield Nebula Particles
+    const pCount = 800;
+    const pGeo = new THREE.BufferGeometry();
+    const pPos = new Float32Array(pCount * 3);
+
+    for (let i = 0; i < pCount * 3; i += 3) {
+      pPos[i] = (Math.random() - 0.5) * 45;
+      pPos[i + 1] = (Math.random() - 0.5) * 45;
+      pPos[i + 2] = (Math.random() - 0.5) * 30;
+    }
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+
+    const pMat = new THREE.PointsMaterial({
+      color: 0x6366F1,
+      size: 0.08,
+      transparent: true,
+      opacity: 0.4,
+      blending: THREE.AdditiveBlending
+    });
+    const pSystem = new THREE.Points(pGeo, pMat);
+    scene.add(pSystem);
+
+    // Mouse Tracking for Smooth Mesh Inertia
+    let targetMouse = { x: 0, y: 0 };
+    let currMouse = { x: 0, y: 0 };
+
+    window.addEventListener('mousemove', (e) => {
+      targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Scroll Integration: Rotate Mesh on Page Scroll
+    let scrollY = 0;
+    window.addEventListener('scroll', () => {
+      scrollY = window.scrollY;
+    });
+
+    // Animation Loop
+    const clock = new THREE.Clock();
+
+    function renderLoop() {
+      requestAnimationFrame(renderLoop);
+
+      const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
+
+      // Smooth inertia
+      currMouse.x += (targetMouse.x - currMouse.x) * 0.05;
+      currMouse.y += (targetMouse.y - currMouse.y) * 0.05;
+
+      // Update uniforms
+      uniforms.uTime.value = time;
+      uniforms.uMouse.value.set(currMouse.x, currMouse.y);
+
+      // React to mouse: speed and amplitude fluctuate smoothly
+      uniforms.uNoiseAmp.value = 0.75 + Math.hypot(currMouse.x, currMouse.y) * 0.25;
+
+      // Rotate orb with organic drift + mouse influence + scroll
+      liquidOrb.rotation.y = time * 0.15 + currMouse.x * 0.8 + scrollY * 0.001;
+      liquidOrb.rotation.x = time * 0.1 + currMouse.y * 0.5;
+
+      // Subtle particle system rotation
+      pSystem.rotation.y = time * 0.02;
+
+      renderer.render(scene, camera);
+    }
+
+    renderLoop();
+
+    // Responsive Canvas Resizing
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Responsive Orb Offset
+      if (window.innerWidth < 1024) {
+        liquidOrb.position.set(0, 1.5, -2);
+      } else {
+        liquidOrb.position.set(3.2, 0, 0);
+      }
+    });
+
+    // Initial responsive check
+    if (window.innerWidth < 1024) {
+      liquidOrb.position.set(0, 1.5, -2);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "growech-facebook-radar",
+  "version": "1.0.0",
+  "description": "24/7 Facebook Client Lead Radar for Growech Solution",
+  "main": "facebook-radar.cjs",
+  "type": "commonjs",
+  "dependencies": {
+    "puppeteer": "^23.6.0"
+  }
+}
