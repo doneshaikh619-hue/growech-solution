@@ -86,5 +86,60 @@
     "subject": "Quick question for Suhail & Fawad Architects",
     "messageId": "<1a60b1de-7bf9-e8c4-5961-a9dfc4504c61@gmail.com>",
     "sent_at": "2026-10-05T11:59:12.916Z"
+  },
+  {
+    "business_name": "Najmi Collaborative",
+    "owner_name": "Ahsan Najmi",
+    "email": "ahsan@najmi.design",
+    "domain": "najmi.design",
+    "phone": "+92 300 8234851",
+    "website": "http://najmi.design",
+    "subject": "Quick question for Najmi Collaborative",
+    "messageId": "<7b234d70-f180-f200-8d83-70b22aa5b921@gmail.com>",
+    "sent_at": "2026-10-05T21:04:47.955Z"
+  },
+  {
+    "business_name": "Nayyar Ali Dada & Associates",
+    "owner_name": "Raza Ali Dada",
+    "email": "info@nayyaralidada.net",
+    "domain": "nayyaralidada.net",
+    "phone": "+92 300 8452174",
+    "website": "https://www.nayyaralidada.net",
+    "subject": "Quick question for Nayyar Ali Dada & Associates",
+    "messageId": "<d09fc87c-526e-fd1a-1a62-5ba2cd3168d4@gmail.com>",
+    "sent_at": "2026-10-05T21:04:54.641Z"
+  },
+  {
+    "business_name": "SR DesignWorks (SRDW)",
+    "owner_name": "Saad Mahmood Khan & Rashid Rasheed",
+    "email": "info@srdw.net",
+    "domain": "srdw.net",
+    "phone": "+92 300 8435111",
+    "website": "https://srdw.net",
+    "subject": "Quick question for SR DesignWorks",
+    "messageId": "<a644451d-5dcb-0de0-0eb3-a2a4d8e13da4@gmail.com>",
+    "sent_at": "2026-10-05T21:05:00.671Z"
+  },
+  {
+    "business_name": "Studio Tariq Hasan The Architects",
+    "owner_name": "Tariq Hasan",
+    "email": "tariqhasan@thearchitectz.com.pk",
+    "domain": "studiotariqhasan.com",
+    "phone": "+92 300 8225026",
+    "website": "https://www.studiotariqhasan.com",
+    "subject": "Quick question for Studio Tariq Hasan",
+    "messageId": "<46c47209-97fb-522c-ab2e-a088b40a9749@gmail.com>",
+    "sent_at": "2026-10-05T21:06:18.558Z"
+  },
+  {
+    "business_name": "Raza Zahid Atelier",
+    "owner_name": "Raza Zahid",
+    "email": "info@razazahid.com",
+    "domain": "razazahid.com",
+    "phone": "+92 320 4488880",
+    "website": "https://razazahid.com",
+    "subject": "Quick question for Raza Zahid Atelier",
+    "messageId": "<4e6a3f52-d4c9-2c00-d74f-72957a8b66d7@gmail.com>",
+    "sent_at": "2026-10-05T21:06:24.430Z"
   }
 ]
