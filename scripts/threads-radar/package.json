@@ -1,0 +1,10 @@
+{
+  "name": "growech-threads-radar",
+  "version": "1.0.0",
+  "description": "Autonomous 24/7 Multi-Agent Lead Radar for Instagram Threads (Growech Solution)",
+  "main": "threads-radar.cjs",
+  "type": "commonjs",
+  "dependencies": {
+    "puppeteer": "^23.6.0"
+  }
+}

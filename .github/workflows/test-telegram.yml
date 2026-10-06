@@ -3,7 +3,7 @@ name: Test Telegram Alert Connection
 on:
   push:
     paths:
-      - 'scripts/facebook-radar/test-telegram-cloud.cjs'
+      - 'scripts/threads-radar/test-threads-cloud.cjs'
       - '.github/workflows/test-telegram.yml'
   workflow_dispatch:
 
@@ -19,9 +19,9 @@ jobs:
         with:
           node-version: 20
 
-      - name: Send Test Telegram Ping
+      - name: Send Threads Confirmation Ping
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          node scripts/facebook-radar/test-telegram-cloud.cjs
+          node scripts/threads-radar/test-threads-cloud.cjs
