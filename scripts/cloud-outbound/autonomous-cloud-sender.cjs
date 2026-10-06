@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const dns = require('dns').promises;
 
 /**
  * GROWECH SOLUTION — 24/7 CLOUD AUTONOMOUS OUTBOUND SENDER
@@ -66,6 +67,18 @@ function isValidLead(lead) {
   return true;
 }
 
+// Live DNS MX Record Validator — Zero Bounce Tolerance
+async function verifyDomainMx(email) {
+  if (!email || !email.includes('@')) return false;
+  const domain = email.split('@')[1].trim().toLowerCase();
+  try {
+    const mxRecords = await dns.resolveMx(domain);
+    return Boolean(mxRecords && mxRecords.length > 0);
+  } catch (err) {
+    return false;
+  }
+}
+
 // Generate Personalized Cold Email using Gemini REST API
 async function generateGeminiEmail(lead) {
   const prompt = `You are Mustafa, Founder & CEO of Growech Solution (high-converting websites & AI automation agency based in Pakistan/UK).
@@ -84,7 +97,7 @@ STRICT RULES:
 2. NO generic greeting like "I hope you are doing well". Start directly addressing them.
 3. Mention their company name and their specific niche naturally.
 4. Highlight that high-ticket owners lose hours on unverified inquiries, and Growech builds custom systems (fast modern web platforms + official WhatsApp AI triage) that qualify serious clients automatically.
-5. Conversational low-friction CTA: "Can I send a 2-minute video walkthrough showing how this works for your studio?"
+5. Conversational low-friction CTA: "Can I send a quick interactive prototype / solution draft showing how this works for your team?"
 6. Sign off as:
 Best,
 Mustafa
@@ -176,6 +189,13 @@ async function runCloudOutbound() {
 
     if (sentEmailsSet.has(email) || sentDomainsSet.has(domain)) {
       continue; // Already contacted
+    }
+
+    // Live DNS MX Deliverability Gate (Stop Bounces 100%)
+    const hasMx = await verifyDomainMx(email);
+    if (!hasMx) {
+      console.log(`🛡️ BOUNCE SHIELD: Discarded ${lead.business_name} (${email}) - No active mail exchange (MX) server.`);
+      continue;
     }
 
     candidates.push({ ...lead, domain });
@@ -286,17 +306,19 @@ Growech Solution | growech.site`;
         console.log(`✨ SUCCESS! Message ID: ${info.messageId}`);
       }
 
-      sentHistory.push({
-        business_name: lead.business_name,
-        owner_name: lead.owner_name,
-        email: lead.email.toLowerCase(),
-        domain: lead.domain,
-        phone: lead.phone,
-        website: lead.website,
-        subject: pitch.subject,
-        messageId: info.messageId,
-        sent_at: new Date().toISOString()
-      });
+      if (!isDryRun) {
+        sentHistory.push({
+          business_name: lead.business_name,
+          owner_name: lead.owner_name,
+          email: lead.email.toLowerCase(),
+          domain: lead.domain,
+          phone: lead.phone,
+          website: lead.website,
+          subject: pitch.subject,
+          messageId: info.messageId,
+          sent_at: new Date().toISOString()
+        });
+      }
 
       sentCount++;
 
@@ -307,9 +329,11 @@ Growech Solution | growech.site`;
     }
   }
 
-  // Save updated sent history file
-  fs.writeFileSync(SENT_LOG_FILE, JSON.stringify(sentHistory, null, 2), 'utf8');
-  console.log(`\n💾 Saved updated dispatch history: ${sentHistory.length} total leads contacted.`);
+  // Save updated sent history file if not dry run
+  if (!isDryRun) {
+    fs.writeFileSync(SENT_LOG_FILE, JSON.stringify(sentHistory, null, 2), 'utf8');
+    console.log(`\n💾 Saved updated dispatch history: ${sentHistory.length} total leads contacted.`);
+  }
   console.log(`🏁 Batch run finished: Sent ${sentCount}/${currentBatch.length} emails successfully.`);
 }
 
