@@ -141,5 +141,60 @@
     "subject": "Quick question for Raza Zahid Atelier",
     "messageId": "<4e6a3f52-d4c9-2c00-d74f-72957a8b66d7@gmail.com>",
     "sent_at": "2026-10-05T21:06:24.430Z"
+  },
+  {
+    "business_name": "Architects Inc.",
+    "owner_name": "Jahangir Khan Sherpao",
+    "email": "sherpao@architects-inc.com",
+    "domain": "architects-inc.com",
+    "phone": "+92 300 8503892",
+    "website": "https://architects-inc.com",
+    "subject": "Quick question for Architects Inc.",
+    "messageId": "<bd293294-0073-41d9-ed6b-edc64b8837f7@gmail.com>",
+    "sent_at": "2026-10-06T11:37:50.839Z"
+  },
+  {
+    "business_name": "Institute Cosmetique",
+    "owner_name": "Prof. Dr. Azim Jahangir Khan",
+    "email": "azim@cosmetique.com.pk",
+    "domain": "cosmetique.com.pk",
+    "phone": "+92 300 4770006",
+    "website": "https://www.cosmetique.com.pk",
+    "subject": "Quick question for Institute Cosmetique",
+    "messageId": "<0e4d3f1a-66b1-44ea-50f6-66cc3fb004cb@gmail.com>",
+    "sent_at": "2026-10-06T11:37:56.764Z"
+  },
+  {
+    "business_name": "Alvi Dental Hospital",
+    "owner_name": "Dr. Awab Alvi",
+    "email": "awab@alvidental.com",
+    "domain": "alvidental.com",
+    "phone": "+92 348 1112584",
+    "website": "https://alvidental.com",
+    "subject": "Quick question for Alvi Dental",
+    "messageId": "<9a6294d5-736a-ef88-9716-f5a1a8422235@gmail.com>",
+    "sent_at": "2026-10-06T11:38:02.279Z"
+  },
+  {
+    "business_name": "Dr. Zarqa's Aesthetic Skin & Laser Clinic",
+    "owner_name": "Dr. Zarqa Suharwardy Taimur",
+    "email": "info@drzarqa.com",
+    "domain": "drzarqa.com",
+    "phone": "+92 333 4142045",
+    "website": "https://drzarqa.com",
+    "subject": "Quick question for Dr. Zarqa's Clinic",
+    "messageId": "<1fe93b55-c47c-60ec-6c58-9df681af46e0@gmail.com>",
+    "sent_at": "2026-10-06T11:38:08.026Z"
+  },
+  {
+    "business_name": "Dermalase Aesthetic Clinic",
+    "owner_name": "Dr. Shumaila Khan",
+    "email": "info@drshumailakhan.com",
+    "domain": "drshumailakhan.com",
+    "phone": "+92 303 5558444",
+    "website": "https://drshumailakhan.com",
+    "subject": "Quick question for Dermalase Clinic",
+    "messageId": "<d32c924c-d4d2-25bf-59a6-78711cbad7ad@gmail.com>",
+    "sent_at": "2026-10-06T11:38:13.647Z"
   }
 ]
