@@ -8,7 +8,12 @@
     "website": "https://www.nayyaralidada.net",
     "subject": "Quick question for Nayyar Ali Dada & Associates",
     "messageId": "<d09fc87c-526e-fd1a-1a62-5ba2cd3168d4@gmail.com>",
-    "sent_at": "2026-10-05T21:04:54.641Z"
+    "sent_at": "2026-10-05T21:04:54.641Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-10T17:37:55.175Z",
+    "followup_subject": "Re: Quick question for Nayyar Ali Dada & Associates",
+    "followup_messageId": "<523db2b1-f83e-2dc7-ef17-68d18b15ec09@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "SR DesignWorks (SRDW)",
@@ -19,7 +24,12 @@
     "website": "https://srdw.net",
     "subject": "Quick question for SR DesignWorks",
     "messageId": "<a644451d-5dcb-0de0-0eb3-a2a4d8e13da4@gmail.com>",
-    "sent_at": "2026-10-05T21:05:00.671Z"
+    "sent_at": "2026-10-05T21:05:00.671Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-10T17:38:06.465Z",
+    "followup_subject": "Re: Quick question for SR DesignWorks",
+    "followup_messageId": "<f4ec4c1a-703f-5e50-df0a-b60f1f241a01@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Raza Zahid Atelier",
@@ -30,7 +40,12 @@
     "website": "https://razazahid.com",
     "subject": "Quick question for Raza Zahid Atelier",
     "messageId": "<4e6a3f52-d4c9-2c00-d74f-72957a8b66d7@gmail.com>",
-    "sent_at": "2026-10-05T21:06:24.430Z"
+    "sent_at": "2026-10-05T21:06:24.430Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-10T17:38:13.557Z",
+    "followup_subject": "Re: Quick question for Raza Zahid Atelier",
+    "followup_messageId": "<4fb664f3-4c07-1101-c763-1481158ecd40@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Dr. Zarqa's Aesthetic Skin & Laser Clinic",
@@ -97,6 +112,30 @@
     "subject": "Quick question for Dr. Amin Yousaf Clinic",
     "messageId": "<0398c736-c7f1-f8e5-6a4d-14a2913dfaed@gmail.com>",
     "sent_at": "2026-10-10T11:43:05.000Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Amer Adnan Associates",
+    "owner_name": "Amer Adnan & Annie Amer",
+    "email": "info@ameradnan.com",
+    "domain": "ameradnan.com",
+    "phone": "+92 302 4666366",
+    "website": "https://www.ameradnan.com",
+    "subject": "Quick question for Amer Adnan Associates",
+    "messageId": "<97f7e3dd-86bc-10cd-0c6e-5efcd8924d18@gmail.com>",
+    "sent_at": "2026-10-10T17:38:21.989Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "AenZay Interiors & Architects",
+    "owner_name": "Muhammad Ali Malik",
+    "email": "info@aenzay.com",
+    "domain": "aenzay.com",
+    "phone": "+92 302 5090909",
+    "website": "https://www.aenzay.com",
+    "subject": "Quick question for AenZay Interiors",
+    "messageId": "<0625ecf0-489f-f8ae-bbf0-bdf8cb7fa63f@gmail.com>",
+    "sent_at": "2026-10-10T17:38:34.750Z",
     "followup_sent": false
   }
 ]
