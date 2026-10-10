@@ -105,6 +105,32 @@ async function verifyDomainMx(email) {
   }
 }
 
+// Live Website Mailbox Presence Validator — Guarantees 0% Guessed/Random Emails
+async function verifyEmailOnLiveWebsite(website, targetEmail) {
+  if (!website || !targetEmail) return false;
+  const target = targetEmail.trim().toLowerCase();
+  const baseUrl = website.startsWith('http') ? website.replace(/\/$/, '') : 'https://' + website.replace(/\/$/, '');
+  const urlsToTry = [baseUrl, `${baseUrl}/contact`, `${baseUrl}/contact-us`];
+
+  for (const u of urlsToTry) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 7000);
+      const res = await fetch(u, {
+        signal: controller.signal,
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+      });
+      clearTimeout(timeoutId);
+      if (!res.ok) continue;
+      const html = (await res.text()).toLowerCase();
+      if (html.includes(target)) {
+        return true;
+      }
+    } catch (e) {}
+  }
+  return false;
+}
+
 // Helper to call Gemini API with fallback models
 async function callGeminiJson(prompt) {
   const models = [
@@ -428,6 +454,14 @@ async function runCloudOutbound() {
     console.log(`✉️  Recipient: ${record.email}`);
 
     try {
+      console.log(`🔍 Verifying ${record.email} exists on live website (${record.website})...`);
+      const isLiveOnWebsite = await verifyEmailOnLiveWebsite(record.website, record.email);
+      if (!isLiveOnWebsite) {
+        console.log(`🛡️ LIVE WEBSITE SHIELD: Blocked Follow-Up to ${record.email} — Not verified on ${record.website}!`);
+        continue;
+      }
+      console.log(`✅ Live Website Verification Passed: ${record.email} is published on ${record.website}`);
+
       console.log('🤖 Calling Gemini for personalized feature follow-up...');
       const pitch = await generateGeminiFollowUpEmail(enrichedLead, record);
 
@@ -492,6 +526,14 @@ Growech Solution | growech.site`;
     console.log(`✉️  Recipient: ${lead.email}`);
 
     try {
+      console.log(`🔍 Verifying ${lead.email} exists on live website (${lead.website})...`);
+      const isLiveOnWebsite = await verifyEmailOnLiveWebsite(lead.website, lead.email);
+      if (!isLiveOnWebsite) {
+        console.log(`🛡️ LIVE WEBSITE SHIELD: Blocked Initial Email to ${lead.email} — Not verified on ${lead.website}!`);
+        continue;
+      }
+      console.log(`✅ Live Website Verification Passed: ${lead.email} is published on ${lead.website}`);
+
       console.log('🤖 Calling Gemini for hyper-personalized initial pitch...');
       const pitch = await generateGeminiEmail(lead);
 

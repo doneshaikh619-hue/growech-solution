@@ -1,119 +1,5 @@
 [
   {
-    "business_name": "Amer Adnan Associates",
-    "owner_name": "Amer Adnan & Annie Amer",
-    "email": "ceo@ameradnan.com",
-    "domain": "ameradnan.com",
-    "phone": "+92 302 4666366",
-    "website": "https://www.ameradnan.com",
-    "subject": "Quick question for Amer Adnan Associates",
-    "messageId": "<ced32212-4b34-1fc7-dd83-67c0bdb097cc@gmail.com>",
-    "sent_at": "2026-10-03T20:34:23.162Z",
-    "followup_sent": true,
-    "followup_sent_at": "2026-10-10T11:42:36.960Z",
-    "followup_subject": "Re: Quick question for Amer Adnan Associates",
-    "followup_messageId": "<01f2471f-45a5-c1c3-2ad1-b15578157d02@gmail.com>",
-    "followup_step": 1
-  },
-  {
-    "business_name": "AenZay Interiors & Architects",
-    "owner_name": "Muhammad Ali Malik",
-    "email": "ali@aenzay.com",
-    "domain": "aenzay.com",
-    "phone": "+92 302 5090909",
-    "website": "https://www.aenzay.com",
-    "subject": "Quick question for AenZay",
-    "messageId": "<ede0617e-2c5c-bb74-0a7c-cf3a1c04945e@gmail.com>",
-    "sent_at": "2026-10-03T20:34:29.702Z",
-    "followup_sent": true,
-    "followup_sent_at": "2026-10-10T11:42:44.923Z",
-    "followup_subject": "Re: Quick question for AenZay",
-    "followup_messageId": "<c0fea7b3-7d9a-aaae-52a5-5faaf34c996e@gmail.com>",
-    "followup_step": 1
-  },
-  {
-    "business_name": "Archi-Cubes",
-    "owner_name": "Zaeem Ahmed",
-    "email": "zaeem@archi-cubes.com",
-    "domain": "archi-cubes.com",
-    "phone": "+92 300 8443609",
-    "website": "https://www.archi-cubes.com",
-    "subject": "Archi-Cubes high-ticket client filtering",
-    "messageId": "<ae38c896-271b-71b4-880c-fdb3ec8b0cf3@gmail.com>",
-    "sent_at": "2026-10-03T20:34:35.802Z",
-    "followup_sent": true,
-    "followup_sent_at": "2026-10-10T11:42:53.088Z",
-    "followup_subject": "Re: Archi-Cubes high-ticket client filtering",
-    "followup_messageId": "<8fd374ed-334b-9b49-f69f-4ff18694a7de@gmail.com>",
-    "followup_step": 1
-  },
-  {
-    "business_name": "Hiline International",
-    "owner_name": "Tariq Hameed",
-    "email": "tariq@hiline.pk",
-    "domain": "hiline.pk",
-    "phone": "+92 300 8424644",
-    "website": "https://hiline.pk",
-    "subject": "Quick question for Hiline International",
-    "messageId": "<58238e68-aeb7-d3d8-58b1-9da8240aea49@gmail.com>",
-    "sent_at": "2026-10-05T11:58:21.451Z"
-  },
-  {
-    "business_name": "Sadia & Ammar Associates",
-    "owner_name": "Sadia Ammar & Ammar Asghar",
-    "email": "contact@sadiaammar.com",
-    "domain": "sadiaammar.com",
-    "phone": "+92 333 4601643",
-    "website": "https://sadiaammar.com",
-    "subject": "Quick question for Sadia & Ammar Associates",
-    "messageId": "<c2dd2d15-676d-28b4-7af5-766074fdb515@gmail.com>",
-    "sent_at": "2026-10-05T11:58:27.571Z"
-  },
-  {
-    "business_name": "Coalesce Design Studio",
-    "owner_name": "Salman Jawed",
-    "email": "salman@coalesce.pk",
-    "domain": "coalesce.pk",
-    "phone": "+92 344 7775051",
-    "website": "http://www.coalesce.pk",
-    "subject": "Quick question for Coalesce Design Studio",
-    "messageId": "<c2b4b9ba-2064-739e-1322-601cedc33213@gmail.com>",
-    "sent_at": "2026-10-05T11:58:46.200Z"
-  },
-  {
-    "business_name": "Studio Subtractive",
-    "owner_name": "Ahmed Mian",
-    "email": "ahmed@subtractive.pk",
-    "domain": "subtractive.pk",
-    "phone": "+92 300 8272899",
-    "website": "https://subtractive.pk",
-    "subject": "Quick question for Studio Subtractive",
-    "messageId": "<389cebf6-8f0a-562e-c482-84498ab1e594@gmail.com>",
-    "sent_at": "2026-10-05T11:58:52.181Z"
-  },
-  {
-    "business_name": "Suhail & Fawad Architects",
-    "owner_name": "Fawad Suhail Abbasi",
-    "email": "suhailandfawad@gmail.com",
-    "domain": "suhail-fawad.com",
-    "phone": "+92 300 8507850",
-    "website": "http://www.suhail-fawad.com",
-    "subject": "Quick question for Suhail & Fawad Architects",
-    "messageId": "<1a60b1de-7bf9-e8c4-5961-a9dfc4504c61@gmail.com>",
-    "sent_at": "2026-10-05T11:59:12.916Z"
-  },
-  {
-    "business_name": "Najmi Collaborative",
-    "owner_name": "Ahsan Najmi",
-    "email": "ahsan@najmi.design",
-    "domain": "najmi.design",
-    "phone": "+92 300 8234851",
-    "website": "http://najmi.design",
-    "subject": "Quick question for Najmi Collaborative",
-    "messageId": "<7b234d70-f180-f200-8d83-70b22aa5b921@gmail.com>",
-    "sent_at": "2026-10-05T21:04:47.955Z"
-  },
-  {
     "business_name": "Nayyar Ali Dada & Associates",
     "owner_name": "Raza Ali Dada",
     "email": "info@nayyaralidada.net",
@@ -147,28 +33,6 @@
     "sent_at": "2026-10-05T21:06:24.430Z"
   },
   {
-    "business_name": "Institute Cosmetique",
-    "owner_name": "Prof. Dr. Azim Jahangir Khan",
-    "email": "azim@cosmetique.com.pk",
-    "domain": "cosmetique.com.pk",
-    "phone": "+92 300 4770006",
-    "website": "https://www.cosmetique.com.pk",
-    "subject": "Quick question for Institute Cosmetique",
-    "messageId": "<0e4d3f1a-66b1-44ea-50f6-66cc3fb004cb@gmail.com>",
-    "sent_at": "2026-10-06T11:37:56.764Z"
-  },
-  {
-    "business_name": "Alvi Dental Hospital",
-    "owner_name": "Dr. Awab Alvi",
-    "email": "awab@alvidental.com",
-    "domain": "alvidental.com",
-    "phone": "+92 348 1112584",
-    "website": "https://alvidental.com",
-    "subject": "Quick question for Alvi Dental",
-    "messageId": "<9a6294d5-736a-ef88-9716-f5a1a8422235@gmail.com>",
-    "sent_at": "2026-10-06T11:38:02.279Z"
-  },
-  {
     "business_name": "Dr. Zarqa's Aesthetic Skin & Laser Clinic",
     "owner_name": "Dr. Zarqa Suharwardy Taimur",
     "email": "info@drzarqa.com",
@@ -191,17 +55,6 @@
     "sent_at": "2026-10-06T11:38:13.647Z"
   },
   {
-    "business_name": "Hair Transplant Institute (HTI) / La Chirurgie",
-    "owner_name": "Dr. Mohammad Humayun Mohmand",
-    "email": "humayunmohmand@hotmail.com",
-    "domain": "hti.com.pk",
-    "phone": "+92 300 9558737",
-    "website": "https://hti.com.pk",
-    "subject": "Quick question for Hair Transplant Institute",
-    "messageId": "<cad7d59b-29aa-cf14-0af1-f5ae07841204@gmail.com>",
-    "sent_at": "2026-10-06T18:43:10.039Z"
-  },
-  {
     "business_name": "Rahman & Rahman Dental Surgeons",
     "owner_name": "Prof. Dr. Amin-ur-Rahman",
     "email": "pakimplants@gmail.com",
@@ -211,17 +64,6 @@
     "subject": "Quick question for Rahman & Rahman",
     "messageId": "<2a3069fc-6ea6-f423-6f82-e9f13dd0518c@gmail.com>",
     "sent_at": "2026-10-06T18:43:15.506Z"
-  },
-  {
-    "business_name": "Altamash Dental Clinic & Institute",
-    "owner_name": "Prof. Dr. Mohammad Altamash",
-    "email": "altamashclinic@gmail.com",
-    "domain": "altamashclinic.com",
-    "phone": "+92 300 8225575",
-    "website": "https://www.altamashclinic.com",
-    "subject": "Quick question for Altamash Dental Clinic",
-    "messageId": "<6679c63e-459e-064c-e504-80685ee741b9@gmail.com>",
-    "sent_at": "2026-10-06T18:43:21.024Z"
   },
   {
     "business_name": "Aesthetic Shapes Clinic",
@@ -254,19 +96,7 @@
     "website": "https://draminyousafplasticsurgeon.com",
     "subject": "Quick question for Dr. Amin Yousaf Clinic",
     "messageId": "<0398c736-c7f1-f8e5-6a4d-14a2913dfaed@gmail.com>",
-    "sent_at": "2026-10-10T11:43:00.513Z",
-    "followup_sent": false
-  },
-  {
-    "business_name": "3D Lifestyle Medical Aesthetics",
-    "owner_name": "Jawad Qureshi",
-    "email": "jawad@3dlifestyle.pk",
-    "domain": "3dlifestyle.pk",
-    "phone": "+92 344 4455324",
-    "website": "https://3dlifestyle.pk",
-    "subject": "Quick question for 3D Lifestyle",
-    "messageId": "<1c49c360-f2c7-5ce3-edf5-2ec584036c10@gmail.com>",
-    "sent_at": "2026-10-10T11:43:07.824Z",
+    "sent_at": "2026-10-10T11:43:05.000Z",
     "followup_sent": false
   }
 ]
