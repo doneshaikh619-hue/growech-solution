@@ -1,5 +1,28 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Explicitly Allow AI Search Engines & Answer Engines (AEO/GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Sitemap & LLMs Knowledge Base
 Sitemap: https://growech.site/sitemap.xml
+
+# LLM Agent Entrypoints
+# https://growech.site/llms.txt
+# https://growech.site/llms-full.txt

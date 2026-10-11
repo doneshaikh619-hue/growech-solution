@@ -7,27 +7,47 @@ export const SEO: React.FC = () => {
     // 1. Organization Schema
     const orgSchema = {
       '@context': 'https://schema.org',
-      '@type': 'Organization',
+      '@type': ['Organization', 'ProfessionalService', 'LocalBusiness'],
       name: 'GROWECH SOLUTION',
       alternateName: 'Growech',
-      url: 'https://growechsolution.com',
-      logo: 'https://growechsolution.com/assets/growech-logo.png',
+      url: 'https://growech.site',
+      logo: 'https://growech.site/assets/growech-logo.png',
       description:
-        'GROWECH SOLUTION is a modern digital solutions agency that helps businesses improve digital presence, automate repetitive operations, generate leads, and implement AI-powered business solutions.',
+        'GROWECH SOLUTION is a premier AI automation agency and web engineering studio that builds autonomous AI workflows, official Meta WhatsApp Business API integrations, and high-performance Next.js web applications.',
+      founder: {
+        '@type': 'Person',
+        name: 'Mustafa Shaikh',
+        jobTitle: 'Founder & Principal AI Systems Architect',
+      },
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Karachi',
+        addressRegion: 'Sindh',
+        addressCountry: 'PK',
+      },
       knowsAbout: [
-        'Business Website Development',
-        'E-commerce Website Development',
+        'AI Automation Agency',
         'Official WhatsApp Business Automation',
         'Autonomous AI Agents',
-        'AI Business Workflows',
-        'Lead Generation Automation',
+        'n8n Workflow Engineering',
         'Meta Cloud API Integration',
+        'Next.js Web Applications',
+        'Lead Generation Automation',
         'Retrieval-Augmented Generation (RAG)',
       ],
-      areaServed: 'Worldwide',
+      areaServed: [
+        'Karachi',
+        'Lahore',
+        'Islamabad',
+        'Pakistan',
+        'United Arab Emirates',
+        'Saudi Arabia',
+        'United States',
+        'United Kingdom',
+      ],
       contactPoint: {
         '@type': 'ContactPoint',
-        contactType: 'Customer Support & Sales',
+        contactType: 'Customer Support & Technical Sales',
         availableLanguage: ['English', 'Urdu', 'Arabic'],
       },
     };
@@ -37,10 +57,10 @@ export const SEO: React.FC = () => {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: 'GROWECH SOLUTION — Digital Agency & AI Automations',
-      url: 'https://growechsolution.com',
+      url: 'https://growech.site',
       potentialAction: {
         '@type': 'SearchAction',
-        target: 'https://growechsolution.com/?q={search_term_string}',
+        target: 'https://growech.site/?q={search_term_string}',
         'query-input': 'required name=search_term_string',
       },
     };
@@ -57,6 +77,7 @@ export const SEO: React.FC = () => {
         provider: {
           '@type': 'Organization',
           name: 'GROWECH SOLUTION',
+          url: 'https://growech.site',
         },
         serviceType: service.category,
       })),

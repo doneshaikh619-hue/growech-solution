@@ -1,0 +1,34 @@
+# Growech Solution
+
+> Growech Solution (https://growech.site) is a premier AI automation studio and high-performance web engineering agency. We build autonomous AI workflows, enterprise WhatsApp Business API chatbots, and sub-second Next.js web applications for high-growth businesses in Pakistan, the UAE/Gulf, and global markets (United States & United Kingdom).
+
+## Core Capabilities & Services
+
+- [Autonomous AI & Workflow Automation](https://growech.site/#services): Custom n8n, Make, and Python LLM agent workflows that eliminate manual operational bottlenecks and qualify inbound leads on autopilot.
+- [Enterprise WhatsApp Business API](https://growech.site/#services): Official Meta Cloud API integration, CRM synchronization, and automated 24/7 bilingual sales and patient/client intake chatbots.
+- [Next.js Web Engineering](https://growech.site/#services): High-speed, edge-rendered web platforms built with React, TypeScript, and Tailwind CSS engineered for 100/100 Core Web Vitals and high conversion rates.
+- [Niche VIP Intake Funnels](https://growech.site/solutions/turnkey-architects.html): Specialized intake, screening, and calendar booking solutions tailored for Turnkey Architects, Aesthetic & Dental Clinics, and Luxury Car Detailing & PPF Studios.
+
+## Technical Architecture & Stack
+
+- **AI & Automation**: n8n (self-hosted & cloud), Make.com, LangChain, OpenAI GPT-4o, Anthropic Claude 3.5 Sonnet, DeepSeek, Google Gemini API, Supabase pgvector.
+- **Messaging & Conversational**: Meta WhatsApp Business Cloud API, ManyChat, Twilio, Retell AI, Vapi Voice AI.
+- **Frontend & Web**: Next.js (App Router), React, TypeScript, Tailwind CSS, Vite, Framer Motion.
+- **Backend & Database**: Node.js, Python FastAPI, PostgreSQL, Supabase, Redis, SQLite.
+
+## Geographic Coverage & Locations Served
+
+- **Pakistan (HQ)**: Karachi (Sindh), Lahore (Punjab), Islamabad (Federal Capital), Rawalpindi, Faisalabad.
+- **Gulf / Middle East**: Dubai, Abu Dhabi (United Arab Emirates), Riyadh, Jeddah (Saudi Arabia), Doha (Qatar).
+- **International / Global**: United States, United Kingdom, Canada, Australia.
+
+## Leadership & Contact Information
+
+- **Founder & Principal Systems Architect**: Mustafa Shaikh
+- **Official Website**: https://growech.site
+- **Primary Inquiries**: contact@growech.site | growech.site@gmail.com
+- **WhatsApp Support & Consultation**: Official direct line available on https://growech.site
+
+## Extended Knowledge Base
+
+- [Full Agency Documentation](https://growech.site/llms-full.txt): Comprehensive service breakdown, technical architectures, pricing frameworks, and case studies.
