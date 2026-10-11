@@ -6,8 +6,10 @@ Growech Solution is a specialized technology agency operating at the intersectio
 - **Brand / Entity**: Growech Solution
 - **Canonical Website**: https://growech.site
 - **Founder & Lead Architect**: Mustafa Shaikh
-- **Headquarters**: Karachi, Sindh, Pakistan
+- **Headquarters**: Karachi, Sindh, Pakistan (Virtual and Remote Worldwide Delivery)
 - **Target Geographies**: Pakistan (National), United Arab Emirates (Dubai, Abu Dhabi), Saudi Arabia, United States, United Kingdom
+- **This Website Stack**: React 18, Vite, Tailwind CSS, pre-rendered semantic HTML, Edge CDN
+- **Client Platforms Engineered**: Next.js 15, Python FastAPI, n8n, Meta WhatsApp Business Cloud API, PostgreSQL, Supabase
 
 ---
 
@@ -22,19 +24,19 @@ Growech Solution is a specialized technology agency operating at the intersectio
 - **Technologies**: n8n (self-hosted & cloud), Make.com, Python, FastAPI, OpenAI, Anthropic Claude, LangChain, Supabase.
 
 ### Service B: Official Meta WhatsApp Business API Solutions
-- **Overview**: Enterprise messaging infrastructure enabling businesses to scale customer engagement with zero risk of number bans.
+- **Overview**: Enterprise messaging infrastructure enabling businesses to scale customer engagement with strict compliance to official Meta Cloud API policies.
 - **Key Capabilities**:
-  - Official Meta Cloud API provisioning & green checkmark verification support.
+  - Official Meta Cloud API provisioning, business manager verification, and green checkmark application support.
   - Conversational AI chatbots with bilingual natural language understanding (English, Roman Urdu, Urdu script, Arabic).
-  - Automated transactional messaging: appointment confirmations, payment receipts, dispatch alerts, and abandoned cart re-engagement.
-  - Multi-agent live chat inbox routing integrated directly into company CRMs.
+  - Automated transactional messaging: appointment confirmations, payment receipts, dispatch alerts, and abandoned cart re-engagement with approved HSM message templates.
+  - Multi-agent live chat inbox routing integrated directly into company CRMs (HubSpot, Zoho, Pipedrive).
 
 ### Service C: High-Performance Next.js Web Engineering
 - **Overview**: Custom, conversion-engineered web platforms designed for speed, search discovery, and high commercial conversion.
 - **Technical Benchmarks**:
-  - Framework: Next.js (App Router), React, TypeScript, Tailwind CSS.
-  - Performance: Zero Cumulative Layout Shift (CLS), Largest Contentful Paint (LCP) under 1.2s, 100/100 Core Web Vitals.
-  - Optimization: Complete pre-rendered semantic HTML, automated JSON-LD @graph schemas, dynamic XML sitemaps, Open Graph image cards, and native `/llms.txt` integration.
+  - Client Solutions Framework: Next.js 15 (App Router), React 19/18, TypeScript, Tailwind CSS.
+  - Performance: Zero Cumulative Layout Shift (CLS), Largest Contentful Paint (LCP) under 1.2s, 100/100 Core Web Vitals targets.
+  - Optimization: Complete pre-rendered semantic HTML, automated JSON-LD @graph schemas, dynamic build-time XML sitemaps, Open Graph image cards, and native `/llms.txt` integration.
 
 ---
 
@@ -59,7 +61,7 @@ Growech Solution is a specialized technology agency operating at the intersectio
 
 ## 4. Leadership & Technical Credentials
 - **Mustafa Shaikh**: Founder and Principal Systems Architect with extensive experience in Next.js web applications, autonomous multi-agent pipelines, Meta Cloud API integrations, and cloud deployments.
-- **Commitment to Quality**: Clean semantic code, zero AI hallucinations, enterprise security, and 24/7 uptime monitoring.
+- **Commitment to Quality**: Clean semantic code, vector-grounded RAG with strict prompt constraints to prevent hallucinations, enterprise data privacy, and 24/7 uptime monitoring.
 
 ---
 

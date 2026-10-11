@@ -11,10 +11,16 @@
 
 ## Technical Architecture & Stack
 
-- **AI & Automation**: n8n (self-hosted & cloud), Make.com, LangChain, OpenAI GPT-4o, Anthropic Claude 3.5 Sonnet, DeepSeek, Google Gemini API, Supabase pgvector.
-- **Messaging & Conversational**: Meta WhatsApp Business Cloud API, ManyChat, Twilio, Retell AI, Vapi Voice AI.
-- **Frontend & Web**: Next.js (App Router), React, TypeScript, Tailwind CSS, Vite, Framer Motion.
-- **Backend & Database**: Node.js, Python FastAPI, PostgreSQL, Supabase, Redis, SQLite.
+### This Website (growech.site) Infrastructure:
+- **Framework & Runtime**: React 18, Vite, TypeScript
+- **Styling & Physics**: Tailwind CSS, Lenis Smooth Scroll, Lucide Icons
+- **Deployment & Hosting**: Edge CDN, Pre-rendered Semantic HTML with JSON-LD Entity Graph
+
+### Client Engineering Stack (What We Build for Clients):
+- **Web Applications**: Next.js 15 (App Router), React, TypeScript, Tailwind CSS
+- **AI & Workflow Automation**: n8n (self-hosted & cloud), Make.com, Python FastAPI, OpenAI API, Anthropic Claude, Google Gemini API, Supabase pgvector
+- **Enterprise Messaging**: Official Meta WhatsApp Business Cloud API, Webhook Event Listeners, CRM sync (HubSpot, Zoho, Pipedrive)
+- **Database & Cloud**: PostgreSQL, Supabase, Redis, Docker, Vercel, AWS
 
 ## Geographic Coverage & Locations Served
 

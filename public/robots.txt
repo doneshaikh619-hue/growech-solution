@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /business-card-admin.html
 
 # Explicitly Allow AI Search Engines & Answer Engines (AEO/GEO)
 User-agent: GPTBot
