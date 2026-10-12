@@ -56,7 +56,12 @@
     "website": "https://drzarqa.com",
     "subject": "Quick question for Dr. Zarqa's Clinic",
     "messageId": "<1fe93b55-c47c-60ec-6c58-9df681af46e0@gmail.com>",
-    "sent_at": "2026-10-06T11:38:08.026Z"
+    "sent_at": "2026-10-06T11:38:08.026Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-12T12:43:02.153Z",
+    "followup_subject": "Re: Quick question for Dr. Zarqa's Clinic",
+    "followup_messageId": "<12f144b7-90cd-ef39-5179-11b97765ee67@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Dermalase Aesthetic Clinic",
@@ -67,7 +72,12 @@
     "website": "https://drshumailakhan.com",
     "subject": "Quick question for Dermalase Clinic",
     "messageId": "<d32c924c-d4d2-25bf-59a6-78711cbad7ad@gmail.com>",
-    "sent_at": "2026-10-06T11:38:13.647Z"
+    "sent_at": "2026-10-06T11:38:13.647Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-12T12:43:08.050Z",
+    "followup_subject": "Re: Quick question for Dermalase Clinic",
+    "followup_messageId": "<71bde0df-ec0b-7191-2065-79c2f128ff79@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Rahman & Rahman Dental Surgeons",
@@ -136,6 +146,30 @@
     "subject": "Quick question for AenZay Interiors",
     "messageId": "<0625ecf0-489f-f8ae-bbf0-bdf8cb7fa63f@gmail.com>",
     "sent_at": "2026-10-10T17:38:34.750Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Archi-Cubes",
+    "owner_name": "Zaeem Ahmed",
+    "email": "info@archi-cubes.com",
+    "domain": "archi-cubes.com",
+    "phone": "+92 300 8443609",
+    "website": "https://www.archi-cubes.com",
+    "subject": "Archi-Cubes high-ticket client filter",
+    "messageId": "<75ebe992-aa0c-f713-e0c4-5dd47e79b94d@gmail.com>",
+    "sent_at": "2026-10-12T12:43:20.233Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Hiline International",
+    "owner_name": "Tariq Hameed",
+    "email": "contact@hiline.pk",
+    "domain": "hiline.pk",
+    "phone": "+92 300 8424644",
+    "website": "https://hiline.pk",
+    "subject": "Quick question for Tariq",
+    "messageId": "<8e45c990-15d9-4681-a5f9-b7dc0ec63fc2@gmail.com>",
+    "sent_at": "2026-10-12T12:43:26.270Z",
     "followup_sent": false
   }
 ]
