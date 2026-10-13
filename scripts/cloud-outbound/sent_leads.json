@@ -237,5 +237,41 @@
     "messageId": "<16604806-3edd-5bd6-1b43-95ff16c09ef9@gmail.com>",
     "sent_at": "2026-10-13T12:29:05.985Z",
     "followup_sent": false
+  },
+  {
+    "business_name": "Bubbles Car Care",
+    "owner_name": "Syed Arsalan Sabzwari",
+    "email": "info@bubblescarcare.pk",
+    "domain": "bubblescarcare.pk",
+    "phone": "+92 300 8222825",
+    "website": "https://bubblescarcare.pk",
+    "subject": "Quick question for Bubbles Car Care",
+    "messageId": "<10e4772d-b673-8759-cbd2-7888b1afec83@gmail.com>",
+    "sent_at": "2026-10-13T19:44:18.187Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "AutoGloss",
+    "owner_name": "Hassan Ahmed",
+    "email": "info@autogloss.pk",
+    "domain": "autogloss.pk",
+    "phone": "+92 321 1193183",
+    "website": "https://autogloss.pk",
+    "subject": "Quick question for AutoGloss",
+    "messageId": "<a605d201-897e-a4e5-6e58-3ebd20cb7cf0@gmail.com>",
+    "sent_at": "2026-10-13T19:44:25.315Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Auto Extreme Detailing & PPF Studio",
+    "owner_name": "Omar Amjad Taj Khan & Ahmad",
+    "email": "autoextremepk@gmail.com",
+    "domain": "autoextreme.pk",
+    "phone": "+92 300 5005088",
+    "website": "https://autoextreme.pk",
+    "subject": "Quick question for Auto Extreme",
+    "messageId": "<e5de4dc4-9eaf-bbf8-4647-6ec4171c2a3c@gmail.com>",
+    "sent_at": "2026-10-13T19:44:31.142Z",
+    "followup_sent": false
   }
 ]
