@@ -132,7 +132,11 @@
     "subject": "Quick question for Dr. Amin Yousaf Clinic",
     "messageId": "<0398c736-c7f1-f8e5-6a4d-14a2913dfaed@gmail.com>",
     "sent_at": "2026-10-10T11:43:05.000Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-13T12:27:13.243Z",
+    "followup_subject": "Re: Quick question for Dr. Amin Yousaf Clinic",
+    "followup_messageId": "<c366c732-8534-b451-a123-b57f1336e0ca@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Amer Adnan Associates",
@@ -144,7 +148,11 @@
     "subject": "Quick question for Amer Adnan Associates",
     "messageId": "<97f7e3dd-86bc-10cd-0c6e-5efcd8924d18@gmail.com>",
     "sent_at": "2026-10-10T17:38:21.989Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-13T12:27:46.663Z",
+    "followup_subject": "Re: Quick question for Amer Adnan Associates",
+    "followup_messageId": "<9832c2e4-1619-1ac8-889f-81a1553afe34@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "AenZay Interiors & Architects",
@@ -204,6 +212,30 @@
     "subject": "Quick question for Institute Cosmetique",
     "messageId": "<568ef1df-ac8c-d8f9-c5e2-cebe299a0500@gmail.com>",
     "sent_at": "2026-10-12T21:33:04.513Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Alvi Dental Hospital",
+    "owner_name": "Dr. Awab Alvi",
+    "email": "info@alvidental.com",
+    "domain": "alvidental.com",
+    "phone": "+92 348 1112584",
+    "website": "https://alvidental.com",
+    "subject": "Quick question for Alvi Dental",
+    "messageId": "<3c3893c0-39bf-3ef0-dedf-d3d150cecde0@gmail.com>",
+    "sent_at": "2026-10-13T12:28:30.288Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "3D Lifestyle Medical Aesthetics",
+    "owner_name": "Jawad Qureshi",
+    "email": "hello@3dlifestyle.pk",
+    "domain": "3dlifestyle.pk",
+    "phone": "+92 344 4455324",
+    "website": "https://3dlifestyle.pk",
+    "subject": "Quick question for 3D Lifestyle",
+    "messageId": "<16604806-3edd-5bd6-1b43-95ff16c09ef9@gmail.com>",
+    "sent_at": "2026-10-13T12:29:05.985Z",
     "followup_sent": false
   }
 ]
