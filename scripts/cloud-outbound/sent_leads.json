@@ -180,7 +180,11 @@
     "subject": "Archi-Cubes high-ticket client filter",
     "messageId": "<75ebe992-aa0c-f713-e0c4-5dd47e79b94d@gmail.com>",
     "sent_at": "2026-10-12T12:43:20.233Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-14T17:46:24.754Z",
+    "followup_subject": "Re: Archi-Cubes high-ticket client filter",
+    "followup_messageId": "<d752d2d5-cffb-408b-dbc4-b6bf5deab77e@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Hiline International",
@@ -192,7 +196,11 @@
     "subject": "Quick question for Tariq",
     "messageId": "<8e45c990-15d9-4681-a5f9-b7dc0ec63fc2@gmail.com>",
     "sent_at": "2026-10-12T12:43:26.270Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-14T17:46:30.506Z",
+    "followup_subject": "Re: Quick question for Tariq",
+    "followup_messageId": "<c6b9843f-c7f7-215c-dfe5-d82ebe3bb0d2@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Coalesce Design Studio",
@@ -312,6 +320,18 @@
     "subject": "Quick question for Zeenat Car Detailing",
     "messageId": "<4203ca23-2c80-bf47-f36c-6849116d7ab4@gmail.com>",
     "sent_at": "2026-10-14T09:55:23.107Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Luxe Auto Spa & Detailing",
+    "owner_name": "Ahmed Yar",
+    "email": "info@luxeautospa.pk",
+    "domain": "luxeautospa.pk",
+    "phone": "+92 321 4455888",
+    "website": "https://luxeautospa.pk",
+    "subject": "Quick question for Luxe Auto Spa",
+    "messageId": "<0faa92fe-b8f4-b925-4d23-1921750e47ee@gmail.com>",
+    "sent_at": "2026-10-14T17:46:36.534Z",
     "followup_sent": false
   }
 ]
