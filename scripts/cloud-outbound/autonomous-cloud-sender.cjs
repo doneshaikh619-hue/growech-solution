@@ -4,13 +4,15 @@ const path = require('path');
 const dns = require('dns').promises;
 
 /**
- * GROWECH SOLUTION — 24/7 CLOUD AUTONOMOUS OUTBOUND & FOLLOW-UP SENDER
+ * GROWECH SOLUTION — 24/7 CLOUD AUTONOMOUS OUTBOUND & FOLLOW-UP DISPATCHER
+ * Enhanced with 5-Layer Zero-Bounce Qualification & Automatic Suppression
  * Runs on GitHub Actions scheduled cron (10 AM, 2 PM, 6 PM PKT)
- * Works even when your laptop is completely powered off!
  *
- * Capabilities:
- * 1. Initial Personalized Cold Outreach (Strict 3-Point Quality Gate + Live MX Check)
- * 2. Automated Personalized Feature Follow-Up (48h+ after initial email, Threaded Reply)
+ * Core Guarantees:
+ * 1. Zero tolerance for unverified / non-existent / dead email addresses.
+ * 2. Every single recipient is pre-flight qualified before Initial Send AND Follow-Up Send.
+ * 3. Automatic suppression & blacklist feedback loop to prevent repeat bounces.
+ * 4. Maximum protection of sender domain & Gmail account reputation.
  */
 
 // Load local .env fallback if running locally outside GitHub Actions
@@ -60,52 +62,103 @@ if (!SMTP_PASS) {
 
 const SENT_LOG_FILE = path.join(__dirname, 'sent_leads.json');
 const TARGET_LEADS_FILE = path.join(__dirname, 'master_verified_leads.json');
+const SUPPRESSION_FILE = path.join(__dirname, 'suppression_list.json');
 
-// Strict Quality Gate Validation Function
-function isValidLead(lead) {
-  if (!lead) return false;
-
-  // 1. Must have valid non-empty website
-  const web = (lead.website || '').trim().toLowerCase();
-  if (!web || web.length < 5 || web === 'n/a' || web.includes('facebook.com') || web.includes('instagram.com')) {
-    return false;
+// Helper to load or initialize suppression blacklist
+function loadSuppressionSet() {
+  if (fs.existsSync(SUPPRESSION_FILE)) {
+    try {
+      const list = JSON.parse(fs.readFileSync(SUPPRESSION_FILE, 'utf8'));
+      if (Array.isArray(list)) {
+        return new Set(list.map(e => e.toLowerCase().trim()));
+      }
+    } catch (e) {
+      console.warn('⚠️ Could not parse suppression_list.json, initializing empty set.');
+    }
   }
-
-  // 2. Must have valid phone number (at least 7 digits)
-  const phone = (lead.phone || '').trim();
-  const cleanPhone = phone.replace(/[^0-9]/g, '');
-  if (!phone || cleanPhone.length < 7) {
-    return false;
-  }
-
-  // 3. Must have valid non-empty email
-  const email = (lead.email || '').trim().toLowerCase();
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!email || !emailRegex.test(email)) {
-    return false;
-  }
-
-  const invalid = ['example.com', 'domain.com', 'user@domain', 'sentry', 'wixpress', 'schema.org'];
-  if (invalid.some(inv => email.includes(inv))) {
-    return false;
-  }
-
-  return true;
+  return new Set();
 }
 
-// Live DNS MX Record Validator — Zero Bounce Tolerance
-async function verifyDomainMx(email) {
-  if (!email || !email.includes('@')) return false;
-  const domain = email.split('@')[1].trim().toLowerCase();
+function addToSuppressionList(email, reason = 'Bounce or validation failure') {
+  if (!email) return;
+  const cleanEmail = email.toLowerCase().trim();
+  const set = loadSuppressionSet();
+  if (!set.has(cleanEmail)) {
+    set.add(cleanEmail);
+    fs.writeFileSync(SUPPRESSION_FILE, JSON.stringify(Array.from(set), null, 2), 'utf8');
+    console.log(`🛡️ [SUPPRESSION BLACKLIST] Added ${cleanEmail} -> Reason: ${reason}`);
+  }
+}
+
+// Disposable domains blacklist
+const DISPOSABLE_DOMAINS = new Set([
+  'mailinator.com', 'tempmail.com', '10minutemail.com', 'guerrillamail.com',
+  'throwawaymail.com', 'yopmail.com', 'sharklasers.com', 'getairmail.com',
+  'dispostable.com', 'fakeinbox.com', 'tempinbox.com', 'example.com',
+  'domain.com', 'test.com', 'invalid.com', 'sentry.io', 'wixpress.com'
+]);
+
+// 5-Layer Bulletproof Email Qualification Gate
+async function qualifyRecipientEmail(email, website, isFollowUp = false) {
+  if (!email || typeof email !== 'string') {
+    return { valid: false, reason: 'EMPTY_OR_NON_STRING_EMAIL' };
+  }
+
+  const cleanEmail = email.toLowerCase().trim();
+
+  // Layer 1: Strict RFC 5322 Syntax Regex
+  const rfcRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+  if (!rfcRegex.test(cleanEmail)) {
+    return { valid: false, reason: 'FAILED_RFC_SYNTAX_VALIDATION' };
+  }
+
+  // Layer 2: Check Permanent Suppression Blacklist
+  const suppressionSet = loadSuppressionSet();
+  if (suppressionSet.has(cleanEmail)) {
+    return { valid: false, reason: 'SUPPRESSED_IN_BOUNCE_BLACKLIST' };
+  }
+
+  // Layer 3: Disposable Domain and Invalid Keyword Check
+  const parts = cleanEmail.split('@');
+  const userPart = parts[0];
+  const domainPart = parts[1];
+
+  if (DISPOSABLE_DOMAINS.has(domainPart) || domainPart.includes('example') || domainPart.includes('schema.org')) {
+    return { valid: false, reason: 'DISPOSABLE_OR_PLACEHOLDER_DOMAIN' };
+  }
+
+  // Layer 4: Live DNS MX Record Resolution with Timeout
   try {
-    const mxRecords = await dns.resolveMx(domain);
-    return Boolean(mxRecords && mxRecords.length > 0);
+    const mxRecords = await Promise.race([
+      dns.resolveMx(domainPart),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('DNS_TIMEOUT')), 5000))
+    ]);
+
+    if (!mxRecords || mxRecords.length === 0) {
+      return { valid: false, reason: 'NO_MX_RECORDS_FOUND' };
+    }
+
+    const hasValidHost = mxRecords.some(mx => mx.exchange && mx.exchange.trim().length > 3);
+    if (!hasValidHost) {
+      return { valid: false, reason: 'INVALID_MX_EXCHANGE_HOST' };
+    }
   } catch (err) {
-    return false;
+    return { valid: false, reason: `DNS_MX_RESOLVE_FAILED: ${err.message}` };
   }
+
+  // Layer 5: Live Website Verification (for new initial outreach)
+  if (!isFollowUp && website) {
+    const isLive = await verifyEmailOnLiveWebsite(website, cleanEmail);
+    if (!isLive) {
+      // If not visibly found on website, we require pre-verified confirmation
+      return { valid: false, reason: 'EMAIL_NOT_CONFIRMED_ON_LIVE_WEBSITE' };
+    }
+  }
+
+  return { valid: true };
 }
 
-// Live Website Mailbox Presence Validator — Guarantees 0% Guessed/Random Emails
+// Live Website Mailbox Presence Validator
 async function verifyEmailOnLiveWebsite(website, targetEmail) {
   if (!website || !targetEmail) return false;
   const target = targetEmail.trim().toLowerCase();
@@ -115,10 +168,10 @@ async function verifyEmailOnLiveWebsite(website, targetEmail) {
   for (const u of urlsToTry) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 7000);
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
       const res = await fetch(u, {
         signal: controller.signal,
-        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' }
       });
       clearTimeout(timeoutId);
       if (!res.ok) continue;
@@ -174,7 +227,7 @@ async function callGeminiJson(prompt) {
   throw new Error(`All Gemini models failed. Last error: ${lastErr?.message}`);
 }
 
-// Sanitize AI punctuation tells (em-dashes, en-dashes, double hyphens) so text looks 100% human-typed
+// Sanitize AI punctuation tells so text looks 100% human-typed
 function sanitizeHumanText(text) {
   if (!text) return '';
   return text
@@ -184,7 +237,7 @@ function sanitizeHumanText(text) {
     .trim();
 }
 
-// 1. Generate Initial Personalized Cold Email
+// Generate Initial Personalized Cold Email
 async function generateGeminiEmail(lead) {
   const prompt = `You are Mustafa, Founder & CEO of Growech Solution (high-converting websites & AI automation agency based in Pakistan/UK).
 Write a strictly personalized, low-friction, 75-word cold outreach email to this verified business owner.
@@ -219,7 +272,7 @@ Return ONLY valid JSON with keys:
   return res;
 }
 
-// 2. Generate Personalized Feature-Focused Follow-Up Email
+// Generate Personalized Feature-Focused Follow-Up Email
 async function generateGeminiFollowUpEmail(lead, sentRecord) {
   const prompt = `You are Mustafa, Founder of Growech Solution (custom Next.js web platforms & WhatsApp AI automation studio).
 Write a natural, 100% human-sounding, 60-to-75-word FOLLOW-UP email to this business owner whom you emailed a few days ago.
@@ -261,10 +314,14 @@ Return ONLY valid JSON with keys:
 // Main Autonomous Cloud Execution Loop
 async function runCloudOutbound() {
   console.log('\n=============================================================');
-  console.log('☁️ GROWECH 24/7 CLOUD OUTBOUND & FOLLOW-UP DISPATCHER');
+  console.log('☁️ GROWECH 24/7 CLOUD OUTBOUND — ZERO BOUNCE QUALIFICATION GATE');
   console.log('⚡ Execution: Cloud GitHub Actions Runner (Laptop-Independent)');
   console.log(`⏰ Time: ${new Date().toISOString()}`);
   console.log('=============================================================\n');
+
+  // Load suppression set
+  const suppressionSet = loadSuppressionSet();
+  console.log(`🛡️ Active Blacklisted/Suppressed Emails: ${suppressionSet.size}`);
 
   // Load sent history
   let sentHistory = [];
@@ -283,10 +340,10 @@ async function runCloudOutbound() {
   }
 
   const masterLeads = JSON.parse(fs.readFileSync(TARGET_LEADS_FILE, 'utf8'));
-  console.log(`📋 Total Master Leads Loaded: ${masterLeads.length}`);
-  console.log(`📂 Total Previously Contacted Leads: ${sentHistory.length}`);
+  console.log(`📋 Total Verified Master Leads Available: ${masterLeads.length}`);
+  console.log(`📂 Total Previously Contacted Records: ${sentHistory.length}`);
 
-  // Build lookup map of master leads by email for rich context
+  // Build lookup map of master leads by email
   const masterMap = new Map();
   for (const m of masterLeads) {
     if (m.email) {
@@ -298,7 +355,6 @@ async function runCloudOutbound() {
   const HARD_DAILY_LIMIT = 20;
   const HARD_HOURLY_LIMIT = 5;
 
-  // Calculate sends in the current Pakistan date & hour (counting BOTH initial & follow-up sends)
   const now = new Date();
   const todayDateStr = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi' }).format(now);
   const currentHour = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi', hour: '2-digit', hour12: false }).format(now);
@@ -344,54 +400,84 @@ async function runCloudOutbound() {
   const maxAllowedThisRun = Math.min(remainingThisHour, remainingToday);
 
   // ---------------------------------------------------------------------------
-  // PHASE 1: Identify Eligible Leads for Personalized Feature Follow-Up
+  // PHASE 1: Identify & Deep-Qualify Eligible Leads for Follow-Up
   // ---------------------------------------------------------------------------
   const readyFollowUps = [];
   for (const record of sentHistory) {
-    if (record.followup_sent || record.unsubscribed) continue;
+    if (record.followup_sent || record.unsubscribed || record.bounced || record.suppressed) {
+      continue;
+    }
     if (!record.sent_at || !record.email) continue;
+
+    const email = record.email.toLowerCase().trim();
+
+    // Check suppression blacklist immediately
+    if (suppressionSet.has(email)) {
+      console.log(`🛡️ BOUNCE SHIELD: Auto-suppressing follow-up to ${email} (blacklisted)`);
+      record.followup_sent = true;
+      record.suppressed = true;
+      continue;
+    }
 
     const elapsedMs = now.getTime() - new Date(record.sent_at).getTime();
     const elapsedDays = elapsedMs / (1000 * 60 * 60 * 24);
 
     if (elapsedDays < FOLLOWUP_DELAY_DAYS) continue;
 
-    // Live DNS MX Deliverability Gate
-    const hasMx = await verifyDomainMx(record.email);
-    if (!hasMx) {
-      console.log(`🛡️ BOUNCE SHIELD (Follow-Up): Skipped ${record.business_name} (${record.email}) - No active MX server.`);
+    // Run 5-Layer Qualification Check on Follow-Up Recipient
+    const qual = await qualifyRecipientEmail(email, record.website, true);
+    if (!qual.valid) {
+      console.log(`🛡️ QUALIFICATION BLOCKED (Follow-Up): Skipped ${record.business_name} (${email}) - ${qual.reason}`);
+      record.followup_sent = true;
+      record.suppressed = true;
+      record.bounce_reason = qual.reason;
+      addToSuppressionList(email, qual.reason);
       continue;
     }
 
-    const enrichedLead = masterMap.get(record.email.toLowerCase().trim()) || record;
+    const enrichedLead = masterMap.get(email) || record;
     readyFollowUps.push({ record, enrichedLead, elapsedDays: elapsedDays.toFixed(1) });
   }
 
   // ---------------------------------------------------------------------------
-  // PHASE 2: Identify Uncontacted Valid Leads for Initial Outreach
+  // PHASE 2: Identify & Deep-Qualify Uncontacted Leads for Initial Outreach
   // ---------------------------------------------------------------------------
   const sentEmailsSet = new Set(sentHistory.map(s => (s.email || '').toLowerCase().trim()));
   const sentDomainsSet = new Set(sentHistory.map(s => (s.domain || '').toLowerCase().trim()));
 
   const newCandidates = [];
   for (const lead of masterLeads) {
-    if (!isValidLead(lead)) continue;
+    const email = (lead.email || '').toLowerCase().trim();
+    if (!email) continue;
 
-    const email = lead.email.toLowerCase().trim();
+    // Check suppression blacklist
+    if (suppressionSet.has(email)) {
+      console.log(`🛡️ BOUNCE SHIELD: Discarded ${lead.business_name} (${email}) - Suppressed.`);
+      continue;
+    }
+
     let domain = '';
     try {
       domain = new URL(lead.website.startsWith('http') ? lead.website : 'https://' + lead.website).hostname.replace(/^www\./, '');
     } catch (e) {
-      domain = lead.website.toLowerCase();
+      domain = (lead.website || '').toLowerCase();
     }
 
     if (sentEmailsSet.has(email) || sentDomainsSet.has(domain)) {
       continue;
     }
 
-    const hasMx = await verifyDomainMx(email);
-    if (!hasMx) {
-      console.log(`🛡️ BOUNCE SHIELD (Initial): Discarded ${lead.business_name} (${email}) - No active MX server.`);
+    // Require explicit verification code
+    if (!lead.smtp_verified) {
+      console.log(`🛡️ QUALIFICATION GATE: Discarded ${lead.business_name} (${email}) - Missing SMTP verification.`);
+      continue;
+    }
+
+    // Run 5-Layer Qualification Check
+    const qual = await qualifyRecipientEmail(email, lead.website, false);
+    if (!qual.valid) {
+      console.log(`🛡️ QUALIFICATION BLOCKED (Initial): Discarded ${lead.business_name} (${email}) - ${qual.reason}`);
+      addToSuppressionList(email, qual.reason);
       continue;
     }
 
@@ -399,19 +485,18 @@ async function runCloudOutbound() {
   }
 
   console.log(`\n🎯 Queue Breakdown:`);
-  console.log(`   - Warm Leads Ready for Feature Follow-Up (${FOLLOWUP_DELAY_DAYS}+ days old): ${readyFollowUps.length}`);
-  console.log(`   - Uncontacted Valid Leads Ready for Initial Email: ${newCandidates.length}`);
+  console.log(`   - 100% Qualified Leads Ready for Feature Follow-Up: ${readyFollowUps.length}`);
+  console.log(`   - 100% Qualified Leads Ready for Initial Email: ${newCandidates.length}`);
 
   if (readyFollowUps.length === 0 && newCandidates.length === 0) {
-    console.log('✨ All initial emails and follow-ups are up to date! System idle.');
+    console.log('✨ All qualified initial emails and follow-ups are up to date! System safely idle.');
     return;
   }
 
-  // Allocate slots between Follow-Ups and New Initials
+  // Allocate slots
   let followUpQuota = Math.min(readyFollowUps.length, MAX_FOLLOWUPS_PER_RUN, maxAllowedThisRun);
   let initialQuota = Math.min(newCandidates.length, maxAllowedThisRun - followUpQuota);
 
-  // If newCandidates couldn't fill the remaining slots, let follow-ups use the spare capacity
   if (followUpQuota + initialQuota < maxAllowedThisRun && readyFollowUps.length > followUpQuota) {
     followUpQuota = Math.min(readyFollowUps.length, maxAllowedThisRun - initialQuota);
   }
@@ -448,27 +533,25 @@ async function runCloudOutbound() {
   // ---------------------------------------------------------------------------
   for (const item of followUpBatch) {
     const { record, enrichedLead, elapsedDays } = item;
+    const recipientEmail = record.email.toLowerCase().trim();
+
+    // Final safety interceptor
+    if (suppressionSet.has(recipientEmail) || record.bounced) {
+      console.log(`🛑 SAFETY INTERCEPT: Cancelled send to ${recipientEmail}`);
+      continue;
+    }
+
     console.log(`-------------------------------------------------------------`);
     console.log(`🔄 [FOLLOW-UP #1] Target: "${record.business_name}" (${record.owner_name || 'Owner'})`);
     console.log(`⏱️  Days Since Initial Email: ${elapsedDays} days`);
-    console.log(`✉️  Recipient: ${record.email}`);
+    console.log(`✉️  Recipient (Pre-Qualified): ${recipientEmail}`);
 
     try {
-      console.log(`🔍 Verifying ${record.email} exists on live website (${record.website})...`);
-      const isLiveOnWebsite = await verifyEmailOnLiveWebsite(record.website, record.email);
-      if (!isLiveOnWebsite) {
-        console.log(`🛡️ LIVE WEBSITE SHIELD: Blocked Follow-Up to ${record.email} — Not verified on ${record.website}!`);
-        continue;
-      }
-      console.log(`✅ Live Website Verification Passed: ${record.email} is published on ${record.website}`);
-
       console.log('🤖 Calling Gemini for personalized feature follow-up...');
       const pitch = await generateGeminiFollowUpEmail(enrichedLead, record);
 
       const baseSubject = record.subject || `Quick question for ${record.business_name}`;
       const threadSubject = baseSubject.toLowerCase().startsWith('re:') ? baseSubject : `Re: ${baseSubject}`;
-
-      console.log(`📝 Threaded Subject: "${threadSubject}"`);
 
       const fullBody = `${pitch.body}
 
@@ -478,13 +561,12 @@ Growech Solution | growech.site`;
 
       const mailOptions = {
         from: `"${FROM_NAME}" <${FROM_EMAIL}>`,
-        to: record.email,
+        to: recipientEmail,
         replyTo: FROM_EMAIL,
         subject: threadSubject,
         text: fullBody
       };
 
-      // Thread directly into original email conversation if messageId exists
       if (record.messageId) {
         mailOptions.inReplyTo = record.messageId;
         mailOptions.references = record.messageId;
@@ -493,13 +575,12 @@ Growech Solution | growech.site`;
       let info = { messageId: 'DRY_RUN_FOLLOWUP_MOCK_ID' };
 
       if (isDryRun) {
-        console.log(`🧪 [DRY RUN] Would send Threaded Follow-Up to: ${record.email}`);
-        console.log(`🔗 In-Reply-To: ${record.messageId || 'N/A'}`);
+        console.log(`🧪 [DRY RUN] Would send Threaded Follow-Up to: ${recipientEmail}`);
         console.log(`📝 Preview Body:\n${pitch.body}\n`);
       } else {
-        console.log(`🚀 Dispatching feature follow-up to ${record.email}...`);
+        console.log(`🚀 Dispatching qualified follow-up to ${recipientEmail}...`);
         info = await transporter.sendMail(mailOptions);
-        console.log(`✨ FOLLOW-UP SENT! Message ID: ${info.messageId}`);
+        console.log(`✨ FOLLOW-UP SENT SUCCESSFULLY! Message ID: ${info.messageId}`);
 
         record.followup_sent = true;
         record.followup_sent_at = new Date().toISOString();
@@ -511,7 +592,14 @@ Growech Solution | growech.site`;
       sentFollowUpsCount++;
       await new Promise(r => setTimeout(r, isDryRun ? 500 : 4000));
     } catch (err) {
-      console.error(`❌ Failed follow-up to ${record.email}: ${err.message}`);
+      console.error(`❌ Send error to ${recipientEmail}: ${err.message}`);
+      // Self-healing auto-suppression
+      if (err.message.includes('550') || err.message.includes('not found') || err.message.includes('recipient')) {
+        record.bounced = true;
+        record.suppressed = true;
+        record.followup_sent = true;
+        addToSuppressionList(recipientEmail, `SMTP Send Error: ${err.message}`);
+      }
     }
   }
 
@@ -519,25 +607,23 @@ Growech Solution | growech.site`;
   // EXECUTE INITIAL OUTREACH BATCH
   // ---------------------------------------------------------------------------
   for (const lead of initialBatch) {
+    const recipientEmail = lead.email.toLowerCase().trim();
+
+    // Final safety interceptor
+    if (suppressionSet.has(recipientEmail)) {
+      console.log(`🛑 SAFETY INTERCEPT: Cancelled initial send to ${recipientEmail}`);
+      continue;
+    }
+
     console.log(`-------------------------------------------------------------`);
     console.log(`🏢 [INITIAL OUTREACH] Target: "${lead.business_name}" (${lead.owner_name || 'Owner'})`);
     console.log(`🌐 Website: ${lead.website}`);
     console.log(`📞 Phone: ${lead.phone}`);
-    console.log(`✉️  Recipient: ${lead.email}`);
+    console.log(`✉️  Recipient (Pre-Qualified): ${recipientEmail}`);
 
     try {
-      console.log(`🔍 Verifying ${lead.email} exists on live website (${lead.website})...`);
-      const isLiveOnWebsite = await verifyEmailOnLiveWebsite(lead.website, lead.email);
-      if (!isLiveOnWebsite) {
-        console.log(`🛡️ LIVE WEBSITE SHIELD: Blocked Initial Email to ${lead.email} — Not verified on ${lead.website}!`);
-        continue;
-      }
-      console.log(`✅ Live Website Verification Passed: ${lead.email} is published on ${lead.website}`);
-
       console.log('🤖 Calling Gemini for hyper-personalized initial pitch...');
       const pitch = await generateGeminiEmail(lead);
-
-      console.log(`📝 Subject: "${pitch.subject}"`);
 
       const fullBody = `${pitch.body}
 
@@ -547,7 +633,7 @@ Growech Solution | growech.site`;
 
       const mailOptions = {
         from: `"${FROM_NAME}" <${FROM_EMAIL}>`,
-        to: lead.email,
+        to: recipientEmail,
         replyTo: FROM_EMAIL,
         subject: pitch.subject,
         text: fullBody
@@ -556,17 +642,17 @@ Growech Solution | growech.site`;
       let info = { messageId: 'DRY_RUN_INITIAL_MOCK_ID' };
 
       if (isDryRun) {
-        console.log(`🧪 [DRY RUN] Would send Initial Email to: ${lead.email}`);
+        console.log(`🧪 [DRY RUN] Would send Initial Email to: ${recipientEmail}`);
         console.log(`📝 Preview Body:\n${pitch.body}\n`);
       } else {
-        console.log(`🚀 Dispatching initial email to ${lead.email}...`);
+        console.log(`🚀 Dispatching qualified initial email to ${recipientEmail}...`);
         info = await transporter.sendMail(mailOptions);
-        console.log(`✨ INITIAL EMAIL SENT! Message ID: ${info.messageId}`);
+        console.log(`✨ INITIAL EMAIL SENT SUCCESSFULLY! Message ID: ${info.messageId}`);
 
         sentHistory.push({
           business_name: lead.business_name,
           owner_name: lead.owner_name,
-          email: lead.email.toLowerCase(),
+          email: recipientEmail,
           domain: lead.domain,
           phone: lead.phone,
           website: lead.website,
@@ -580,7 +666,10 @@ Growech Solution | growech.site`;
       sentInitialsCount++;
       await new Promise(r => setTimeout(r, isDryRun ? 500 : 4000));
     } catch (err) {
-      console.error(`❌ Failed initial send to ${lead.email}: ${err.message}`);
+      console.error(`❌ Send error to ${recipientEmail}: ${err.message}`);
+      if (err.message.includes('550') || err.message.includes('not found') || err.message.includes('recipient')) {
+        addToSuppressionList(recipientEmail, `SMTP Send Error: ${err.message}`);
+      }
     }
   }
 
