@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { animate, stagger } from 'animejs';
 import { caseStudiesData, CaseStudy } from '../data/caseStudies';
-import { ArrowUpRight, CheckCircle2, ChevronRight, Layers, Sparkles, X, ShieldAlert } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, ChevronRight, Layers, Zap, X, ShieldAlert } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,7 +79,7 @@ export const WorkShowcase: React.FC<{ onOpenContact: () => void }> = ({ onOpenCo
 
           <div className="max-w-md">
             <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              We believe in radical transparency. Every project below is an engineering demonstration or concept architecture showcasing exact problems, workflows, and deliverables—with zero fabricated claims or fake client reviews.
+              We believe in radical transparency. Every project below is an engineering demonstration or concept architecture showcasing exact problems, workflows, and deliverables, with zero fabricated claims or fake client reviews.
             </p>
           </div>
         </div>
@@ -240,7 +240,7 @@ export const WorkShowcase: React.FC<{ onOpenContact: () => void }> = ({ onOpenCo
                   <ul className="space-y-1.5">
                     {selectedCase.automationHighlights.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                        <Zap className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}

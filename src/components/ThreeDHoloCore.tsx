@@ -33,12 +33,6 @@ export const ThreeDHoloCore: React.FC<ThreeDHoloCoreProps> = ({ onReset, focused
           <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ember border-2 border-white shadow-[0_0_8px_#FF5500]" />
           <div className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-3 h-3 rounded-full bg-ember border-2 border-white shadow-[0_0_8px_#FF5500]" />
           <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 rounded-full bg-ember border-2 border-white shadow-[0_0_8px_#FF5500]" />
-
-          {/* Sci-Fi Degree Labels */}
-          <span className="absolute top-2 left-1/2 -translate-x-1/2 text-[8px] font-mono text-ember/80 font-bold">000°</span>
-          <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[8px] font-mono text-ember/80 font-bold">180°</span>
-          <span className="absolute top-1/2 left-2 -translate-y-1/2 text-[8px] font-mono text-ember/80 font-bold">270°</span>
-          <span className="absolute top-1/2 right-2 -translate-y-1/2 text-[8px] font-mono text-ember/80 font-bold">090°</span>
         </div>
 
         {/* Layer 3: Middle 3D Counter-Gimbal (Rotates In Reverse, Tilted) */}
@@ -84,20 +78,20 @@ export const ThreeDHoloCore: React.FC<ThreeDHoloCoreProps> = ({ onReset, focused
 
           {/* Central Status Chip */}
           <div className="relative z-30 flex items-center gap-1 mt-1 bg-black/60 px-2 py-0.5 rounded-full border border-ember/40">
-            <span className="w-1.5 h-1.5 rounded-full bg-ember animate-pulse shadow-[0_0_6px_#FF5500]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#10B981]" />
             <span className="text-[7.5px] font-mono uppercase text-white font-extrabold tracking-widest">
-              CORE ENGINE
+              ACTIVE CORE
             </span>
           </div>
         </div>
 
-        {/* Layer 6: Floating Sci-Fi Telemetry HUD Badges in 3D */}
+        {/* Layer 6: Floating Architecture Badges in 3D */}
         <div
           className="absolute -top-3 right-0 bg-obsidian-900/90 border border-emerald-500/30 px-2 py-0.5 rounded-md text-[9px] font-mono text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)] pointer-events-none hidden sm:flex items-center gap-1"
           style={{ transform: 'translateZ(35px)' }}
         >
           <Activity className="w-3 h-3 text-emerald-400 animate-pulse" />
-          <span>FREQ: 120 FPS</span>
+          <span>99.9% UPTIME</span>
         </div>
 
         <div
@@ -105,25 +99,25 @@ export const ThreeDHoloCore: React.FC<ThreeDHoloCoreProps> = ({ onReset, focused
           style={{ transform: 'translateZ(35px)' }}
         >
           <Zap className="w-3 h-3 text-ember animate-pulse" />
-          <span>6/6 MESH SYNC</span>
+          <span>EDGE CONNECTED</span>
         </div>
       </div>
 
       {/* Orchestrator Title & Telemetry */}
       <div className="text-center mt-3 z-20">
         <div className="text-sm font-extrabold text-white tracking-wider font-display uppercase flex items-center justify-center gap-2">
-          <span>GROWECH ORCHESTRATOR</span>
+          <span>GROWECH ARCHITECTURE</span>
           <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-ember/20 text-ember border border-ember/30">
-            v3.2 3D CORE
+            PRODUCTION SYSTEM
           </span>
         </div>
         <div className="text-[10px] text-zinc-400 font-mono mt-0.5 flex items-center justify-center gap-2">
           <span className="flex items-center gap-1">
             <ShieldCheck className="w-3 h-3 text-emerald-400 inline" />
-            Zero Latency
+            Zero-Downtime Infrastructure
           </span>
           <span className="text-zinc-600">&bull;</span>
-          <span>Simultaneous 6-Node Laser Telemetry</span>
+          <span>Unified Full-Stack Deployment</span>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { animate } from 'animejs';
 import {
-  Sparkles,
+  Workflow,
   Play,
   ArrowRight,
   RefreshCw,
@@ -218,8 +218,8 @@ export const InteractivePlayground: React.FC<{ onOpenContact: () => void }> = ({
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-zinc-200 text-zinc-800 border border-zinc-300 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-ember" />
-            <span className="font-mono uppercase tracking-wider">Discover the Realm</span>
+            <Workflow className="w-3.5 h-3.5 text-ember" />
+            <span className="font-mono uppercase tracking-wider">Live Execution Simulator</span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-zinc-950">

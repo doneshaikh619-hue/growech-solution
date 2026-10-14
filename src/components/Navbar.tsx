@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Menu, X, ArrowUpRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { MessageSquare, Menu, X, ArrowUpRight, ShieldCheck } from 'lucide-react';
 import { LogoMark } from './LogoMark';
 
 interface NavbarProps {
@@ -50,13 +50,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
 
   return (
     <>
-      {/* Top Ambient Orange Laser Ray (Exact Video Choreography Match) */}
+      {/* Top Ambient Orange Laser Ray */}
       <AnimatePresence>
         {isLoaded && (
           <motion.div
-            initial={{ opacity: 0, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
             className="fixed top-0 left-0 right-0 z-40 h-[2px] overflow-hidden pointer-events-none"
           >
             <div className="w-full h-full bg-gradient-to-r from-transparent via-[#FF5500] to-transparent opacity-80 animate-laser-ray" />
@@ -68,9 +68,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
       <AnimatePresence>
         {isLoaded && (
           <motion.div
-            initial={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
             className="fixed top-3 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none"
           >
             <div className="pointer-events-auto flex items-center gap-2 px-3 py-1 text-xs text-zinc-300 bg-obsidian-900/80 backdrop-blur-xl border border-white/10 rounded-full shadow-lg">
@@ -78,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ember opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-ember"></span>
               </span>
-              <span className="font-medium text-white">Meta Cloud API & AI Workflows</span>
+              <span className="font-medium text-white">Meta Cloud API &amp; Web Systems</span>
               <span className="text-zinc-500">•</span>
               <span className="text-zinc-400 hidden sm:inline">Now accepting Q3/Q4 engineering client deployments</span>
               <button
@@ -97,13 +97,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
         className={`fixed top-12 left-0 right-0 z-40 transition-all duration-300 flex justify-center px-4 sm:px-6 pointer-events-none`}
       >
         <motion.div
-          initial={{ opacity: 0, y: -25, scale: 0.95 }}
+          initial={{ opacity: 0, y: -15, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
             type: 'spring',
-            stiffness: 120,
-            damping: 20,
-            delay: isLoaded ? 0.3 : 0,
+            stiffness: 200,
+            damping: 25,
+            delay: 0,
           }}
           className={`pointer-events-auto w-full max-w-6xl flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
             scrolled
@@ -233,7 +233,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                 rel="noopener noreferrer"
                 className="w-full py-2.5 px-4 rounded-xl text-xs font-medium text-zinc-300 bg-white/5 border border-white/10 text-center hover:bg-white/10 transition-colors flex items-center justify-center gap-1.5"
               >
-                <Sparkles className="w-3.5 h-3.5 text-ember" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-ember" />
                 <span>Direct WhatsApp Chat</span>
               </a>
             </div>

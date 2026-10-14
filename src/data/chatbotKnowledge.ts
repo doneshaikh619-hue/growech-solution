@@ -82,7 +82,7 @@ export const AGENCY_KNOWLEDGE: AgencyKnowledgeBase = {
     'PostgreSQL / Cloud Databases'
   ],
   pricingPolicy: 'We do not utilize generic one-size-fits-all pricing packages because operational workflows, database complexity, and integrations vary for each business. Every project receives a transparent, tailored technical architecture proposal after an initial discovery consultation. You only pay for the exact systems and verified business outcomes your operation requires.',
-  timelinePolicy: 'Focused business websites or WhatsApp automated booking flows typically launch within 2 to 3 weeks. Comprehensive enterprise architectures—such as custom e-commerce storefronts, multi-agent AI workflows, and bespoke CRM synchronizations—generally take 4 to 6 weeks from initial architecture design to final testing and go-live.',
+  timelinePolicy: 'Focused business websites or WhatsApp automated booking flows typically launch within 2 to 3 weeks. Comprehensive enterprise architectures (such as custom e-commerce storefronts, multi-agent AI workflows, and bespoke CRM synchronizations) generally take 4 to 6 weeks from initial architecture design to final testing and go-live.',
   safetyAndRAGPolicy: 'Our autonomous AI agents are equipped with strict deterministic guardrails and Retrieval-Augmented Generation (RAG). They are grounded exclusively in approved internal knowledge bases (PDFs, spreadsheets, SOPs). If a customer asks a question outside documented parameters, the agent gracefully acknowledges the request and seamlessly routes the inquiry to a human team member.',
 
   services: [
@@ -224,7 +224,7 @@ export const AGENCY_KNOWLEDGE: AgencyKnowledgeBase = {
     {
       category: 'Implementation & Timeline',
       question: 'What is the typical deployment timeline for a custom website or automation suite?',
-      answer: 'A focused business website or WhatsApp automated booking flow typically launches within 2 to 3 weeks. Comprehensive enterprise architectures—such as custom e-commerce storefronts, multi-agent AI workflows, and bespoke CRM synchronizations—generally take 4 to 6 weeks from initial architecture design to final testing and go-live.',
+      answer: 'A focused business website or WhatsApp automated booking flow typically launches within 2 to 3 weeks. Comprehensive enterprise architectures (such as custom e-commerce storefronts, multi-agent AI workflows, and bespoke CRM synchronizations) generally take 4 to 6 weeks from initial architecture design to final testing and go-live.',
       keywords: ['timeline', 'how long', 'duration', 'weeks', 'turnaround', 'delivery', 'launch', 'time']
     },
     {

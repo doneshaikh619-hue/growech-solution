@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, MessageSquare, CheckCircle, Sparkles, Building, Mail, Phone, User, Loader2 } from 'lucide-react';
+import { X, Send, MessageSquare, CheckCircle, Building, Mail, Phone, User, Loader2 } from 'lucide-react';
 import { submitInboundLead } from '../services/leadCaptureService';
 
 interface ContactModalProps {

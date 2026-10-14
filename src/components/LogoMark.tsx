@@ -14,7 +14,9 @@ export const LogoMark: React.FC<LogoMarkProps> = ({ className = 'w-full h-full',
       <img
         src="./assets/growech-logo.png"
         alt="GROWECH Brand Logo Mark"
-        className="w-full h-full object-contain relative z-10 filter drop-shadow-[0_4px_14px_rgba(255,140,0,0.45)] select-none"
+        loading="eager"
+        decoding="async"
+        className="w-full h-full object-contain relative z-10 filter drop-shadow-[0_2px_10px_rgba(255,140,0,0.4)] select-none"
       />
     </div>
   );

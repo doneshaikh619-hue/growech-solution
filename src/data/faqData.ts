@@ -18,7 +18,7 @@ export const faqData: FAQItem[] = [
   {
     category: 'Implementation & Timeline',
     question: 'What is the typical deployment timeline for a custom website or automation suite?',
-    answer: 'Timelines depend on project scope. A focused business website or WhatsApp automated booking flow typically launches within 2 to 3 weeks. Comprehensive enterprise architectures—such as custom e-commerce storefronts, multi-agent AI workflows, and bespoke CRM synchronizations—generally take 4 to 6 weeks from initial architecture design to final testing and go-live.'
+    answer: 'Timelines depend on project scope. A focused business website or WhatsApp automated booking flow typically launches within 2 to 3 weeks. Comprehensive enterprise architectures (such as custom e-commerce storefronts, multi-agent AI workflows, and bespoke CRM synchronizations) generally take 4 to 6 weeks from initial architecture design to final testing and go-live.'
   },
   {
     category: 'Technology & Hosting',

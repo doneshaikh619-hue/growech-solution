@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  Bot,
+  Terminal,
   MessageSquare,
   Zap,
   Layout,
@@ -90,7 +90,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
       name: 'Autonomous AI Agents',
       badge: 'Deterministic RAG',
       activeStatus: 'RAG REASONING ACTIVE',
-      icon: Bot,
+      icon: Terminal,
       description:
         'Task-oriented intelligent agents trained on internal SOPs and product manuals, delivering precise reasoning with zero hallucination.',
       side: 'left',
@@ -504,8 +504,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                         {item.description}
                       </p>
                       <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
-                        <span className="text-emerald-400 font-semibold">&bull; 99.98% SPEED</span>
-                        <span className="text-zinc-500">ID: #0{idx + 1}_NODE</span>
+                        <span className="text-emerald-400 font-semibold">&bull; ACTIVE</span>
+                        <span className="text-zinc-500 font-medium">MODULE 0{idx + 1}</span>
                       </div>
                     </TiltCard>
                   );
@@ -573,8 +573,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
                         {item.description}
                       </p>
                       <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-zinc-400">
-                        <span className="text-emerald-400 font-semibold">&bull; 99.98% SPEED</span>
-                        <span className="text-zinc-500">ID: #0{idx + 1}_NODE</span>
+                        <span className="text-emerald-400 font-semibold">&bull; ACTIVE</span>
+                        <span className="text-zinc-500 font-medium">MODULE 0{idx + 1}</span>
                       </div>
                     </TiltCard>
                   );

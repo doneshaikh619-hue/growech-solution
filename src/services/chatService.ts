@@ -488,9 +488,8 @@ function executeGroundedKnowledgeEngine(
     return {
       reply: `### Deployment Timelines\n\n` +
         `${k.timelinePolicy}\n\n` +
-        `Every build follows a structured engineering lifecycle:\n` +
         `• **Week 1:** Architectural discovery, technical specifications & wireframes\n` +
-        `• **Weeks 2–3:** Core development, API integration & automated test suites\n` +
+        `• **Weeks 2-3:** Core development, API integration & automated test suites\n` +
         `• **Weeks 4+ (Enterprise):** Knowledge base RAG ingestion, end-to-end load testing & staff training`,
       actions: [
         { type: 'open_contact', label: '📅 Discuss Your Timeline' },

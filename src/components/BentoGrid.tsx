@@ -5,7 +5,7 @@ import { animate } from 'animejs';
 import { useMouseSpotlight } from '../hooks/useMouseSpotlight';
 import {
   MessageSquare,
-  Bot,
+  Cpu,
   Gauge,
   Workflow,
   ShieldCheck,
@@ -174,7 +174,7 @@ export const BentoGrid: React.FC<{ onOpenContact: () => void }> = () => {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/10 text-ember inline-flex shadow-inner">
-                  <Bot className="w-6 h-6" />
+                  <Cpu className="w-6 h-6" />
                 </div>
                 <span className="text-xs font-mono text-zinc-400">RAG + Guardrails</span>
               </div>

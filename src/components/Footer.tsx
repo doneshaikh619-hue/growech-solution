@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, MessageSquare, ShieldCheck, Mail, Globe, Sparkles } from 'lucide-react';
+import { ArrowUpRight, MessageSquare, ShieldCheck, Mail, Globe } from 'lucide-react';
 import { LogoMark } from './LogoMark';
 import { servicesData } from '../data/services';
 import { industriesData } from '../data/industries';

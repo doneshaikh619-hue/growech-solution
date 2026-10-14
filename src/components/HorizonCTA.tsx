@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageSquare, Sparkles, Phone, Mail, ShieldCheck } from 'lucide-react';
+import { ArrowRight, MessageSquare, ArrowUpRight, Phone, Mail, ShieldCheck } from 'lucide-react';
 
 interface HorizonCTAProps {
   onOpenContact: () => void;
@@ -27,7 +27,7 @@ export const HorizonCTA: React.FC<HorizonCTAProps> = ({ onOpenContact }) => {
           viewport={{ once: true }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/[0.04] text-ember border border-white/10 mb-6 backdrop-blur-md"
         >
-          <Sparkles className="w-3.5 h-3.5 text-ember" />
+          <ArrowUpRight className="w-3.5 h-3.5 text-ember" />
           <span className="font-mono uppercase tracking-wider">Start Your Engineering Engagement</span>
         </motion.div>
 

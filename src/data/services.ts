@@ -133,7 +133,7 @@ export const servicesData: ServiceDetail[] = [
     title: 'AI Creative & Advertising Solutions',
     shortDescription: 'Data-informed creative asset generation, localized advertising variations, and automated marketing collateral at scale.',
     category: 'Creative Tech',
-    iconName: 'Sparkles',
+    iconName: 'Layers',
     problem: 'Producing continuous ad variations, multi-language social banners, and promotional campaign materials creates major production bottlenecks and high agency overhead.',
     solution: 'Structured creative generation pipelines that produce brand-consistent visual assets, copy variations, and promotional templates adapted for multi-channel digital campaigns.',
     whatWeBuild: [

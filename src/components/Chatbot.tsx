@@ -6,8 +6,6 @@ import {
   Send,
   Minus,
   RotateCcw,
-  Sparkles,
-  Bot,
   ExternalLink,
   Calendar,
   Check,

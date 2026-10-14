@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { animate } from 'animejs';
-import { Check, ArrowRight, ShieldCheck, Zap, Cpu, Sparkles } from 'lucide-react';
+import { Check, ArrowRight, ShieldCheck, Zap, Cpu } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -166,7 +166,7 @@ export const ArchitectureTiers: React.FC<{ onOpenContact: () => void }> = ({ onO
                     ref={featuredBadgeRef}
                     className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-ember to-tangerine text-white text-[10px] font-mono font-bold uppercase tracking-wider mb-4 shadow-sm"
                   >
-                    <Sparkles className="w-3 h-3" />
+                    <Zap className="w-3 h-3" />
                     <span>{tier.badge}</span>
                   </div>
                 )}

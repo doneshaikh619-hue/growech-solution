@@ -21,29 +21,13 @@ export function App() {
   useLenis();
 
   // Guard against duplicate loading screen execution
-  const [isLoaded, setIsLoaded] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return Boolean(sessionStorage.getItem('growech_preloaded_once'));
-    }
-    return false;
-  });
-
+  const [isLoaded] = useState(true);
   const [isContactOpen, setIsContactOpen] = useState(false);
-
-  const handleComplete = React.useCallback(() => {
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('growech_preloaded_once', 'true');
-    }
-    setIsLoaded(true);
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#0A0A0B] text-white selection:bg-ember selection:text-white relative">
       {/* Schema.org Structured Data Injector */}
       <SEO />
-
-      {/* Branded Pre-loader: Strictly Single Execution */}
-      {!isLoaded && <Preloader onComplete={handleComplete} />}
 
       {/* Floating Pill Glassmorphism Navigation Bar */}
       <Navbar
