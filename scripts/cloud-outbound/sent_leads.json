@@ -164,7 +164,11 @@
     "subject": "Quick question for AenZay Interiors",
     "messageId": "<0625ecf0-489f-f8ae-bbf0-bdf8cb7fa63f@gmail.com>",
     "sent_at": "2026-10-10T17:38:34.750Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-14T09:55:03.732Z",
+    "followup_subject": "Re: Quick question for AenZay Interiors",
+    "followup_messageId": "<0cd9f5ee-0954-34e7-1084-a3b779744733@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Archi-Cubes",
@@ -272,6 +276,42 @@
     "subject": "Quick question for Auto Extreme",
     "messageId": "<e5de4dc4-9eaf-bbf8-4647-6ec4171c2a3c@gmail.com>",
     "sent_at": "2026-10-13T19:44:31.142Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Auto Detailing Studio (ADS)",
+    "owner_name": "Rahman Wattoo",
+    "email": "autodetailingstudioofficial@gmail.com",
+    "domain": "autodetailingstudio.com",
+    "phone": "+92 326 0035999",
+    "website": "https://autodetailingstudio.com",
+    "subject": "Quick question for Auto Detailing Studio",
+    "messageId": "<8cc81b3d-6026-02d0-0f06-6c87e4b97cbb@gmail.com>",
+    "sent_at": "2026-10-14T09:55:09.917Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Gloss District PPF & Detailing",
+    "owner_name": "Shahzaib Asad",
+    "email": "info@glossdistrict.com.pk",
+    "domain": "glossdistrict.com.pk",
+    "phone": "+92 328 3330444",
+    "website": "https://glossdistrict.com.pk",
+    "subject": "Quick question for Gloss District",
+    "messageId": "<3fd586b1-4b4b-4347-93e8-adf041503974@gmail.com>",
+    "sent_at": "2026-10-14T09:55:16.761Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Zeenat Car Detailing",
+    "owner_name": "Muhammad Imran",
+    "email": "carwashzeenat@gmail.com",
+    "domain": "zeenatcardetailing.pk",
+    "phone": "+92 308 6144661",
+    "website": "https://zeenatcardetailing.pk",
+    "subject": "Quick question for Zeenat Car Detailing",
+    "messageId": "<4203ca23-2c80-bf47-f36c-6849116d7ab4@gmail.com>",
+    "sent_at": "2026-10-14T09:55:23.107Z",
     "followup_sent": false
   }
 ]
