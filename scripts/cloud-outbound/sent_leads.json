@@ -32,7 +32,7 @@
     "followup_step": 1,
     "bounced": true,
     "suppressed": true,
-    "bounce_reason": "Failed live verification / rejected mailbox"
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
   },
   {
     "business_name": "Raza Zahid Atelier",
@@ -51,7 +51,7 @@
     "followup_step": 1,
     "bounced": true,
     "suppressed": true,
-    "bounce_reason": "Failed live verification / rejected mailbox"
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
   },
   {
     "business_name": "Dr. Zarqa's Aesthetic Skin & Laser Clinic",
@@ -63,10 +63,14 @@
     "subject": "Quick question for Dr. Zarqa's Clinic",
     "messageId": "<1fe93b55-c47c-60ec-6c58-9df681af46e0@gmail.com>",
     "sent_at": "2026-10-06T11:38:08.026Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-12T12:43:02.153Z",
+    "followup_subject": "Re: Quick question for Dr. Zarqa's Clinic",
+    "followup_messageId": "<12f144b7-90cd-ef39-5179-11b97765ee67@gmail.com>",
+    "followup_step": 1,
     "bounced": true,
     "suppressed": true,
-    "followup_sent": true,
-    "bounce_reason": "Failed live verification / rejected mailbox"
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
   },
   {
     "business_name": "Dermalase Aesthetic Clinic",
@@ -78,10 +82,14 @@
     "subject": "Quick question for Dermalase Clinic",
     "messageId": "<d32c924c-d4d2-25bf-59a6-78711cbad7ad@gmail.com>",
     "sent_at": "2026-10-06T11:38:13.647Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-12T12:43:08.050Z",
+    "followup_subject": "Re: Quick question for Dermalase Clinic",
+    "followup_messageId": "<71bde0df-ec0b-7191-2065-79c2f128ff79@gmail.com>",
+    "followup_step": 1,
     "bounced": true,
     "suppressed": true,
-    "followup_sent": true,
-    "bounce_reason": "Failed live verification / rejected mailbox"
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
   },
   {
     "business_name": "Rahman & Rahman Dental Surgeons",
@@ -103,7 +111,12 @@
     "website": "https://cosmeticsurgeon.com.pk",
     "subject": "Quick question for Aesthetic Shapes Clinic",
     "messageId": "<a2b980a4-d5f6-bb62-02f4-28a83d262ac3@gmail.com>",
-    "sent_at": "2026-10-06T18:43:27.043Z"
+    "sent_at": "2026-10-06T18:43:27.043Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-12T21:32:42.541Z",
+    "followup_subject": "Re: Quick question for Aesthetic Shapes Clinic",
+    "followup_messageId": "<25d036d0-fc98-1a75-3312-03b1ed174739@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Laser Praxis Aesthetic Clinic",
@@ -114,7 +127,12 @@
     "website": "https://drmuhammadtahir.com",
     "subject": "Quick question for Laser Praxis",
     "messageId": "<893c0551-4484-58dd-4ceb-a647b55373ed@gmail.com>",
-    "sent_at": "2026-10-06T18:43:33.046Z"
+    "sent_at": "2026-10-06T18:43:33.046Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-12T21:32:49.110Z",
+    "followup_subject": "Re: Quick question for Laser Praxis",
+    "followup_messageId": "<3089a19b-3a76-e1b5-136e-1b8d7a428301@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Dr. Amin Yousaf Cosmetic Surgery Clinic",
@@ -126,7 +144,11 @@
     "subject": "Quick question for Dr. Amin Yousaf Clinic",
     "messageId": "<0398c736-c7f1-f8e5-6a4d-14a2913dfaed@gmail.com>",
     "sent_at": "2026-10-10T11:43:05.000Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-13T12:27:13.243Z",
+    "followup_subject": "Re: Quick question for Dr. Amin Yousaf Clinic",
+    "followup_messageId": "<c366c732-8534-b451-a123-b57f1336e0ca@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Amer Adnan Associates",
@@ -138,7 +160,11 @@
     "subject": "Quick question for Amer Adnan Associates",
     "messageId": "<97f7e3dd-86bc-10cd-0c6e-5efcd8924d18@gmail.com>",
     "sent_at": "2026-10-10T17:38:21.989Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-13T12:27:46.663Z",
+    "followup_subject": "Re: Quick question for Amer Adnan Associates",
+    "followup_messageId": "<9832c2e4-1619-1ac8-889f-81a1553afe34@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "AenZay Interiors & Architects",
@@ -150,6 +176,195 @@
     "subject": "Quick question for AenZay Interiors",
     "messageId": "<0625ecf0-489f-f8ae-bbf0-bdf8cb7fa63f@gmail.com>",
     "sent_at": "2026-10-10T17:38:34.750Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-14T09:55:03.732Z",
+    "followup_subject": "Re: Quick question for AenZay Interiors",
+    "followup_messageId": "<0cd9f5ee-0954-34e7-1084-a3b779744733@gmail.com>",
+    "followup_step": 1
+  },
+  {
+    "business_name": "Archi-Cubes",
+    "owner_name": "Zaeem Ahmed",
+    "email": "info@archi-cubes.com",
+    "domain": "archi-cubes.com",
+    "phone": "+92 300 8443609",
+    "website": "https://www.archi-cubes.com",
+    "subject": "Archi-Cubes high-ticket client filter",
+    "messageId": "<75ebe992-aa0c-f713-e0c4-5dd47e79b94d@gmail.com>",
+    "sent_at": "2026-10-12T12:43:20.233Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-14T17:46:24.754Z",
+    "followup_subject": "Re: Archi-Cubes high-ticket client filter",
+    "followup_messageId": "<d752d2d5-cffb-408b-dbc4-b6bf5deab77e@gmail.com>",
+    "followup_step": 1,
+    "bounced": true,
+    "suppressed": true,
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
+  },
+  {
+    "business_name": "Hiline International",
+    "owner_name": "Tariq Hameed",
+    "email": "contact@hiline.pk",
+    "domain": "hiline.pk",
+    "phone": "+92 300 8424644",
+    "website": "https://hiline.pk",
+    "subject": "Quick question for Tariq",
+    "messageId": "<8e45c990-15d9-4681-a5f9-b7dc0ec63fc2@gmail.com>",
+    "sent_at": "2026-10-12T12:43:26.270Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-14T17:46:30.506Z",
+    "followup_subject": "Re: Quick question for Tariq",
+    "followup_messageId": "<c6b9843f-c7f7-215c-dfe5-d82ebe3bb0d2@gmail.com>",
+    "followup_step": 1
+  },
+  {
+    "business_name": "Coalesce Design Studio",
+    "owner_name": "Salman Jawed",
+    "email": "info@coalesce.pk",
+    "domain": "coalesce.pk",
+    "phone": "+92 344 7775051",
+    "website": "http://www.coalesce.pk",
+    "subject": "Quick question for Coalesce Design Studio",
+    "messageId": "<71541167-2970-3f29-9b88-fbd86605390b@gmail.com>",
+    "sent_at": "2026-10-12T21:32:58.270Z",
     "followup_sent": false
+  },
+  {
+    "business_name": "Institute Cosmetique",
+    "owner_name": "Prof. Dr. Azim Jahangir Khan",
+    "email": "info@cosmetique.com.pk",
+    "domain": "cosmetique.com.pk",
+    "phone": "+92 300 4770006",
+    "website": "https://www.cosmetique.com.pk",
+    "subject": "Quick question for Institute Cosmetique",
+    "messageId": "<568ef1df-ac8c-d8f9-c5e2-cebe299a0500@gmail.com>",
+    "sent_at": "2026-10-12T21:33:04.513Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Alvi Dental Hospital",
+    "owner_name": "Dr. Awab Alvi",
+    "email": "info@alvidental.com",
+    "domain": "alvidental.com",
+    "phone": "+92 348 1112584",
+    "website": "https://alvidental.com",
+    "subject": "Quick question for Alvi Dental",
+    "messageId": "<3c3893c0-39bf-3ef0-dedf-d3d150cecde0@gmail.com>",
+    "sent_at": "2026-10-13T12:28:30.288Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "3D Lifestyle Medical Aesthetics",
+    "owner_name": "Jawad Qureshi",
+    "email": "hello@3dlifestyle.pk",
+    "domain": "3dlifestyle.pk",
+    "phone": "+92 344 4455324",
+    "website": "https://3dlifestyle.pk",
+    "subject": "Quick question for 3D Lifestyle",
+    "messageId": "<16604806-3edd-5bd6-1b43-95ff16c09ef9@gmail.com>",
+    "sent_at": "2026-10-13T12:29:05.985Z",
+    "followup_sent": true,
+    "bounced": true,
+    "suppressed": true,
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
+  },
+  {
+    "business_name": "Bubbles Car Care",
+    "owner_name": "Syed Arsalan Sabzwari",
+    "email": "info@bubblescarcare.pk",
+    "domain": "bubblescarcare.pk",
+    "phone": "+92 300 8222825",
+    "website": "https://bubblescarcare.pk",
+    "subject": "Quick question for Bubbles Car Care",
+    "messageId": "<10e4772d-b673-8759-cbd2-7888b1afec83@gmail.com>",
+    "sent_at": "2026-10-13T19:44:18.187Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "AutoGloss",
+    "owner_name": "Hassan Ahmed",
+    "email": "info@autogloss.pk",
+    "domain": "autogloss.pk",
+    "phone": "+92 321 1193183",
+    "website": "https://autogloss.pk",
+    "subject": "Quick question for AutoGloss",
+    "messageId": "<a605d201-897e-a4e5-6e58-3ebd20cb7cf0@gmail.com>",
+    "sent_at": "2026-10-13T19:44:25.315Z",
+    "followup_sent": true,
+    "bounced": true,
+    "suppressed": true,
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
+  },
+  {
+    "business_name": "Auto Extreme Detailing & PPF Studio",
+    "owner_name": "Omar Amjad Taj Khan & Ahmad",
+    "email": "autoextremepk@gmail.com",
+    "domain": "autoextreme.pk",
+    "phone": "+92 300 5005088",
+    "website": "https://autoextreme.pk",
+    "subject": "Quick question for Auto Extreme",
+    "messageId": "<e5de4dc4-9eaf-bbf8-4647-6ec4171c2a3c@gmail.com>",
+    "sent_at": "2026-10-13T19:44:31.142Z",
+    "followup_sent": true,
+    "bounced": true,
+    "suppressed": true,
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
+  },
+  {
+    "business_name": "Auto Detailing Studio (ADS)",
+    "owner_name": "Rahman Wattoo",
+    "email": "autodetailingstudioofficial@gmail.com",
+    "domain": "autodetailingstudio.com",
+    "phone": "+92 326 0035999",
+    "website": "https://autodetailingstudio.com",
+    "subject": "Quick question for Auto Detailing Studio",
+    "messageId": "<8cc81b3d-6026-02d0-0f06-6c87e4b97cbb@gmail.com>",
+    "sent_at": "2026-10-14T09:55:09.917Z",
+    "followup_sent": true,
+    "bounced": true,
+    "suppressed": true,
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
+  },
+  {
+    "business_name": "Gloss District PPF & Detailing",
+    "owner_name": "Shahzaib Asad",
+    "email": "info@glossdistrict.com.pk",
+    "domain": "glossdistrict.com.pk",
+    "phone": "+92 328 3330444",
+    "website": "https://glossdistrict.com.pk",
+    "subject": "Quick question for Gloss District",
+    "messageId": "<3fd586b1-4b4b-4347-93e8-adf041503974@gmail.com>",
+    "sent_at": "2026-10-14T09:55:16.761Z",
+    "followup_sent": false
+  },
+  {
+    "business_name": "Zeenat Car Detailing",
+    "owner_name": "Muhammad Imran",
+    "email": "carwashzeenat@gmail.com",
+    "domain": "zeenatcardetailing.pk",
+    "phone": "+92 308 6144661",
+    "website": "https://zeenatcardetailing.pk",
+    "subject": "Quick question for Zeenat Car Detailing",
+    "messageId": "<4203ca23-2c80-bf47-f36c-6849116d7ab4@gmail.com>",
+    "sent_at": "2026-10-14T09:55:23.107Z",
+    "followup_sent": true,
+    "bounced": true,
+    "suppressed": true,
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
+  },
+  {
+    "business_name": "Luxe Auto Spa & Detailing",
+    "owner_name": "Ahmed Yar",
+    "email": "info@luxeautospa.pk",
+    "domain": "luxeautospa.pk",
+    "phone": "+92 321 4455888",
+    "website": "https://luxeautospa.pk",
+    "subject": "Quick question for Luxe Auto Spa",
+    "messageId": "<0faa92fe-b8f4-b925-4d23-1921750e47ee@gmail.com>",
+    "sent_at": "2026-10-14T17:46:36.534Z",
+    "followup_sent": true,
+    "bounced": true,
+    "suppressed": true,
+    "bounce_reason": "Rejected mailbox / 550 / DNS or timeout error"
   }
 ]
