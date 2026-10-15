@@ -100,7 +100,12 @@
     "website": "https://rahmanandrahman.com",
     "subject": "Quick question for Rahman & Rahman",
     "messageId": "<2a3069fc-6ea6-f423-6f82-e9f13dd0518c@gmail.com>",
-    "sent_at": "2026-10-06T18:43:15.506Z"
+    "sent_at": "2026-10-06T18:43:15.506Z",
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-15T09:35:42.932Z",
+    "followup_subject": "Re: Quick question for Rahman & Rahman",
+    "followup_messageId": "<1595096a-8da0-bbfc-dbe5-06f6eba05faa@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Aesthetic Shapes Clinic",
@@ -227,7 +232,11 @@
     "subject": "Quick question for Coalesce Design Studio",
     "messageId": "<71541167-2970-3f29-9b88-fbd86605390b@gmail.com>",
     "sent_at": "2026-10-12T21:32:58.270Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-15T09:35:48.392Z",
+    "followup_subject": "Re: Quick question for Coalesce Design Studio",
+    "followup_messageId": "<c063f1a2-e247-d337-61da-9594e06208bd@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Institute Cosmetique",
@@ -239,7 +248,11 @@
     "subject": "Quick question for Institute Cosmetique",
     "messageId": "<568ef1df-ac8c-d8f9-c5e2-cebe299a0500@gmail.com>",
     "sent_at": "2026-10-12T21:33:04.513Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-15T09:35:54.226Z",
+    "followup_subject": "Re: Quick question for Institute Cosmetique",
+    "followup_messageId": "<04b3fff0-0851-0edd-339a-5863a83cf06b@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Alvi Dental Hospital",
