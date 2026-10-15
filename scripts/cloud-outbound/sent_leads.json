@@ -264,7 +264,11 @@
     "subject": "Quick question for Alvi Dental",
     "messageId": "<3c3893c0-39bf-3ef0-dedf-d3d150cecde0@gmail.com>",
     "sent_at": "2026-10-13T12:28:30.288Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-15T17:34:55.911Z",
+    "followup_subject": "Re: Quick question for Alvi Dental",
+    "followup_messageId": "<ae817e69-cc9e-86c6-e826-8106e0f89411@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "3D Lifestyle Medical Aesthetics",
