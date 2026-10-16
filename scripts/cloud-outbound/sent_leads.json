@@ -295,7 +295,11 @@
     "subject": "Quick question for Bubbles Car Care",
     "messageId": "<10e4772d-b673-8759-cbd2-7888b1afec83@gmail.com>",
     "sent_at": "2026-10-13T19:44:18.187Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-16T09:29:03.550Z",
+    "followup_subject": "Re: Quick question for Bubbles Car Care",
+    "followup_messageId": "<4bf7100e-145f-87ba-98c8-890caf62f781@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "AutoGloss",
