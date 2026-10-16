@@ -356,7 +356,11 @@
     "subject": "Quick question for Gloss District",
     "messageId": "<3fd586b1-4b4b-4347-93e8-adf041503974@gmail.com>",
     "sent_at": "2026-10-14T09:55:16.761Z",
-    "followup_sent": false
+    "followup_sent": true,
+    "followup_sent_at": "2026-10-16T17:09:56.108Z",
+    "followup_subject": "Re: Quick question for Gloss District",
+    "followup_messageId": "<830a4aed-0608-292f-9925-010d51fc75b2@gmail.com>",
+    "followup_step": 1
   },
   {
     "business_name": "Zeenat Car Detailing",
