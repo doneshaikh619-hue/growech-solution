@@ -18,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
       setScrolled(window.scrollY > 40);
 
       // Section tracking
-      const sections = ['hero', 'solutions', 'bento', 'globe', 'playground', 'work', 'architecture', 'faq'];
+      const sections = ['hero', 'services', 'solutions', 'bento', 'globe', 'playground', 'work', 'architecture', 'faq'];
       const scrollPos = window.scrollY + 200;
 
       for (const sectionId of sections) {
@@ -37,6 +37,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const targetId = href.replace('#', '');
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        const lenis = (window as unknown as { __lenis?: { scrollTo: (target: HTMLElement | string, options?: { offset?: number }) => void } }).__lenis;
+        if (lenis && typeof lenis.scrollTo === 'function') {
+          lenis.scrollTo(targetEl, { offset: -90 });
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        window.history.pushState(null, '', href);
+      }
+    }
+  };
 
   const navLinks = [
     { name: 'Services', href: '#services' },
@@ -151,6 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="px-3 py-1.5 text-xs xl:text-sm font-medium text-zinc-300 hover:text-white rounded-full hover:bg-white/5 transition-all duration-200"
               >
                 {link.name}
@@ -207,7 +225,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, link.href);
+                  }}
                   className="px-3 py-2 text-base font-medium text-zinc-200 hover:text-ember hover:bg-white/5 rounded-xl transition-all"
                 >
                   {link.name}

@@ -114,9 +114,13 @@ export const InvertedSection: React.FC<{ onOpenContact: () => void }> = ({ onOpe
   return (
     <section
       ref={sectionRef}
-      id="solutions"
-      className="relative py-28 bg-[#FFFFFF] text-zinc-900 transition-colors duration-500 overflow-hidden"
+      id="services"
+      className="relative py-28 bg-[#FFFFFF] text-zinc-900 transition-colors duration-500 overflow-hidden scroll-mt-24"
     >
+      {/* Anchor targets for both #solutions and singular #service */}
+      <div id="solutions" className="absolute -top-24 pointer-events-none" />
+      <div id="service" className="absolute -top-24 pointer-events-none" />
+
       {/* Top transition wave/divider */}
       <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-[#0A0A0B] to-transparent opacity-10 pointer-events-none" />
 
