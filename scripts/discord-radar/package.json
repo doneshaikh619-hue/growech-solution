@@ -1,0 +1,12 @@
+{
+  "name": "growech-discord-radar",
+  "version": "1.0.0",
+  "description": "Autonomous 24/7 Multi-Server Discord & Automation Lead Hunter for Growech Solution",
+  "main": "discord-radar.cjs",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node discord-radar.cjs",
+    "loop": "node discord-radar.cjs --loop"
+  },
+  "dependencies": {}
+}
