@@ -21,6 +21,13 @@ const KEY_FILE = path.join(__dirname, 'service_account.json');
 // All Growech URLs to be indexed
 const URLS_TO_INDEX = [
   'https://growech.site/',
+  'https://growech.site/services/ai-workflow-automation.html',
+  'https://growech.site/services/whatsapp-business-api.html',
+  'https://growech.site/services/nextjs-web-development.html',
+  'https://growech.site/services/ecommerce-solutions.html',
+  'https://growech.site/services/remote-developers.html',
+  'https://growech.site/locations/ai-automation-agency-pakistan.html',
+  'https://growech.site/locations/ai-automation-agency-dubai.html',
   'https://growech.site/solutions/turnkey-architects.html',
   'https://growech.site/solutions/dental-aesthetic-clinics.html',
   'https://growech.site/solutions/car-detailing-ppf.html',

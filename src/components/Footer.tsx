@@ -47,7 +47,7 @@ export const Footer: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact 
           <div className="lg:col-span-2">
             <h4 className="text-sm font-bold font-display text-white mb-3">About GROWECH SOLUTION</h4>
             <p className="text-zinc-400 leading-relaxed max-w-sm mb-4">
-              A specialized digital agency empowering modern businesses to eliminate manual operational friction, build high-converting web architectures, deploy official WhatsApp bots, and implement custom AI agents.
+              A specialized digital agency empowering modern businesses to eliminate manual operational friction, build high-converting web architectures, deploy official WhatsApp bots, and implement custom AI agents across Pakistan, UAE, and worldwide.
             </p>
             <div className="flex items-center gap-3">
               <button
@@ -70,43 +70,85 @@ export const Footer: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact 
 
           {/* Col 2: Core Engineering Services */}
           <div>
-            <h4 className="text-sm font-bold font-display text-white mb-3">Core Solutions</h4>
+            <h4 className="text-sm font-bold font-display text-white mb-3">Core Services</h4>
             <ul className="space-y-2 text-zinc-400">
-              {servicesData.slice(0, 5).map((srv) => (
-                <li key={srv.id}>
-                  <a href="#solutions" className="hover:text-ember transition-colors">
-                    {srv.title.split('&')[0]}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a href="/services/ai-workflow-automation.html" className="hover:text-ember transition-colors">
+                  AI Workflow Automation
+                </a>
+              </li>
+              <li>
+                <a href="/services/whatsapp-business-api.html" className="hover:text-ember transition-colors">
+                  WhatsApp Cloud API
+                </a>
+              </li>
+              <li>
+                <a href="/services/nextjs-web-development.html" className="hover:text-ember transition-colors">
+                  Next.js Web Engineering
+                </a>
+              </li>
+              <li>
+                <a href="/services/ecommerce-solutions.html" className="hover:text-ember transition-colors">
+                  E-Commerce &amp; Shopify
+                </a>
+              </li>
+              <li>
+                <a href="/services/remote-developers.html" className="hover:text-ember transition-colors">
+                  Hire Remote Engineers
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Col 3: Industry Architectures */}
           <div>
-            <h4 className="text-sm font-bold font-display text-white mb-3">Target Sectors</h4>
+            <h4 className="text-sm font-bold font-display text-white mb-3">Industry Solutions</h4>
             <ul className="space-y-2 text-zinc-400">
-              {industriesData.slice(0, 5).map((ind) => (
-                <li key={ind.id}>
-                  <a href="#playground" className="hover:text-ember transition-colors">
-                    {ind.name}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a href="/solutions/turnkey-architects.html" className="hover:text-ember transition-colors">
+                  Turnkey Architects
+                </a>
+              </li>
+              <li>
+                <a href="/solutions/dental-aesthetic-clinics.html" className="hover:text-ember transition-colors">
+                  Dental &amp; Aesthetic Clinics
+                </a>
+              </li>
+              <li>
+                <a href="/solutions/car-detailing-ppf.html" className="hover:text-ember transition-colors">
+                  Car Detailing &amp; PPF
+                </a>
+              </li>
+              <li>
+                <a href="/locations/ai-automation-agency-pakistan.html" className="hover:text-ember transition-colors">
+                  Pakistan Agency (Karachi/LHE)
+                </a>
+              </li>
+              <li>
+                <a href="/locations/ai-automation-agency-dubai.html" className="hover:text-ember transition-colors">
+                  Dubai &amp; UAE Agency
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Col 4: Capabilities & Trust */}
+          {/* Col 4: Trust & Resources */}
           <div>
-            <h4 className="text-sm font-bold font-display text-white mb-3">Trust &amp; Compliance</h4>
+            <h4 className="text-sm font-bold font-display text-white mb-3">Knowledge &amp; Standards</h4>
             <ul className="space-y-2 text-zinc-400">
-              <li className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-ember" />
-                <span>Official Meta Cloud API</span>
+              <li>
+                <a href="/llms.txt" className="hover:text-ember transition-colors">
+                  LLM Knowledge Base (AEO)
+                </a>
+              </li>
+              <li>
+                <a href="/sitemap.xml" className="hover:text-ember transition-colors">
+                  XML Sitemap Index
+                </a>
               </li>
               <li className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-ember" />
-                <span>Zero Public AI Training</span>
+                <span>Meta Verified API</span>
               </li>
               <li className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-ember" />
@@ -114,11 +156,7 @@ export const Footer: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact 
               </li>
               <li className="flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-ember" />
-                <span>Full Source Code Ownership</span>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-ember" />
-                <span>No Monthly Vendor Lock-in</span>
+                <span>Full Source Ownership</span>
               </li>
             </ul>
           </div>

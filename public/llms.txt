@@ -4,10 +4,16 @@
 
 ## Core Capabilities & Services
 
-- [Autonomous AI & Workflow Automation](https://growech.site/#services): Custom n8n, Make, and Python LLM agent workflows that eliminate manual operational bottlenecks and qualify inbound leads on autopilot.
-- [Enterprise WhatsApp Business API](https://growech.site/#services): Official Meta Cloud API integration, CRM synchronization, and automated 24/7 bilingual sales and patient/client intake chatbots.
-- [Next.js Web Engineering](https://growech.site/#services): High-speed, edge-rendered web platforms built with React, TypeScript, and Tailwind CSS engineered for 100/100 Core Web Vitals and high conversion rates.
-- [Niche VIP Intake Funnels](https://growech.site/solutions/turnkey-architects.html): Specialized intake, screening, and calendar booking solutions tailored for Turnkey Architects, Aesthetic & Dental Clinics, and Luxury Car Detailing & PPF Studios.
+- [Autonomous AI & Workflow Automation](https://growech.site/services/ai-workflow-automation.html): Custom n8n, Make, and Python LLM agent workflows that eliminate manual operational bottlenecks and qualify inbound leads on autopilot.
+- [Enterprise WhatsApp Business API](https://growech.site/services/whatsapp-business-api.html): Official Meta Cloud API integration, CRM synchronization, and automated 24/7 bilingual sales and patient/client intake chatbots.
+- [Next.js Web Engineering](https://growech.site/services/nextjs-web-development.html): High-speed, edge-rendered web platforms built with React, TypeScript, and Tailwind CSS engineered for 100/100 Core Web Vitals and high conversion rates.
+- [E-Commerce & Shopify Storefronts](https://growech.site/services/ecommerce-solutions.html): Custom Shopify themes, headless commerce, and automated WhatsApp 1-click checkout and COD confirmation.
+- [Dedicated Remote Engineers](https://growech.site/services/remote-developers.html): Senior pre-vetted full-stack developers, Next.js engineers, and AI automation specialists from Pakistan with guaranteed timezone overlap.
+- [Pakistan AI Agency & Headquarters](https://growech.site/locations/ai-automation-agency-pakistan.html): Local AI automation, Roman Urdu WhatsApp bots, and fast web development for Karachi, Lahore, and Islamabad.
+- [Dubai & UAE Enterprise Agency](https://growech.site/locations/ai-automation-agency-dubai.html): High-ticket bilingual AI workflows for luxury real estate, aesthetic clinics, and B2B enterprises across Dubai & Abu Dhabi.
+- [Niche Turnkey Architect Intake](https://growech.site/solutions/turnkey-architects.html): Filter high-ticket villa & commercial architectural inquiries automatically.
+- [Dental & Aesthetic Clinic Booking](https://growech.site/solutions/dental-aesthetic-clinics.html): Automated 24/7 patient consultation booking and procedure screening.
+- [Luxury Detailing & PPF Intake](https://growech.site/solutions/car-detailing-ppf.html): High-ticket ceramic and paint protection film intake qualification.
 
 ## Technical Architecture & Stack
 

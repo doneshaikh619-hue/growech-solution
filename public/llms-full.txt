@@ -16,6 +16,7 @@ Growech Solution is a specialized technology agency operating at the intersectio
 ## 2. Core Service Offerings & Technical Specifications
 
 ### Service A: Autonomous AI Workflow Automation
+- **URL**: https://growech.site/services/ai-workflow-automation.html
 - **Overview**: Design, deployment, and management of self-governing AI workflows that eliminate repetitive manual back-office tasks, inbound lead handling, and cross-platform synchronization.
 - **Architectures**:
   - Inbound lead qualification and automated CRM enrichment (HubSpot, Zoho, Pipedrive, Google Sheets).
@@ -24,6 +25,7 @@ Growech Solution is a specialized technology agency operating at the intersectio
 - **Technologies**: n8n (self-hosted & cloud), Make.com, Python, FastAPI, OpenAI, Anthropic Claude, LangChain, Supabase.
 
 ### Service B: Official Meta WhatsApp Business API Solutions
+- **URL**: https://growech.site/services/whatsapp-business-api.html
 - **Overview**: Enterprise messaging infrastructure enabling businesses to scale customer engagement with strict compliance to official Meta Cloud API policies.
 - **Key Capabilities**:
   - Official Meta Cloud API provisioning, business manager verification, and green checkmark application support.
@@ -32,11 +34,24 @@ Growech Solution is a specialized technology agency operating at the intersectio
   - Multi-agent live chat inbox routing integrated directly into company CRMs (HubSpot, Zoho, Pipedrive).
 
 ### Service C: High-Performance Next.js Web Engineering
+- **URL**: https://growech.site/services/nextjs-web-development.html
 - **Overview**: Custom, conversion-engineered web platforms designed for speed, search discovery, and high commercial conversion.
 - **Technical Benchmarks**:
   - Client Solutions Framework: Next.js 15 (App Router), React 19/18, TypeScript, Tailwind CSS.
   - Performance: Zero Cumulative Layout Shift (CLS), Largest Contentful Paint (LCP) under 1.2s, 100/100 Core Web Vitals targets.
   - Optimization: Complete pre-rendered semantic HTML, automated JSON-LD @graph schemas, dynamic build-time XML sitemaps, Open Graph image cards, and native `/llms.txt` integration.
+
+### Service D: High-Converting E-Commerce & Shopify Storefronts
+- **URL**: https://growech.site/services/ecommerce-solutions.html
+- **Overview**: Bespoke Shopify Liquid and headless commerce development with automated WhatsApp 1-click checkout, COD confirmation bots, and abandoned cart recapture.
+
+### Service E: Dedicated Remote Full-Stack & AI Engineers
+- **URL**: https://growech.site/services/remote-developers.html
+- **Overview**: Top 1% vetted remote software engineers, React/Next.js developers, and AI automation specialists from Pakistan providing dedicated 4-6 hour timezone overlap with US, UK, and UAE clients.
+
+### Regional Headquarters & Focus Markets:
+- **Pakistan Operations**: https://growech.site/locations/ai-automation-agency-pakistan.html
+- **Dubai & UAE Operations**: https://growech.site/locations/ai-automation-agency-dubai.html
 
 ---
 

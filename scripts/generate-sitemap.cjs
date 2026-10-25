@@ -15,26 +15,68 @@ const candidateRoutes = [
   {
     path: '',
     file: 'index.html',
-    changefreq: 'weekly',
+    changefreq: 'daily',
     priority: '1.0'
+  },
+  {
+    path: 'services/ai-workflow-automation.html',
+    file: 'public/services/ai-workflow-automation.html',
+    changefreq: 'weekly',
+    priority: '0.9'
+  },
+  {
+    path: 'services/whatsapp-business-api.html',
+    file: 'public/services/whatsapp-business-api.html',
+    changefreq: 'weekly',
+    priority: '0.9'
+  },
+  {
+    path: 'services/nextjs-web-development.html',
+    file: 'public/services/nextjs-web-development.html',
+    changefreq: 'weekly',
+    priority: '0.9'
+  },
+  {
+    path: 'services/ecommerce-solutions.html',
+    file: 'public/services/ecommerce-solutions.html',
+    changefreq: 'weekly',
+    priority: '0.9'
+  },
+  {
+    path: 'services/remote-developers.html',
+    file: 'public/services/remote-developers.html',
+    changefreq: 'weekly',
+    priority: '0.9'
+  },
+  {
+    path: 'locations/ai-automation-agency-pakistan.html',
+    file: 'public/locations/ai-automation-agency-pakistan.html',
+    changefreq: 'weekly',
+    priority: '0.95'
+  },
+  {
+    path: 'locations/ai-automation-agency-dubai.html',
+    file: 'public/locations/ai-automation-agency-dubai.html',
+    changefreq: 'weekly',
+    priority: '0.95'
   },
   {
     path: 'solutions/turnkey-architects.html',
     file: 'public/solutions/turnkey-architects.html',
     changefreq: 'weekly',
-    priority: '0.9'
+    priority: '0.85'
   },
   {
     path: 'solutions/dental-aesthetic-clinics.html',
     file: 'public/solutions/dental-aesthetic-clinics.html',
     changefreq: 'weekly',
-    priority: '0.9'
+    priority: '0.85'
   },
   {
     path: 'solutions/car-detailing-ppf.html',
     file: 'public/solutions/car-detailing-ppf.html',
     changefreq: 'weekly',
-    priority: '0.9'
+    priority: '0.85'
   },
   {
     path: 'card-generator.html',

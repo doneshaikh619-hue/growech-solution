@@ -6,16 +6,23 @@
 
 import https from 'https';
 
-const HOST = 'growechsolution.com';
+const HOST = 'growech.site';
 const KEY = 'growech-indexnow-key-2026';
 const KEY_LOCATION = `https://${HOST}/growech-indexnow-key-2026.txt`;
 
 const URLS = [
-  'https://growechsolution.com/',
-  'https://growechsolution.com/solutions/turnkey-architects.html',
-  'https://growechsolution.com/solutions/dental-aesthetic-clinics.html',
-  'https://growechsolution.com/solutions/car-detailing-ppf.html',
-  'https://growechsolution.com/card-generator.html'
+  'https://growech.site/',
+  'https://growech.site/services/ai-workflow-automation.html',
+  'https://growech.site/services/whatsapp-business-api.html',
+  'https://growech.site/services/nextjs-web-development.html',
+  'https://growech.site/services/ecommerce-solutions.html',
+  'https://growech.site/services/remote-developers.html',
+  'https://growech.site/locations/ai-automation-agency-pakistan.html',
+  'https://growech.site/locations/ai-automation-agency-dubai.html',
+  'https://growech.site/solutions/turnkey-architects.html',
+  'https://growech.site/solutions/dental-aesthetic-clinics.html',
+  'https://growech.site/solutions/car-detailing-ppf.html',
+  'https://growech.site/card-generator.html'
 ];
 
 async function submitToIndexNow() {
