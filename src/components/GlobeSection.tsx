@@ -1,158 +1,192 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Globe, Radio, Shield, Zap, ArrowUpRight } from 'lucide-react';
-
-interface HubCity {
-  name: string;
-  lat: number;
-  lng: number;
-  code: string;
-  ping: string;
-}
-
-const GLOBAL_HUBS: HubCity[] = [
-  { name: 'Dubai', lat: 25.2048, lng: 55.2708, code: 'DXB', ping: '1.2ms' },
-  { name: 'London', lat: 51.5074, lng: -0.1278, code: 'LHR', ping: '2.4ms' },
-  { name: 'New York', lat: 40.7128, lng: -74.006, code: 'NYC', ping: '3.8ms' },
-  { name: 'Singapore', lat: 1.3521, lng: 103.8198, code: 'SIN', ping: '2.9ms' },
-  { name: 'Karachi', lat: 24.8607, lng: 67.0011, code: 'KHI', ping: '0.8ms' },
-  { name: 'Frankfurt', lat: 50.1109, lng: 8.6821, code: 'FRA', ping: '2.1ms' },
-  { name: 'Tokyo', lat: 35.6762, lng: 139.6503, code: 'TYO', ping: '4.5ms' },
-];
-
-const HUB_CONNECTIONS: [number, number][] = [
-  [0, 1], // Dubai <-> London
-  [1, 2], // London <-> New York
-  [0, 4], // Dubai <-> Karachi
-  [3, 0], // Singapore <-> Dubai
-  [5, 2], // Frankfurt <-> New York
-  [6, 3], // Tokyo <-> Singapore
-];
-
-function latLngToVector3(lat: number, lng: number, r: number) {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
-  const x = -(r * Math.sin(phi) * Math.cos(theta));
-  const z = r * Math.sin(phi) * Math.sin(theta);
-  const y = r * Math.cos(phi);
-  return { x, y, z };
-}
+import React, { useEffect, useRef } from 'react';
+import { Radio } from 'lucide-react';
+import * as THREE from 'three';
 
 export const GlobeSection: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [activeCity] = useState<string>('Dubai');
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d', { alpha: true });
-    if (!ctx) return;
 
     let animationFrameId: number;
     let isVisible = true;
-    let width = 0;
-    let height = 0;
-    let radius = 0;
 
-    // Device Pixel Ratio clamped to 1.5 to prevent mobile GPU thermal throttling
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    // 1. Scene, Camera, Renderer Setup
+    const scene = new THREE.Scene();
 
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const clientW = canvas.parentElement.clientWidth;
-      width = Math.min(clientW, 640);
-      height = Math.min(width * 0.78, 480);
-      radius = width * 0.36;
+    const parent = canvas.parentElement;
+    const initialWidth = parent ? Math.min(parent.clientWidth, 520) : 460;
+    const initialHeight = Math.min(initialWidth * 0.78, 380);
 
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      ctx.scale(dpr, dpr);
-    };
+    const camera = new THREE.PerspectiveCamera(50, initialWidth / initialHeight, 0.1, 1000);
+    // Camera distance keeps globe compact ("chota type ka, not over-zoomed")
+    camera.position.set(0, 0, 28);
 
-    handleResize();
-    window.addEventListener('resize', handleResize, { passive: true });
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(initialWidth, initialHeight, false);
 
-    // 220 Fibonacci sphere points for clean, lightweight 60 FPS rendering
-    const numPoints = 220;
-    const points: { x: number; y: number; z: number; isHub: boolean }[] = [];
+    // 2. Audio Context & Analyser (Safe Audio Pipeline)
+    let audioContext: AudioContext | null = null;
+    let analyser: AnalyserNode | null = null;
+    let dataArray: Uint8Array | null = null;
 
-    for (let i = 0; i < numPoints; i++) {
-      const phi = Math.acos(1 - (2 * (i + 0.5)) / numPoints);
-      const theta = Math.PI * (1 + Math.sqrt(5)) * (i + 0.5);
+    try {
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (AudioCtx) {
+        audioContext = new AudioCtx();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 512;
+        const bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
 
-      const x = radius * Math.cos(theta) * Math.sin(phi);
-      const y = radius * Math.sin(theta) * Math.sin(phi);
-      const z = radius * Math.cos(phi);
+        // Demo oscillators from user snippet
+        const oscillator1 = audioContext.createOscillator();
+        const oscillator2 = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
 
-      points.push({
-        x,
-        y,
-        z,
-        isHub: i % 18 === 0,
-      });
+        oscillator1.frequency.setValueAtTime(150, audioContext.currentTime);
+        oscillator2.frequency.setValueAtTime(220, audioContext.currentTime);
+        oscillator1.connect(gainNode);
+        oscillator2.connect(gainNode);
+        gainNode.connect(analyser);
+
+        // Keep gain muted so browser autoplay policies never block page & no buzzing sounds
+        gainNode.gain.setValueAtTime(0.0, audioContext.currentTime);
+
+        oscillator1.start();
+        oscillator2.start();
+      }
+    } catch {
+      // Graceful fallback for environments without audio
     }
 
-    // Convert city coordinates
-    const cityPoints = GLOBAL_HUBS.map((c) => ({
-      ...c,
-      pos: latLngToVector3(c.lat, c.lng, radius),
-    }));
+    // 3. Create 3D Spherical Particle Globe ("duniya type ka, gol particle globe")
+    const particleCount = 3000;
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const velocities = new Float32Array(particleCount * 3);
 
-    // Pre-calculate flight arcs
-    const arcs = HUB_CONNECTIONS.map(([idxA, idxB]) => {
-      const pA = cityPoints[idxA].pos;
-      const pB = cityPoints[idxB].pos;
-      const segments = 16;
-      const curvePoints: { x: number; y: number; z: number }[] = [];
+    // Base spherical coordinates to preserve round globe shape
+    const normX = new Float32Array(particleCount);
+    const normY = new Float32Array(particleCount);
+    const normZ = new Float32Array(particleCount);
+    const baseRadii = new Float32Array(particleCount);
+    const phases = new Float32Array(particleCount);
 
-      for (let s = 0; s <= segments; s++) {
-        const t = s / segments;
-        let x = pA.x + (pB.x - pA.x) * t;
-        let y = pA.y + (pB.y - pA.y) * t;
-        let z = pA.z + (pB.z - pA.z) * t;
+    const globeRadius = 9.2; // Compact, perfectly proportioned radius
 
-        const dist = Math.sqrt(x * x + y * y + z * z);
-        const arcElev = Math.sin(t * Math.PI) * (radius * 0.16);
-        const targetR = radius + arcElev;
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
 
-        x = (x / dist) * targetR;
-        y = (y / dist) * targetR;
-        z = (z / dist) * targetR;
+      // Fibonacci sphere distribution for uniform 3D planetary shell
+      const phi = Math.acos(1 - (2 * (i + 0.5)) / particleCount);
+      const theta = Math.PI * (1 + Math.sqrt(5)) * (i + 0.5);
 
-        curvePoints.push({ x, y, z });
+      // Radial variation gives depth to the particle sphere
+      const rJitter = globeRadius + (Math.random() - 0.5) * 0.8;
+      baseRadii[i] = rJitter;
+      phases[i] = Math.random() * Math.PI * 2;
+
+      const nx = Math.sin(phi) * Math.cos(theta);
+      const ny = Math.cos(phi);
+      const nz = Math.sin(phi) * Math.sin(theta);
+
+      normX[i] = nx;
+      normY[i] = ny;
+      normZ[i] = nz;
+
+      positions[i3] = nx * rJitter;
+      positions[i3 + 1] = ny * rJitter;
+      positions[i3 + 2] = nz * rJitter;
+
+      // Small ambient drift velocities
+      velocities[i3] = (Math.random() - 0.5) * 0.04;
+      velocities[i3 + 1] = (Math.random() - 0.5) * 0.04;
+      velocities[i3 + 2] = (Math.random() - 0.5) * 0.04;
+
+      // Initial Brand Colors: Growech Ember (#FF5500) to Gold (#FFAA00)
+      colors[i3] = 1.0;
+      colors[i3 + 1] = 0.35 + Math.random() * 0.25;
+      colors[i3 + 2] = 0.05 + Math.random() * 0.1;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    // Create a circular particle texture for smooth glow dots
+    const createCircleTexture = () => {
+      const pCanvas = document.createElement('canvas');
+      pCanvas.width = 32;
+      pCanvas.height = 32;
+      const pCtx = pCanvas.getContext('2d');
+      if (pCtx) {
+        const grad = pCtx.createRadialGradient(16, 16, 0, 16, 16, 16);
+        grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        grad.addColorStop(0.35, 'rgba(255, 140, 20, 0.9)');
+        grad.addColorStop(0.8, 'rgba(255, 85, 0, 0.3)');
+        grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        pCtx.fillStyle = grad;
+        pCtx.beginPath();
+        pCtx.arc(16, 16, 16, 0, Math.PI * 2);
+        pCtx.fill();
       }
+      return new THREE.CanvasTexture(pCanvas);
+    };
 
-      return {
-        curvePoints,
-        speed: 0.007 + (idxA * 0.002) % 0.005,
-        offset: (idxA * 0.25) % 1,
-      };
+    const particleTexture = createCircleTexture();
+
+    const material = new THREE.PointsMaterial({
+      size: 0.38,
+      map: particleTexture,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.92,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
     });
 
-    let rotX = 0.2;
-    let rotY = 0;
-    let targetRotY = 0;
-    let isDragging = false;
-    let lastMouseX = 0;
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
 
-    // Desktop mouse drag only (never interferes with mobile touch scrolling)
+    // 4. Interactive Mouse Drag for desktop exploration
+    let isDragging = false;
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+    let targetRotY = 0;
+    let targetRotX = 0.15;
+    let curRotY = 0;
+    let curRotX = 0.15;
+
     const onMouseDown = (e: MouseEvent) => {
       isDragging = true;
-      lastMouseX = e.clientX;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
-        const delta = e.clientX - lastMouseX;
-        targetRotY += delta * 0.005;
-        lastMouseX = e.clientX;
-      }
+      if (!isDragging) return;
+      const deltaX = e.clientX - prevMouseX;
+      const deltaY = e.clientY - prevMouseY;
+      targetRotY += deltaX * 0.006;
+      targetRotX += deltaY * 0.006;
+      // Clamp vertical tilt
+      targetRotX = Math.max(-0.6, Math.min(0.6, targetRotX));
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
     };
 
     const onMouseUp = () => {
       isDragging = false;
     };
 
-    // Enable drag only on desktop hover devices
     const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (isDesktop) {
       canvas.addEventListener('mousedown', onMouseDown);
@@ -160,151 +194,113 @@ export const GlobeSection: React.FC = () => {
       window.addEventListener('mouseup', onMouseUp);
     }
 
-    let time = 0;
+    // 5. Responsive Resize Listener
+    const handleResize = () => {
+      if (!canvas.parentElement) return;
+      const clientW = canvas.parentElement.clientWidth;
+      const w = Math.min(clientW, 520);
+      const h = Math.min(w * 0.78, 380);
 
-    const render = () => {
-      if (!isVisible) return;
-
-      time += 0.015;
-      if (!isDragging) {
-        targetRotY += 0.0022;
-      }
-      rotY += (targetRotY - rotY) * 0.08;
-
-      ctx.clearRect(0, 0, width, height);
-
-      const cx = width / 2;
-      const cy = height / 2;
-
-      // 1. Subtle Radial Ambient Glow
-      const glow = ctx.createRadialGradient(cx, cy, radius * 0.2, cx, cy, radius * 1.25);
-      glow.addColorStop(0, 'rgba(255, 85, 0, 0.12)');
-      glow.addColorStop(0.6, 'rgba(255, 85, 0, 0.03)');
-      glow.addColorStop(1, 'rgba(10, 10, 11, 0)');
-      ctx.fillStyle = glow;
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius * 1.25, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Matrix transforms
-      const cosY = Math.cos(rotY);
-      const sinY = Math.sin(rotY);
-      const cosX = Math.cos(rotX);
-      const sinX = Math.sin(rotX);
-
-      const project = (x: number, y: number, z: number) => {
-        const x1 = x * cosY - z * sinY;
-        const z1 = z * cosY + x * sinY;
-        const y2 = y * cosX - z1 * sinX;
-        const z2 = z1 * cosX + y * sinX;
-        const fov = 400;
-        const scale = fov / (fov + z2);
-        return {
-          x: cx + x1 * scale,
-          y: cy + y2 * scale,
-          z: z2,
-          scale,
-        };
-      };
-
-      // 2. Render Matrix Points (single batch pass)
-      for (let i = 0; i < points.length; i++) {
-        const p = points[i];
-        const proj = project(p.x, p.y, p.z);
-        const alpha = Math.max(0.12, (proj.z + radius) / (2 * radius));
-
-        ctx.beginPath();
-        if (p.isHub) {
-          ctx.fillStyle = `rgba(255, 85, 0, ${Math.min(0.95, alpha + 0.3)})`;
-          ctx.arc(proj.x, proj.y, 2.5 * proj.scale, 0, Math.PI * 2);
-        } else {
-          ctx.fillStyle = `rgba(215, 225, 240, ${alpha * 0.55})`;
-          ctx.arc(proj.x, proj.y, 1.2 * proj.scale, 0, Math.PI * 2);
-        }
-        ctx.fill();
-      }
-
-      // 3. Render Arcs
-      for (let a = 0; a < arcs.length; a++) {
-        const arc = arcs[a];
-        ctx.beginPath();
-        ctx.strokeStyle = 'rgba(255, 95, 10, 0.35)';
-        ctx.lineWidth = 1;
-
-        for (let s = 0; s < arc.curvePoints.length; s++) {
-          const pt = arc.curvePoints[s];
-          const proj = project(pt.x, pt.y, pt.z);
-          if (s === 0) ctx.moveTo(proj.x, proj.y);
-          else ctx.lineTo(proj.x, proj.y);
-        }
-        ctx.stroke();
-
-        // Traveling Photon Marker
-        const t = (time * arc.speed + arc.offset) % 1;
-        const sampleIdx = Math.floor(t * (arc.curvePoints.length - 1));
-        const pt = arc.curvePoints[sampleIdx];
-        if (pt) {
-          const photon = project(pt.x, pt.y, pt.z);
-          if (photon.z > -radius * 0.2) {
-            ctx.beginPath();
-            ctx.fillStyle = '#FFFFFF';
-            ctx.arc(photon.x, photon.y, 2.4 * photon.scale, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
-      }
-
-      // 4. Render Hub City Nodes
-      for (let c = 0; c < cityPoints.length; c++) {
-        const city = cityPoints[c];
-        const proj = project(city.pos.x, city.pos.y, city.pos.z);
-
-        if (proj.z > 0) {
-          const alpha = proj.z / radius;
-
-          // Glowing City Marker
-          ctx.beginPath();
-          ctx.fillStyle = '#FFFFFF';
-          ctx.arc(proj.x, proj.y, 3.5 * proj.scale, 0, Math.PI * 2);
-          ctx.fill();
-
-          ctx.beginPath();
-          ctx.strokeStyle = '#FF5500';
-          ctx.lineWidth = 1.5;
-          ctx.arc(proj.x, proj.y, 6.5 * proj.scale, 0, Math.PI * 2);
-          ctx.stroke();
-
-          // Clean Monospace HUD Tag
-          ctx.font = 'bold 9px monospace';
-          ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-          ctx.fillText(`[${city.code}]`, proj.x + 9, proj.y - 2);
-
-          ctx.font = '8px monospace';
-          ctx.fillStyle = `rgba(16, 185, 129, ${alpha})`;
-          ctx.fillText(`${city.ping}`, proj.x + 9, proj.y + 8);
-        }
-      }
-
-      if (isVisible) {
-        animationFrameId = requestAnimationFrame(render);
-      }
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h, false);
     };
 
-    // Pause animation when scrolled off-screen (0% CPU consumption)
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    // 6. Animation Loop with Audio Frequency Dynamics
+    const clock = new THREE.Clock();
+
+    function animate() {
+      if (!isVisible) return;
+
+      const elapsed = clock.getElapsedTime();
+
+      // Audio data extraction + smooth continuous harmonic rhythm
+      const rhythmicBass = 0.35 + 0.45 * Math.sin(elapsed * 2.2) * Math.sin(elapsed * 1.1);
+      const rhythmicMid = 0.28 + 0.35 * Math.cos(elapsed * 3.4 + 1.2);
+      const rhythmicTreble = 0.2 + 0.3 * Math.sin(elapsed * 5.2 + 2.5);
+
+      let bassAvg = Math.max(0.1, rhythmicBass);
+      let midAvg = Math.max(0.1, rhythmicMid);
+      let trebleAvg = Math.max(0.1, rhythmicTreble);
+
+      // If Web Audio analyser has active frequency data, blend it in
+      if (analyser && dataArray) {
+        analyser.getByteFrequencyData(dataArray as unknown as Uint8Array<ArrayBuffer>);
+        const liveBass = dataArray.slice(0, 32).reduce((a, b) => a + b, 0) / 32 / 255;
+        const liveMid = dataArray.slice(32, 128).reduce((a, b) => a + b, 0) / 96 / 255;
+        const liveTreble = dataArray.slice(128, 256).reduce((a, b) => a + b, 0) / 128 / 255;
+
+        if (liveBass > 0.05 || liveMid > 0.05) {
+          bassAvg = Math.max(bassAvg, liveBass);
+          midAvg = Math.max(midAvg, liveMid);
+          trebleAvg = Math.max(trebleAvg, liveTreble);
+        }
+      }
+
+      // Audio Force calculation matching user snippet
+      const audioForce = bassAvg * 2 + midAvg * 1.5 + trebleAvg;
+
+      // Update particle positions on the 3D globe
+      const posAttr = geometry.attributes.position as THREE.BufferAttribute;
+      const colAttr = geometry.attributes.color as THREE.BufferAttribute;
+      const posArray = posAttr.array as Float32Array;
+      const colArray = colAttr.array as Float32Array;
+
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+
+        // Radial pulsation along the sphere surface
+        const pulse = Math.sin(elapsed * 2.0 + phases[i]) * audioForce * 0.32;
+        const currentR = baseRadii[i] + pulse;
+
+        posArray[i3] = normX[i] * currentR + velocities[i3] * Math.sin(elapsed + i);
+        posArray[i3 + 1] = normY[i] * currentR + velocities[i3 + 1] * Math.cos(elapsed + i);
+        posArray[i3 + 2] = normZ[i] * currentR + velocities[i3 + 2] * Math.sin(elapsed + i);
+
+        // Website Color Scheme: Growech Ember (#FF5500) to Warm Amber Gold (#FFAA00)
+        colArray[i3] = 1.0; // Red foundation
+        colArray[i3 + 1] = Math.min(1.0, 0.28 + midAvg * 0.48 + bassAvg * 0.22); // Green shift creates ember-gold
+        colArray[i3 + 2] = Math.min(1.0, 0.02 + trebleAvg * 0.32); // Subtle sparkling highlight
+      }
+
+      posAttr.needsUpdate = true;
+      colAttr.needsUpdate = true;
+
+      // Smooth globe rotation
+      if (!isDragging) {
+        targetRotY += 0.003;
+      }
+      curRotY += (targetRotY - curRotY) * 0.06;
+      curRotX += (targetRotX - curRotX) * 0.06;
+
+      particles.rotation.y = curRotY;
+      particles.rotation.x = curRotX;
+
+      renderer.render(scene, camera);
+
+      if (isVisible) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    }
+
+    // 7. Intersection Observer for 0% CPU consumption off-screen
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
         if (isVisible) {
           cancelAnimationFrame(animationFrameId);
-          animationFrameId = requestAnimationFrame(render);
+          animationFrameId = requestAnimationFrame(animate);
         }
       },
       { threshold: 0.05 }
     );
 
     observer.observe(canvas);
-    render();
+    animate();
 
+    // Cleanup on unmount
     return () => {
       observer.disconnect();
       cancelAnimationFrame(animationFrameId);
@@ -314,12 +310,19 @@ export const GlobeSection: React.FC = () => {
         window.removeEventListener('mousemove', onMouseMove);
         window.removeEventListener('mouseup', onMouseUp);
       }
+      if (audioContext && audioContext.state !== 'closed') {
+        audioContext.close().catch(() => {});
+      }
+      geometry.dispose();
+      material.dispose();
+      particleTexture.dispose();
+      renderer.dispose();
     };
   }, []);
 
   return (
     <section id="globe" className="relative py-20 sm:py-28 bg-[#0A0A0B] text-white overflow-hidden border-t border-b border-white/5">
-      {/* Background Aura */}
+      {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-ember/10 rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -339,24 +342,24 @@ export const GlobeSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 3D Global Telemetry Sphere Canvas (Mobile Touch-Pan-Y Enabled) */}
-        <div className="relative w-full max-w-2xl mx-auto flex flex-col items-center justify-center">
-          <div className="relative w-full flex justify-center">
+        {/* 3D Global Particle Sphere Canvas (Compact, Gol/Duniya Type, Responsive) */}
+        <div className="relative w-full max-w-xl mx-auto flex flex-col items-center justify-center">
+          <div className="relative w-full flex justify-center items-center">
             <canvas
               ref={canvasRef}
-              className="w-full max-w-[620px] h-[340px] sm:h-[450px] touch-pan-y pointer-events-none sm:pointer-events-auto cursor-grab active:cursor-grabbing"
+              className="w-full max-w-[460px] h-[300px] sm:h-[360px] touch-pan-y cursor-grab active:cursor-grabbing rounded-2xl"
             />
 
             {/* Edge Status Pills */}
-            <div className="absolute top-3 left-4 bg-obsidian-900/90 border border-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-left hidden sm:block pointer-events-none">
+            <div className="absolute top-2 left-2 bg-obsidian-900/90 border border-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-left hidden sm:block pointer-events-none">
               <div className="text-[10px] font-mono text-zinc-400 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>GLOBAL HUBS: ACTIVE</span>
+                <span>GLOBAL TELEMETRY: ACTIVE</span>
               </div>
-              <div className="text-xs font-bold text-white mt-0.5">7 Edge Gateways Synced</div>
+              <div className="text-xs font-bold text-white mt-0.5">3,000 Particle Nodes Synced</div>
             </div>
 
-            <div className="absolute top-3 right-4 bg-obsidian-900/90 border border-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-right hidden sm:block pointer-events-none">
+            <div className="absolute top-2 right-2 bg-obsidian-900/90 border border-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg text-right hidden sm:block pointer-events-none">
               <div className="text-[10px] font-mono text-ember flex items-center gap-1.5 justify-end">
                 <span>LATENCY</span>
               </div>
@@ -365,8 +368,8 @@ export const GlobeSection: React.FC = () => {
           </div>
 
           <div className="text-[11px] font-mono text-zinc-400 mt-2 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-ember" />
-            <span>Interactive 3D Infrastructure Network &bull; Worldwide Coverage</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-ember animate-pulse" />
+            <span>Interactive 3D Harmonic Particle Globe &bull; Drag to Rotate</span>
           </div>
         </div>
 
