@@ -225,29 +225,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.96 }}
                           transition={{ duration: 0.18, ease: 'easeOut' }}
-                          className="absolute top-full left-0 mt-2 w-80 sm:w-96 p-3 rounded-2xl bg-[#0D0E12]/98 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-50 flex flex-col gap-1.5 text-left"
+                          className="absolute top-full left-0 mt-2 w-84 sm:w-[410px] p-3.5 rounded-2xl bg-[#07090E] border-2 border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-1 ring-white/10 z-50 flex flex-col gap-2 text-left"
                         >
-                          <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider font-mono text-zinc-400 border-b border-white/10 flex items-center justify-between mb-0.5">
-                            <span>Enterprise Solutions &bull; 2026</span>
-                            <span className="text-ember font-bold">Client Owned</span>
+                          <div className="px-3 py-1.5 text-[11px] uppercase tracking-wider font-mono text-zinc-300 border-b border-white/10 flex items-center justify-between mb-0.5">
+                            <span className="font-semibold text-white">Enterprise Solutions &bull; 2026</span>
+                            <span className="text-ember font-extrabold tracking-wider">Client Owned</span>
                           </div>
 
                           {/* 1. Growech Dine POS & KDS (Highlighted with Live Demo Button) */}
-                          <div className="p-2.5 rounded-xl bg-gradient-to-r from-ember/15 via-ember/5 to-transparent border border-ember/30 flex items-center justify-between gap-2 shadow-sm group">
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <div className="w-8 h-8 rounded-lg bg-ember/20 border border-ember/40 flex items-center justify-center flex-shrink-0 group-hover:bg-ember/30 transition-colors">
-                                <UtensilsCrossed className="w-4 h-4 text-ember" />
+                          <div className="p-3 rounded-xl bg-gradient-to-r from-ember/30 via-ember/15 to-white/[0.04] border border-ember/50 flex items-center justify-between gap-3 shadow-md group">
+                            <div className="flex items-center gap-3 min-w-0">
+                              <div className="w-9 h-9 rounded-xl bg-ember/30 border border-ember/50 flex items-center justify-center flex-shrink-0 group-hover:bg-ember/40 transition-colors shadow-inner">
+                                <UtensilsCrossed className="w-5 h-5 text-ember" />
                               </div>
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-xs font-bold text-white truncate">
+                                  <span className="text-xs sm:text-sm font-bold text-white truncate">
                                     Growech Dine POS
                                   </span>
-                                  <span className="text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                                  <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/25 text-emerald-300 font-extrabold border border-emerald-400/50">
                                     LIVE DEMO
                                   </span>
                                 </div>
-                                <p className="text-[10px] text-zinc-400 truncate">
+                                <p className="text-[11px] text-zinc-200 truncate mt-0.5">
                                   Offline LAN billing &amp; kitchen KDS OS
                                 </p>
                               </div>
@@ -257,10 +257,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                               href="./dine/"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2.5 py-1 rounded-lg bg-ember hover:bg-orange-600 text-white font-bold text-[10px] shadow-sm shadow-ember/30 flex items-center gap-1 flex-shrink-0 transition-transform hover:scale-105"
+                              className="px-3 py-1.5 rounded-lg bg-ember hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-ember/40 flex items-center gap-1 flex-shrink-0 transition-transform hover:scale-105"
                             >
                               <span>Live Demo</span>
-                              <ArrowUpRight className="w-3 h-3" />
+                              <ArrowUpRight className="w-3.5 h-3.5" />
                             </a>
                           </div>
 
@@ -268,21 +268,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                           <a
                             href="#solutions"
                             onClick={(e) => handleNavClick(e, '#solutions')}
-                            className="p-2.5 rounded-xl hover:bg-white/[0.06] transition-all flex items-start gap-3 group"
+                            className="p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-cyan-500/50 transition-all flex items-start gap-3 group"
                           >
-                            <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-cyan-500/40 group-hover:bg-cyan-500/10 transition-colors">
-                              <Building2 className="w-4 h-4 text-cyan-400" />
+                            <div className="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center flex-shrink-0 group-hover:border-cyan-400 group-hover:bg-cyan-500/25 transition-colors">
+                              <Building2 className="w-4 h-4 text-cyan-300" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-1.5">
-                                <span className="text-xs font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
                                   Hospital &amp; Clinic Management
                                 </span>
-                                <span className="text-[8px] font-mono px-1.5 py-0.2 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-bold">
+                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 font-bold">
                                   ENTERPRISE
                                 </span>
                               </div>
-                              <p className="text-[11px] text-zinc-400 truncate mt-0.5">
+                              <p className="text-[11px] text-zinc-200 truncate mt-0.5">
                                 Patient EHR, OPD triage, appointments &amp; pharmacy billing
                               </p>
                             </div>
@@ -292,21 +292,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                           <a
                             href="#solutions"
                             onClick={(e) => handleNavClick(e, '#solutions')}
-                            className="p-2.5 rounded-xl hover:bg-white/[0.06] transition-all flex items-start gap-3 group"
+                            className="p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-purple-500/50 transition-all flex items-start gap-3 group"
                           >
-                            <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-purple-500/40 group-hover:bg-purple-500/10 transition-colors">
-                              <Server className="w-4 h-4 text-purple-400" />
+                            <div className="w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center flex-shrink-0 group-hover:border-purple-400 group-hover:bg-purple-500/25 transition-colors">
+                              <Server className="w-4 h-4 text-purple-300" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-1.5">
-                                <span className="text-xs font-semibold text-white group-hover:text-purple-400 transition-colors">
+                                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 transition-colors">
                                   BaaS &amp; Custom Enterprise SaaS
                                 </span>
-                                <span className="text-[8px] font-mono px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold">
+                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/50 font-bold">
                                   BaaS / SaaS
                                 </span>
                               </div>
-                              <p className="text-[11px] text-zinc-400 truncate mt-0.5">
+                              <p className="text-[11px] text-zinc-200 truncate mt-0.5">
                                 Backend-as-a-service, edge APIs &amp; custom workflow systems
                               </p>
                             </div>
@@ -316,36 +316,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                           <a
                             href="#solutions"
                             onClick={(e) => handleNavClick(e, '#solutions')}
-                            className="p-2.5 rounded-xl hover:bg-white/[0.06] transition-all flex items-start gap-3 group"
+                            className="p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-amber-500/50 transition-all flex items-start gap-3 group"
                           >
-                            <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-brand-gold/40 group-hover:bg-brand-gold/10 transition-colors">
-                              <Layers className="w-4 h-4 text-amber-400" />
+                            <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center flex-shrink-0 group-hover:border-amber-400 group-hover:bg-amber-500/25 transition-colors">
+                              <Layers className="w-4 h-4 text-amber-300" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-1.5">
-                                <span className="text-xs font-semibold text-white group-hover:text-amber-400 transition-colors">
+                                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition-colors">
                                   Turnkey Industry Portals
                                 </span>
-                                <span className="text-[8px] font-mono px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
+                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/50 font-bold">
                                   TURNKEY
                                 </span>
                               </div>
-                              <p className="text-[11px] text-zinc-400 truncate mt-0.5">
+                              <p className="text-[11px] text-zinc-200 truncate mt-0.5">
                                 Lead intake engines &amp; automated VIP client portals
                               </p>
                             </div>
                           </a>
 
-                          <div className="pt-2 mt-0.5 border-t border-white/10 flex items-center justify-between px-2">
+                          <div className="pt-2 mt-0.5 border-t border-white/15 flex items-center justify-between px-2">
                             <a
                               href="#solutions"
                               onClick={(e) => handleNavClick(e, '#solutions')}
-                              className="text-[11px] font-semibold text-zinc-300 hover:text-white flex items-center gap-1"
+                              className="text-xs font-bold text-white hover:text-ember flex items-center gap-1.5 transition-colors"
                             >
-                              <Layers className="w-3 h-3 text-ember" />
+                              <Layers className="w-3.5 h-3.5 text-ember" />
                               <span>Jump to Solutions Section</span>
                             </a>
-                            <span className="text-[10px] text-zinc-500 font-mono">
+                            <span className="text-[11px] text-zinc-300 font-mono font-medium">
                               Zero SaaS Lock-in
                             </span>
                           </div>
@@ -407,10 +407,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-x-4 top-28 z-50 p-6 rounded-3xl bg-obsidian-900/98 backdrop-blur-2xl border border-white/15 shadow-2xl lg:hidden flex flex-col gap-4 max-h-[85vh] overflow-y-auto"
+            className="fixed inset-x-4 top-28 z-50 p-6 rounded-3xl bg-[#07090E] border-2 border-white/20 shadow-2xl lg:hidden flex flex-col gap-4 max-h-[85vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <span className="text-xs uppercase tracking-wider text-zinc-400 font-mono">Navigation Menu</span>
+              <span className="text-xs uppercase tracking-wider text-zinc-300 font-mono font-semibold">Navigation Menu</span>
               <div className="flex items-center gap-1.5 text-xs text-emerald-400">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Verified Studio</span>
@@ -424,25 +424,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                   setMobileMenuOpen(false);
                   handleNavClick(e, '#services');
                 }}
-                className="px-3 py-2 text-sm font-medium text-zinc-200 hover:text-ember hover:bg-white/5 rounded-xl transition-all"
+                className="px-3 py-2 text-sm font-semibold text-white hover:text-ember hover:bg-white/5 rounded-xl transition-all"
               >
                 Services
               </a>
 
               {/* Solutions & Software Suites Container in Mobile Drawer */}
-              <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
-                <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-zinc-400">
+              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/15 space-y-2.5">
+                <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-zinc-300 font-semibold">
                   <span>Solutions &amp; Softwares</span>
                   <span className="text-ember font-bold">Live Demo Inside</span>
                 </div>
 
                 {/* 1. Growech Dine POS Highlighted Live Demo */}
-                <div className="p-2.5 rounded-xl bg-gradient-to-r from-ember/15 via-ember/5 to-transparent border border-ember/30 flex items-center justify-between gap-2 shadow-sm">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <UtensilsCrossed className="w-4 h-4 text-ember flex-shrink-0" />
+                <div className="p-3 rounded-xl bg-gradient-to-r from-ember/30 via-ember/15 to-white/[0.04] border border-ember/50 flex items-center justify-between gap-2 shadow-sm">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <UtensilsCrossed className="w-5 h-5 text-ember flex-shrink-0" />
                     <div className="min-w-0">
-                      <div className="text-xs font-bold text-white truncate">Growech Dine POS</div>
-                      <div className="text-[10px] text-zinc-400 truncate">Restaurant POS &amp; KDS</div>
+                      <div className="text-xs sm:text-sm font-bold text-white truncate">Growech Dine POS</div>
+                      <div className="text-[11px] text-zinc-200 truncate">Restaurant POS &amp; KDS</div>
                     </div>
                   </div>
                   <a
@@ -450,10 +450,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-2.5 py-1 rounded-lg bg-ember hover:bg-orange-600 text-white font-bold text-[10px] flex items-center gap-1 flex-shrink-0"
+                    className="px-3 py-1.5 rounded-lg bg-ember hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1 flex-shrink-0"
                   >
                     <span>Live Demo</span>
-                    <ArrowUpRight className="w-3 h-3" />
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
 
@@ -464,13 +464,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                     setMobileMenuOpen(false);
                     handleNavClick(e, '#solutions');
                   }}
-                  className="px-2.5 py-1.5 rounded-lg hover:bg-white/5 text-xs text-zinc-300 flex items-center justify-between"
+                  className="px-3 py-2 rounded-lg bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 text-xs text-white flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2">
-                    <Building2 className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>Hospital Management (HMS)</span>
+                    <Building2 className="w-4 h-4 text-cyan-300" />
+                    <span className="font-semibold text-white">Hospital Management (HMS)</span>
                   </div>
-                  <span className="text-[9px] font-mono text-cyan-300">ENTERPRISE</span>
+                  <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 font-bold">ENTERPRISE</span>
                 </a>
 
                 {/* 3. BaaS & Custom Enterprise SaaS */}
@@ -480,13 +480,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                     setMobileMenuOpen(false);
                     handleNavClick(e, '#solutions');
                   }}
-                  className="px-2.5 py-1.5 rounded-lg hover:bg-white/5 text-xs text-zinc-300 flex items-center justify-between"
+                  className="px-3 py-2 rounded-lg bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 text-xs text-white flex items-center justify-between"
                 >
                   <div className="flex items-center gap-2">
-                    <Server className="w-3.5 h-3.5 text-purple-400" />
-                    <span>BaaS &amp; Custom Softwares</span>
+                    <Server className="w-4 h-4 text-purple-300" />
+                    <span className="font-semibold text-white">BaaS &amp; Custom Softwares</span>
                   </div>
-                  <span className="text-[9px] font-mono text-purple-300">BaaS</span>
+                  <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/50 font-bold">BaaS</span>
                 </a>
               </div>
 
@@ -505,7 +505,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                     setMobileMenuOpen(false);
                     handleNavClick(e, link.href);
                   }}
-                  className="px-3 py-2 text-sm font-medium text-zinc-200 hover:text-ember hover:bg-white/5 rounded-xl transition-all"
+                  className="px-3 py-2 text-sm font-semibold text-white hover:text-ember hover:bg-white/5 rounded-xl transition-all"
                 >
                   {link.name}
                 </a>
