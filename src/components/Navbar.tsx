@@ -111,9 +111,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
     {
       title: 'Growech Dine (Restaurant POS)',
       desc: 'Offline-first LAN POS & Kitchen Display Suite',
-      href: '#work',
+      href: './dine/',
       icon: UtensilsCrossed,
-      tag: 'NEW DEMO',
+      tag: 'LIVE APP',
     },
     {
       title: 'E-Commerce & Shopify',
@@ -132,6 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
   // Top-Level Streamlined Navigation Links
   const navLinks = [
     { name: 'Capabilities', href: '#bento' },
+    { name: 'Live POS Demo', href: './dine/' },
     { name: 'Software Demos', href: '#work' },
     { name: 'Architecture', href: '#architecture' },
     { name: 'FAQ', href: '#faq' },

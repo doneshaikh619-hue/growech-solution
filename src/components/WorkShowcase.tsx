@@ -165,7 +165,7 @@ export const WorkShowcase: React.FC<{ onOpenContact: () => void }> = ({ onOpenCo
               </div>
 
               {/* Action Trigger */}
-              <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between">
+              <div className="mt-8 pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-3">
                 <button
                   onClick={() => setSelectedCase(cs)}
                   className="text-xs font-semibold text-zinc-300 hover:text-white flex items-center gap-1.5 group-hover:text-ember transition-colors"
@@ -174,13 +174,27 @@ export const WorkShowcase: React.FC<{ onOpenContact: () => void }> = ({ onOpenCo
                   <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </button>
 
-                <button
-                  onClick={onOpenContact}
-                  className="p-2 rounded-full bg-white/5 hover:bg-ember text-zinc-400 hover:text-white transition-colors"
-                  title="Discuss similar project"
-                >
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-2">
+                  {cs.liveDemoUrl && (
+                    <a
+                      href={cs.liveDemoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-full bg-ember hover:bg-orange-600 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-lg shadow-ember/25 hover:scale-105"
+                    >
+                      <span>⚡ Launch Live POS</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+
+                  <button
+                    onClick={onOpenContact}
+                    className="p-2 rounded-full bg-white/5 hover:bg-ember text-zinc-400 hover:text-white transition-colors"
+                    title="Discuss similar project"
+                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -228,6 +242,31 @@ export const WorkShowcase: React.FC<{ onOpenContact: () => void }> = ({ onOpenCo
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       <span>Offline-First LAN Ready (0% Cloud Downtime)</span>
                     </div>
+                  </div>
+
+                  {/* Primary Fullscreen Live POS Application Launcher */}
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-ember/25 via-ember/10 to-transparent border border-ember/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xl">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 font-bold">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>STANDALONE APPLICATION READY</span>
+                      </div>
+                      <div className="text-sm font-bold text-white mt-0.5">
+                        Launch Full Cloned Growech Dine POS &amp; Kitchen OS
+                      </div>
+                      <div className="text-[11px] text-zinc-400">
+                        Explore all 11 modules: Touch Billing, KDS lanes, Tables Floor Plan, Inventory &amp; Thermal Receipts.
+                      </div>
+                    </div>
+                    <a
+                      href="./dine/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2.5 rounded-xl bg-ember hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-ember/30 flex-shrink-0 transition-transform hover:scale-105"
+                    >
+                      <span>🚀 Open Full Live System</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </a>
                   </div>
 
                   {/* Interactive Switcher Tabs */}

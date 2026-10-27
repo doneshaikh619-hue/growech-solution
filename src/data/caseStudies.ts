@@ -10,6 +10,7 @@ export interface CaseStudy {
   automationHighlights: string[];
   businessImpact: string[];
   technologies: string[];
+  liveDemoUrl?: string;
 }
 
 export const caseStudiesData: CaseStudy[] = [
@@ -18,6 +19,7 @@ export const caseStudiesData: CaseStudy[] = [
     badgeType: 'DEMO PROJECT',
     title: 'Growech Dine — Offline-First Restaurant POS & Kitchen Display Suite',
     industry: 'Hospitality, Dining & QSR Chains',
+    liveDemoUrl: './dine/',
     overview: 'An enterprise-grade, offline-first restaurant management and touch POS system engineered by Growech Solution. Built with local LAN resilience for 100% zero downtime during peak rush hours, multi-station Kitchen Display (KDS), table floor maps, and automated WhatsApp guest notifications.',
     problem: 'Restaurants lose 15-30% revenue to third-party delivery aggregators, pay recurring monthly cloud POS SaaS subscriptions, and suffer complete operational shutdowns when their cloud POS loses internet connection during peak dinner service.',
     solution: 'Engineered an offline-first, local-server POS ecosystem running on local restaurant hardware with zero cloud dependencies for billing and kitchen ticketing, coupled with contactless QR menus and WhatsApp automated order tracking.',

@@ -83,6 +83,12 @@ const candidateRoutes = [
     file: 'public/card-generator.html',
     changefreq: 'monthly',
     priority: '0.7'
+  },
+  {
+    path: 'dine/',
+    file: 'public/dine/index.html',
+    changefreq: 'daily',
+    priority: '0.95'
   }
 ];
 

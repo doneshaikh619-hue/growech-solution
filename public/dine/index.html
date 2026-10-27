@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Growech Dine — Enterprise Offline-First Restaurant POS & Kitchen OS</title>
+  <meta name="description" content="White-labeled offline-first restaurant management suite engineered by Growech Solution. Touch POS billing, multi-station Kitchen Display (KDS), graphical floor plan, and WhatsApp CRM." />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Inter, JetBrains Mono, Syne -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Syne', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              ember: '#FF5500',
+              gold: '#F59E0B',
+            },
+            dark: {
+              950: '#06080F',
+              900: '#0B0F19',
+              850: '#111827',
+              800: '#1F2937',
+              700: '#374151',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 85, 0, 0.3); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 85, 0, 0.6); }
+
+    /* Thermal Receipt Print Styles */
+    @media print {
+      body * { visibility: hidden; }
+      #thermalReceiptPrintArea, #thermalReceiptPrintArea * { visibility: visible; }
+      #thermalReceiptPrintArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80mm !important;
+        margin: 0 auto;
+        padding: 4mm;
+        background: #fff !important;
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="h-full flex flex-col font-sans bg-dark-950 text-slate-100 antialiased selection:bg-brand-ember selection:text-white overflow-hidden">
+
+  <!-- TOP AGENCY NOTICE & CTA BANNER -->
+  <aside class="bg-gradient-to-r from-dark-900 via-dark-850 to-dark-900 border-b border-white/10 px-4 py-2 flex flex-wrap items-center justify-between gap-2 z-50 text-xs">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-brand-ember/20 text-brand-ember font-mono font-bold text-[10px] border border-brand-ember/30 uppercase tracking-wider">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-ember animate-pulse"></span>
+        Agency Showcase
+      </span>
+      <span class="text-slate-300 hidden sm:inline">
+        <strong class="text-white font-semibold">Growech Dine Enterprise Suite:</strong> 100% Client Code Ownership &bull; Zero SaaS Subscriptions &bull; Offline LAN Ready
+      </span>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="https://wa.me/923098178527?text=Salam%20Growech%2C%20I%20tested%20your%20Growech%20Dine%20POS%20and%20want%20this%20customized%20for%20my%20restaurant" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-[11px] transition-all shadow-sm shadow-emerald-500/20">
+        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+        <span>Deploy For Your Restaurant (WhatsApp)</span>
+      </a>
+      <a href="../" class="inline-flex items-center gap-1 text-slate-400 hover:text-white text-[11px] font-medium transition-colors">
+        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+        <span>Growech Agency</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN SUITE HEADER BAR -->
+  <header class="h-16 bg-dark-900/90 backdrop-blur-md border-b border-dark-800 px-4 flex items-center justify-between gap-4 z-40 flex-shrink-0">
+    <!-- Brand Logo & Logotype -->
+    <div class="flex items-center gap-3">
+      <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-dark-800 text-slate-300 hover:text-white">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+      <div class="flex items-center gap-2.5">
+        <div class="relative w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-ember/20 to-brand-gold/20 p-1 border border-brand-ember/40 flex items-center justify-center shadow-lg shadow-brand-ember/10">
+          <img src="../assets/growech-logo.png" alt="Growech Brand" class="w-full h-full object-contain filter drop-shadow" />
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-base font-bold font-display tracking-tight text-white">GROWECH</span>
+            <span class="text-xs font-mono font-bold text-brand-ember px-1.5 py-0.2 rounded bg-brand-ember/15 border border-brand-ember/30">DINE</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono tracking-wide -mt-0.5 hidden sm:block">Offline LAN &amp; Cloud Touch Terminal</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch Selector & Network Status -->
+    <div class="hidden md:flex items-center gap-3">
+      <!-- Branch Switcher Dropdown -->
+      <div class="relative">
+        <select id="branchSelector" class="bg-dark-800 text-xs font-medium text-slate-200 border border-dark-700 rounded-lg px-3 py-1.5 pr-8 focus:outline-none focus:border-brand-ember cursor-pointer appearance-none">
+          <option value="karachi">🇵🇰 Karachi Flagship — Clifton Block 4</option>
+          <option value="dubai">🇦🇪 Dubai Downtown — DIFC Gate Ave</option>
+          <option value="london">🇬🇧 London West End — Soho Central</option>
+        </select>
+        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+      </div>
+
+      <!-- LAN Engine Indicator -->
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-semibold">Local LAN Active</span>
+        <span class="text-slate-400 text-[10px]">(0ms Latency)</span>
+      </div>
+
+      <!-- Realtime Sync -->
+      <div class="inline-flex items-center gap-1 text-[11px] text-slate-400 font-mono">
+        <i data-lucide="radio" class="w-3 h-3 text-cyan-400"></i>
+        <span>12/12 Nodes Synced</span>
+      </div>
+    </div>
+
+    <!-- User Shift & Utilities -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Live Clock -->
+      <div class="hidden xl:flex flex-col text-right font-mono text-[11px]">
+        <span id="liveClock" class="font-bold text-white tracking-wider">12:00:00 PM</span>
+        <span class="text-[9px] text-slate-400">Shift #04 &bull; Terminal #01</span>
+      </div>
+
+      <!-- Audio Alert Toggle -->
+      <button id="chimeToggleBtn" title="Toggle Kitchen Alert Sound" class="p-2 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-white border border-dark-700 transition-colors">
+        <i data-lucide="bell" id="bellIcon" class="w-4 h-4 text-brand-gold"></i>
+      </button>
+
+      <!-- Fullscreen Toggle -->
+      <button id="fullscreenBtn" title="Toggle Fullscreen Mode" class="p-2 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-white border border-dark-700 transition-colors hidden sm:block">
+        <i data-lucide="maximize" class="w-4 h-4"></i>
+      </button>
+
+      <!-- User Profile Badge -->
+      <div class="flex items-center gap-2 pl-2 border-l border-dark-800">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-ember to-brand-gold flex items-center justify-center text-xs font-bold text-white font-mono shadow-md">
+          MS
+        </div>
+        <div class="hidden sm:block text-left text-xs">
+          <div class="font-semibold text-white leading-tight">Mustafa Shaikh</div>
+          <div class="text-[10px] text-brand-ember font-mono">Owner / Admin</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUITE BODY WRAPPER -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="w-64 bg-dark-900 border-r border-dark-800 flex flex-col flex-shrink-0 transition-all duration-300 z-30 fixed inset-y-0 left-0 lg:static transform -translate-x-full lg:translate-x-0 pt-16 lg:pt-0">
+      
+      <!-- Store Info Pill -->
+      <div class="p-4 border-b border-dark-800">
+        <div class="bg-dark-850 p-2.5 rounded-xl border border-dark-800 flex items-center justify-between">
+          <div class="text-xs">
+            <span class="text-slate-400 block text-[10px] uppercase font-mono">Current Register</span>
+            <span class="font-bold text-white">Main Dining Terminal</span>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/20">ONLINE</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links (Matching Cloned Repo NAV_ITEMS) -->
+      <nav class="flex-1 overflow-y-auto p-3 space-y-1">
+        <button data-nav="pos" class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="shopping-cart" class="w-4 h-4 text-brand-ember"></i>
+          <span>Touch POS Terminal</span>
+          <span class="ml-auto text-[10px] px-1.5 py-0.2 rounded bg-brand-ember/20 text-brand-ember font-mono font-bold">LIVE</span>
+        </button>
+
+        <button data-nav="kds" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="chef-hat" class="w-4 h-4 text-cyan-400"></i>
+          <span>Kitchen Display (KDS)</span>
+          <span id="kdsBadge" class="ml-auto text-[10px] px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold">4 Orders</span>
+        </button>
+
+        <button data-nav="tables" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="layout-grid" class="w-4 h-4 text-emerald-400"></i>
+          <span>Floor Plan &amp; Tables</span>
+          <span class="ml-auto text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono">12 Tables</span>
+        </button>
+
+        <button data-nav="orders" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="clipboard-list" class="w-4 h-4 text-amber-400"></i>
+          <span>Active Orders Queue</span>
+        </button>
+
+        <button data-nav="menu" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="utensils" class="w-4 h-4 text-purple-400"></i>
+          <span>Menu &amp; Recipe Costing</span>
+        </button>
+
+        <button data-nav="inventory" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="package" class="w-4 h-4 text-rose-400"></i>
+          <span>Inventory &amp; Stock</span>
+          <span class="ml-auto text-[10px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-mono font-bold">2 Low</span>
+        </button>
+
+        <button data-nav="reservations" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="calendar-clock" class="w-4 h-4 text-blue-400"></i>
+          <span>Table Reservations</span>
+        </button>
+
+        <button data-nav="delivery" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="truck" class="w-4 h-4 text-teal-400"></i>
+          <span>Delivery &amp; Dispatch</span>
+        </button>
+
+        <button data-nav="reports" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-400"></i>
+          <span>Sales &amp; Analytics</span>
+        </button>
+
+        <button data-nav="customers" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="users" class="w-4 h-4 text-pink-400"></i>
+          <span>Customer Loyalty CRM</span>
+        </button>
+
+        <div class="pt-2 border-t border-dark-800 my-2"></div>
+
+        <button data-nav="settings" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-dark-800 transition-all">
+          <i data-lucide="settings" class="w-4 h-4 text-slate-400"></i>
+          <span>Settings &amp; White-Label</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Agency Stamp Footer -->
+      <div class="p-3 border-t border-dark-800 bg-dark-950/60">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 rounded bg-brand-ember/20 border border-brand-ember/30 flex items-center justify-center text-[10px] font-bold text-brand-ember">
+            G
+          </div>
+          <div class="text-[10px] text-slate-400">
+            <div>Engineered &bull; <strong class="text-white">Growech Solution</strong></div>
+            <div class="text-brand-ember font-mono">100% Client Code Ownership</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT VIEWS CONTAINER -->
+    <main class="flex-1 flex flex-col overflow-hidden bg-dark-950 relative">
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 1: TOUCH POS BILLING TERMINAL                     -->
+      <!-- ======================================================== -->
+      <section id="view-pos" class="screen-view h-full flex flex-col lg:flex-row overflow-hidden">
+        
+        <!-- Left: Product Catalog & Menu Grid -->
+        <div class="flex-1 flex flex-col overflow-hidden border-r border-dark-800">
+          
+          <!-- POS Top Bar: Search, Category Tabs -->
+          <div class="p-3 bg-dark-900 border-b border-dark-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 flex-shrink-0">
+            <!-- Search dish -->
+            <div class="relative flex-1 max-w-md">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="dishSearchInput" placeholder="Search dishes, burgers, drinks, codes..." class="w-full bg-dark-800 text-xs text-white placeholder-slate-400 pl-9 pr-3 py-2 rounded-xl border border-dark-700 focus:outline-none focus:border-brand-ember">
+            </div>
+
+            <!-- Quick Info -->
+            <div class="flex items-center gap-2">
+              <div class="text-xs font-mono text-slate-400 bg-dark-800 px-3 py-1.5 rounded-lg border border-dark-700 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span id="posTableDisplay">Table: T-04 (Dine-In)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="px-3 py-2 bg-dark-900/50 border-b border-dark-800 flex items-center gap-2 overflow-x-auto no-scrollbar flex-shrink-0">
+            <button data-cat="all" class="pos-cat-btn active px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-brand-ember text-white shadow-md">All Items (14)</button>
+            <button data-cat="burgers" class="pos-cat-btn px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-dark-800 text-slate-300 hover:text-white border border-dark-700">🍔 Burgers</button>
+            <button data-cat="pizza" class="pos-cat-btn px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-dark-800 text-slate-300 hover:text-white border border-dark-700">🍕 Pizzas</button>
+            <button data-cat="steaks" class="pos-cat-btn px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-dark-800 text-slate-300 hover:text-white border border-dark-700">🥩 Steaks</button>
+            <button data-cat="starters" class="pos-cat-btn px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-dark-800 text-slate-300 hover:text-white border border-dark-700">🍟 Sides &amp; Starters</button>
+            <button data-cat="drinks" class="pos-cat-btn px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-dark-800 text-slate-300 hover:text-white border border-dark-700">🍹 Beverages</button>
+            <button data-cat="desserts" class="pos-cat-btn px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap bg-dark-800 text-slate-300 hover:text-white border border-dark-700">🍰 Desserts</button>
+          </div>
+
+          <!-- Product Grid Area -->
+          <div id="productGrid" class="flex-1 overflow-y-auto p-4 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+            <!-- Rendered dynamically by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Real-Time Cart & Checkout Panel -->
+        <div class="w-full lg:w-96 bg-dark-900 flex flex-col flex-shrink-0 border-t lg:border-t-0 border-dark-800">
+          
+          <!-- Order Mode & Table Selector -->
+          <div class="p-3 border-b border-dark-800 bg-dark-850 space-y-2">
+            <!-- Order Type Switcher -->
+            <div class="grid grid-cols-3 gap-1 p-1 bg-dark-950 rounded-xl border border-dark-800 text-xs font-medium">
+              <button data-ordertype="DINE_IN" class="order-type-btn active py-1.5 rounded-lg bg-brand-ember text-white font-semibold">Dine-In</button>
+              <button data-ordertype="TAKEAWAY" class="order-type-btn py-1.5 rounded-lg text-slate-400 hover:text-white">Takeaway</button>
+              <button data-ordertype="DELIVERY" class="order-type-btn py-1.5 rounded-lg text-slate-400 hover:text-white">Delivery</button>
+            </div>
+
+            <!-- Table & Guest Select -->
+            <div class="flex items-center gap-2">
+              <div class="flex-1">
+                <label class="text-[10px] text-slate-400 uppercase font-mono block">Assign Table</label>
+                <select id="cartTableSelect" class="w-full bg-dark-800 text-xs font-semibold text-white px-2 py-1.5 rounded-lg border border-dark-700 focus:outline-none">
+                  <option value="T-01">T-01 (Window 2p)</option>
+                  <option value="T-02">T-02 (Booth 4p)</option>
+                  <option value="T-03">T-03 (Terrace 4p)</option>
+                  <option value="T-04" selected>T-04 (Center 4p)</option>
+                  <option value="T-05">T-05 (VIP Banquet 8p)</option>
+                  <option value="T-06">T-06 (Bar High 2p)</option>
+                  <option value="T-07">T-07 (Family Booth 6p)</option>
+                  <option value="T-08">T-08 (Patio 4p)</option>
+                  <option value="T-09">T-09 (Executive 6p)</option>
+                </select>
+              </div>
+
+              <div class="flex-1">
+                <label class="text-[10px] text-slate-400 uppercase font-mono block">Guest Name</label>
+                <input type="text" id="guestNameInput" value="Tariq Mansoor" placeholder="Guest Name" class="w-full bg-dark-800 text-xs text-white px-2 py-1.5 rounded-lg border border-dark-700 focus:outline-none">
+              </div>
+            </div>
+          </div>
+
+          <!-- Cart Line Items List -->
+          <div class="flex-1 overflow-y-auto p-3 space-y-2" id="cartItemList">
+            <!-- Dynamic Cart Items -->
+          </div>
+
+          <!-- Cart Pricing Summary & Action Buttons -->
+          <div class="p-3 border-t border-dark-800 bg-dark-850 space-y-2.5">
+            <div class="space-y-1 text-xs text-slate-400 font-mono">
+              <div class="flex justify-between">
+                <span>Items Subtotal</span>
+                <span id="cartSubtotal" class="text-slate-200 font-semibold">$0.00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Service Fee (5%)</span>
+                <span id="cartService" class="text-slate-200 font-semibold">$0.00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>VAT / Tax (5%)</span>
+                <span id="cartTax" class="text-slate-200 font-semibold">$0.00</span>
+              </div>
+              <div class="pt-2 border-t border-dark-750 flex justify-between text-base font-bold text-white font-sans">
+                <span>Total Amount Due</span>
+                <span id="cartGrandTotal" class="text-brand-ember font-mono">$0.00</span>
+              </div>
+            </div>
+
+            <!-- Action Grid -->
+            <div class="grid grid-cols-2 gap-2 pt-1">
+              <button id="splitBillBtn" class="py-2 px-3 rounded-xl bg-dark-800 hover:bg-dark-700 text-slate-200 text-xs font-semibold border border-dark-700 flex items-center justify-center gap-1.5">
+                <i data-lucide="split" class="w-3.5 h-3.5 text-brand-gold"></i>
+                <span>Split Bill</span>
+              </button>
+
+              <button id="sendKotBtn" class="py-2 px-3 rounded-xl bg-dark-800 hover:bg-dark-700 text-cyan-400 text-xs font-semibold border border-cyan-500/30 flex items-center justify-center gap-1.5">
+                <i data-lucide="chef-hat" class="w-3.5 h-3.5"></i>
+                <span>Send to KDS</span>
+              </button>
+            </div>
+
+            <button id="paySettleBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-brand-ember to-orange-600 hover:from-brand-ember hover:to-orange-500 text-white font-bold text-sm shadow-lg shadow-brand-ember/25 flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="credit-card" class="w-4 h-4"></i>
+              <span>Pay &amp; Settle Check</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 2: KITCHEN DISPLAY SYSTEM (KDS)                   -->
+      <!-- ======================================================== -->
+      <section id="view-kds" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <!-- KDS Header Bar -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl font-bold font-display text-white">Live Kitchen Display (KDS)</h1>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">STATION: ALL</span>
+            </div>
+            <p class="text-xs text-slate-400">Tickets route automatically based on recipe station tags.</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="kdsSimulateOrderBtn" class="px-3 py-1.5 rounded-xl bg-brand-ember/20 hover:bg-brand-ember/30 text-brand-ember text-xs font-semibold border border-brand-ember/40 flex items-center gap-1.5 transition-colors">
+              <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+              <span>+ Push New Test KOT</span>
+            </button>
+            <div class="text-xs font-mono px-3 py-1.5 rounded-xl bg-dark-800 border border-dark-700 text-slate-300">
+              Avg Ticket Prep: <span class="text-emerald-400 font-bold">7.4 min</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KDS 4-Column Ticket Board -->
+        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 overflow-x-auto overflow-y-hidden pb-2">
+          
+          <!-- Column 1: NEW / INCOMING -->
+          <div class="bg-dark-900/70 border border-dark-800 rounded-2xl flex flex-col overflow-hidden">
+            <div class="p-3 bg-rose-500/10 border-b border-rose-500/20 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+                <span class="text-xs font-bold font-mono text-rose-400 uppercase tracking-wider">New Incoming</span>
+              </div>
+              <span id="kdsNewCount" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">1</span>
+            </div>
+            <div id="kdsColNew" class="flex-1 overflow-y-auto p-3 space-y-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Column 2: ACCEPTED -->
+          <div class="bg-dark-900/70 border border-dark-800 rounded-2xl flex flex-col overflow-hidden">
+            <div class="p-3 bg-amber-500/10 border-b border-amber-500/20 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                <span class="text-xs font-bold font-mono text-amber-400 uppercase tracking-wider">Accepted</span>
+              </div>
+              <span id="kdsAcceptedCount" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">1</span>
+            </div>
+            <div id="kdsColAccepted" class="flex-1 overflow-y-auto p-3 space-y-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Column 3: PREPARING / ON GRILL -->
+          <div class="bg-dark-900/70 border border-dark-800 rounded-2xl flex flex-col overflow-hidden">
+            <div class="p-3 bg-cyan-500/10 border-b border-cyan-500/20 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span class="text-xs font-bold font-mono text-cyan-400 uppercase tracking-wider">Cooking</span>
+              </div>
+              <span id="kdsPrepCount" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">1</span>
+            </div>
+            <div id="kdsColPrep" class="flex-1 overflow-y-auto p-3 space-y-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Column 4: READY FOR PICKUP -->
+          <div class="bg-dark-900/70 border border-dark-800 rounded-2xl flex flex-col overflow-hidden">
+            <div class="p-3 bg-emerald-500/10 border-b border-emerald-500/20 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span class="text-xs font-bold font-mono text-emerald-400 uppercase tracking-wider">Ready for Server</span>
+              </div>
+              <span id="kdsReadyCount" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">1</span>
+            </div>
+            <div id="kdsColReady" class="flex-1 overflow-y-auto p-3 space-y-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 3: FLOOR PLAN & TABLE MANAGEMENT                  -->
+      <!-- ======================================================== -->
+      <section id="view-tables" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <!-- Floor Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Dining Hall Floor Plan</h1>
+            <p class="text-xs text-slate-400">Interactive live dining hall with real-time occupancy and turnover rates.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-xs font-mono">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span><span class="text-slate-300">Vacant (4)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-brand-ember"></span><span class="text-slate-300">Occupied (5)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span><span class="text-slate-300">Reserved (2)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400"></span><span class="text-slate-300">Billing (1)</span></div>
+          </div>
+        </div>
+
+        <!-- Floor Canvas Area -->
+        <div class="flex-1 bg-dark-900/60 border border-dark-800 rounded-2xl p-6 overflow-y-auto">
+          <div class="max-w-5xl mx-auto space-y-8">
+            <!-- Zone 1: Main Dining Hall -->
+            <div>
+              <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4 text-brand-ember"></i>
+                <span>Zone A &bull; Main Dining Hall (Tables 1 - 6)</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <!-- T-01 -->
+                <div onclick="openTableModal('T-01')" class="table-card p-4 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/40 hover:border-emerald-400 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-01</div>
+                  <div class="text-[10px] font-mono text-emerald-400 font-bold uppercase mt-1">Vacant</div>
+                  <div class="text-xs text-slate-400 mt-2">2 Seats</div>
+                </div>
+
+                <!-- T-02 -->
+                <div onclick="openTableModal('T-02')" class="table-card p-4 rounded-2xl bg-brand-ember/15 border-2 border-brand-ember hover:border-brand-ember/80 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-02</div>
+                  <div class="text-[10px] font-mono text-brand-ember font-bold uppercase mt-1">Occupied (4p)</div>
+                  <div class="text-xs text-slate-300 font-mono mt-2">$74.50 &bull; 42m</div>
+                </div>
+
+                <!-- T-03 -->
+                <div onclick="openTableModal('T-03')" class="table-card p-4 rounded-2xl bg-purple-500/15 border-2 border-purple-500 hover:border-purple-400 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-03</div>
+                  <div class="text-[10px] font-mono text-purple-400 font-bold uppercase mt-1">Reserved</div>
+                  <div class="text-xs text-slate-400 mt-2">8:30 PM &bull; 4p</div>
+                </div>
+
+                <!-- T-04 -->
+                <div onclick="openTableModal('T-04')" class="table-card p-4 rounded-2xl bg-brand-ember/15 border-2 border-brand-ember hover:border-brand-ember/80 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-04</div>
+                  <div class="text-[10px] font-mono text-brand-ember font-bold uppercase mt-1">Occupied (4p)</div>
+                  <div class="text-xs text-slate-300 font-mono mt-2">$92.00 &bull; 28m</div>
+                </div>
+
+                <!-- T-05 -->
+                <div onclick="openTableModal('T-05')" class="table-card p-4 rounded-2xl bg-amber-500/15 border-2 border-amber-400 hover:border-amber-300 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-05</div>
+                  <div class="text-[10px] font-mono text-amber-400 font-bold uppercase mt-1">Billing</div>
+                  <div class="text-xs text-slate-300 font-mono mt-2">$145.20 &bull; 56m</div>
+                </div>
+
+                <!-- T-06 -->
+                <div onclick="openTableModal('T-06')" class="table-card p-4 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/40 hover:border-emerald-400 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-06</div>
+                  <div class="text-[10px] font-mono text-emerald-400 font-bold uppercase mt-1">Vacant</div>
+                  <div class="text-xs text-slate-400 mt-2">2 Seats</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Zone 2: Rooftop & Terrace -->
+            <div>
+              <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i data-lucide="sun" class="w-4 h-4 text-brand-gold"></i>
+                <span>Zone B &bull; Rooftop Garden &amp; Terrace (Tables 7 - 12)</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <!-- T-07 -->
+                <div onclick="openTableModal('T-07')" class="table-card p-4 rounded-2xl bg-brand-ember/15 border-2 border-brand-ember hover:border-brand-ember/80 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-07</div>
+                  <div class="text-[10px] font-mono text-brand-ember font-bold uppercase mt-1">Occupied (6p)</div>
+                  <div class="text-xs text-slate-300 font-mono mt-2">$128.00 &bull; 15m</div>
+                </div>
+
+                <!-- T-08 -->
+                <div onclick="openTableModal('T-08')" class="table-card p-4 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/40 hover:border-emerald-400 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-08</div>
+                  <div class="text-[10px] font-mono text-emerald-400 font-bold uppercase mt-1">Vacant</div>
+                  <div class="text-xs text-slate-400 mt-2">4 Seats</div>
+                </div>
+
+                <!-- T-09 -->
+                <div onclick="openTableModal('T-09')" class="table-card p-4 rounded-2xl bg-brand-ember/15 border-2 border-brand-ember hover:border-brand-ember/80 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-09</div>
+                  <div class="text-[10px] font-mono text-brand-ember font-bold uppercase mt-1">Occupied (4p)</div>
+                  <div class="text-xs text-slate-300 font-mono mt-2">$64.00 &bull; 21m</div>
+                </div>
+
+                <!-- T-10 -->
+                <div onclick="openTableModal('T-10')" class="table-card p-4 rounded-2xl bg-purple-500/15 border-2 border-purple-500 hover:border-purple-400 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-10</div>
+                  <div class="text-[10px] font-mono text-purple-400 font-bold uppercase mt-1">Reserved</div>
+                  <div class="text-xs text-slate-400 mt-2">9:00 PM &bull; 6p</div>
+                </div>
+
+                <!-- T-11 -->
+                <div onclick="openTableModal('T-11')" class="table-card p-4 rounded-2xl bg-brand-ember/15 border-2 border-brand-ember hover:border-brand-ember/80 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-11</div>
+                  <div class="text-[10px] font-mono text-brand-ember font-bold uppercase mt-1">Occupied (2p)</div>
+                  <div class="text-xs text-slate-300 font-mono mt-2">$39.00 &bull; 11m</div>
+                </div>
+
+                <!-- T-12 -->
+                <div onclick="openTableModal('T-12')" class="table-card p-4 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/40 hover:border-emerald-400 cursor-pointer transition-all text-center group">
+                  <div class="text-lg font-bold font-display text-white group-hover:scale-105 transition-transform">T-12</div>
+                  <div class="text-[10px] font-mono text-emerald-400 font-bold uppercase mt-1">Vacant</div>
+                  <div class="text-xs text-slate-400 mt-2">VIP 8p</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 4: ACTIVE ORDERS QUEUE                            -->
+      <!-- ======================================================== -->
+      <section id="view-orders" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Active Orders Queue</h1>
+            <p class="text-xs text-slate-400">Real-time status of dine-in checks, takeaway bags, and delivery riders.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-mono text-slate-400">Total Running: <strong class="text-white">6 Orders</strong></span>
+          </div>
+        </div>
+
+        <div class="flex-1 bg-dark-900 border border-dark-800 rounded-2xl overflow-y-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-dark-850 text-slate-400 font-mono border-b border-dark-800 sticky top-0">
+              <tr>
+                <th class="p-3">Token #</th>
+                <th class="p-3">Order Type</th>
+                <th class="p-3">Table / Rider</th>
+                <th class="p-3">Customer</th>
+                <th class="p-3">Items</th>
+                <th class="p-3">Total</th>
+                <th class="p-3">Status</th>
+                <th class="p-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody" class="divide-y divide-dark-800 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 5: MENU & RECIPE COSTING (COGS & 86 TOGGLE)       -->
+      <!-- ======================================================== -->
+      <section id="view-menu" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Menu Catalog &amp; Recipe Engineering</h1>
+            <p class="text-xs text-slate-400">Manage item availability (86 toggle), food cost percentage, and profit margins.</p>
+          </div>
+          <div class="text-xs font-mono bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-xl border border-emerald-500/20">
+            Average Kitchen Margin: <strong class="text-white">71.4%</strong>
+          </div>
+        </div>
+
+        <div class="flex-1 bg-dark-900 border border-dark-800 rounded-2xl overflow-y-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-dark-850 text-slate-400 font-mono border-b border-dark-800 sticky top-0">
+              <tr>
+                <th class="p-3">Dish / Item Name</th>
+                <th class="p-3">Category</th>
+                <th class="p-3">Retail Price</th>
+                <th class="p-3">Food Cost (COGS)</th>
+                <th class="p-3">Gross Margin</th>
+                <th class="p-3">Prep Time</th>
+                <th class="p-3 text-center">POS Availability</th>
+              </tr>
+            </thead>
+            <tbody id="menuTableBody" class="divide-y divide-dark-800 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 6: INVENTORY & STOCK TRACKER                      -->
+      <!-- ======================================================== -->
+      <section id="view-inventory" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Raw Ingredient Inventory &amp; Pilferage Control</h1>
+            <p class="text-xs text-slate-400">Live ingredient deductions per order ticket to stop restaurant leakage.</p>
+          </div>
+          <div class="text-xs font-mono bg-rose-500/10 text-rose-400 px-3 py-1.5 rounded-xl border border-rose-500/20">
+            2 Items Below Minimum Par
+          </div>
+        </div>
+
+        <div class="flex-1 bg-dark-900 border border-dark-800 rounded-2xl overflow-y-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-dark-850 text-slate-400 font-mono border-b border-dark-800 sticky top-0">
+              <tr>
+                <th class="p-3">Ingredient Name</th>
+                <th class="p-3">Unit</th>
+                <th class="p-3">Current Stock</th>
+                <th class="p-3">Min Par Level</th>
+                <th class="p-3">Stock Health</th>
+                <th class="p-3 text-right">Quick Restock</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTableBody" class="divide-y divide-dark-800 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 7: RESERVATIONS & WHATSAPP CRM                    -->
+      <!-- ======================================================== -->
+      <section id="view-reservations" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Table Reservations &amp; WhatsApp Sync</h1>
+            <p class="text-xs text-slate-400">Automated table bookings with one-click Meta WhatsApp API confirmations.</p>
+          </div>
+          <button onclick="alert('Demo: To book a new reservation, use the WhatsApp automated bot!')" class="px-3 py-1.5 rounded-xl bg-brand-ember text-white text-xs font-semibold flex items-center gap-1.5">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>New Reservation</span>
+          </button>
+        </div>
+
+        <div class="flex-1 bg-dark-900 border border-dark-800 rounded-2xl overflow-y-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-dark-850 text-slate-400 font-mono border-b border-dark-800 sticky top-0">
+              <tr>
+                <th class="p-3">Time</th>
+                <th class="p-3">Guest Name</th>
+                <th class="p-3">Guests</th>
+                <th class="p-3">Phone (WhatsApp)</th>
+                <th class="p-3">Assigned Table</th>
+                <th class="p-3">Status</th>
+                <th class="p-3 text-right">WhatsApp Action</th>
+              </tr>
+            </thead>
+            <tbody id="reservationsTableBody" class="divide-y divide-dark-800 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 8: DELIVERY & RIDER DISPATCH                      -->
+      <!-- ======================================================== -->
+      <section id="view-delivery" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Delivery &amp; Courier Dispatch</h1>
+            <p class="text-xs text-slate-400">Direct WhatsApp order routing &bull; Zero 30% aggregator commission leakage.</p>
+          </div>
+          <div class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
+            Active Fleet: 3 In-House Riders
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Rider 1 -->
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-dark-800">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">R1</div>
+                <div>
+                  <div class="text-xs font-bold text-white">Rider: Ali Raza</div>
+                  <div class="text-[10px] text-slate-400">Honda CG125 &bull; #KHI-8291</div>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-400 font-bold">ON TRIP</span>
+            </div>
+            <div class="text-xs space-y-1.5 font-mono text-slate-300">
+              <div>Order: <strong class="text-brand-ember">#DEL-104</strong></div>
+              <div>Destination: DHA Phase 6, Karachi</div>
+              <div>ETA: 12 Minutes</div>
+            </div>
+            <button onclick="window.open('https://wa.me/923098178527?text=Salam%20Ali%2C%20what%20is%20the%20status%20of%20Order%20DEL-104%3F')" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp Rider</span>
+            </button>
+          </div>
+
+          <!-- Rider 2 -->
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-dark-800">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">R2</div>
+                <div>
+                  <div class="text-xs font-bold text-white">Rider: Farhan Siddiqui</div>
+                  <div class="text-[10px] text-slate-400">Suzuki GD110 &bull; #KHI-4910</div>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 font-bold">AVAILABLE</span>
+            </div>
+            <div class="text-xs space-y-1.5 font-mono text-slate-300">
+              <div>Status: At Restaurant Waiting Bay</div>
+              <div>Trips Today: 8 Completed</div>
+              <div>Rating: 4.9 &starf;</div>
+            </div>
+            <button class="w-full py-2 rounded-xl bg-dark-800 text-slate-300 text-xs font-semibold border border-dark-700 hover:text-white">
+              Assign Next Order
+            </button>
+          </div>
+
+          <!-- Rider 3 -->
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-dark-800">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">R3</div>
+                <div>
+                  <div class="text-xs font-bold text-white">Rider: Salman Khan</div>
+                  <div class="text-[10px] text-slate-400">Yamaha YBR &bull; #KHI-7123</div>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-400 font-bold">ON TRIP</span>
+            </div>
+            <div class="text-xs space-y-1.5 font-mono text-slate-300">
+              <div>Order: <strong class="text-brand-ember">#DEL-106</strong></div>
+              <div>Destination: Clifton Block 2</div>
+              <div>ETA: 5 Minutes</div>
+            </div>
+            <button onclick="window.open('https://wa.me/923098178527?text=Salam%20Salman%2C%20status%20of%20DEL-106%3F')" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp Rider</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 9: SALES & ANALYTICS REPORTS                      -->
+      <!-- ======================================================== -->
+      <section id="view-reports" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Sales &amp; Executive Revenue Intelligence</h1>
+            <p class="text-xs text-slate-400">Real-time daily turnover, peak rush hours, and payment method distribution.</p>
+          </div>
+          <div class="text-xs font-mono text-slate-300 bg-dark-800 px-3 py-1.5 rounded-xl border border-dark-700">
+            Date: Today &bull; Shift #04
+          </div>
+        </div>
+
+        <!-- 4 Top KPI Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-4">
+            <span class="text-[10px] uppercase font-mono text-slate-400">Today's Revenue</span>
+            <div class="text-2xl font-bold font-display text-white mt-1">$4,892.40</div>
+            <span class="text-[10px] text-emerald-400 font-mono">+18.4% vs last week</span>
+          </div>
+
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-4">
+            <span class="text-[10px] uppercase font-mono text-slate-400">Total Covers / Guests</span>
+            <div class="text-2xl font-bold font-display text-white mt-1">146 Covers</div>
+            <span class="text-[10px] text-emerald-400 font-mono">Table Turnover: 2.8x</span>
+          </div>
+
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-4">
+            <span class="text-[10px] uppercase font-mono text-slate-400">Average Check (AOV)</span>
+            <div class="text-2xl font-bold font-display text-white mt-1">$33.50</div>
+            <span class="text-[10px] text-brand-gold font-mono">Target: $32.00</span>
+          </div>
+
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-4">
+            <span class="text-[10px] uppercase font-mono text-slate-400">Avg Kitchen Ticket Prep</span>
+            <div class="text-2xl font-bold font-display text-emerald-400 mt-1">7.4 Mins</div>
+            <span class="text-[10px] text-slate-400 font-mono">100% On-Time Target</span>
+          </div>
+        </div>
+
+        <!-- Hourly Sales Graph & Payment Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 overflow-y-auto">
+          <!-- Rush Hours Bar Visual -->
+          <div class="lg:col-span-2 bg-dark-900 border border-dark-800 rounded-2xl p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-white font-display">Hourly Sales Peak &amp; Rush Distribution</h3>
+              <span class="text-xs font-mono text-brand-ember">Peak Rush: 8:00 PM - 10:00 PM</span>
+            </div>
+            
+            <div class="h-44 flex items-end gap-3 pt-6 border-b border-dark-800">
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/30 group-hover:bg-brand-ember rounded-t h-12 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">12 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/50 group-hover:bg-brand-ember rounded-t h-28 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">1 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/40 group-hover:bg-brand-ember rounded-t h-20 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">2 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/20 group-hover:bg-brand-ember rounded-t h-10 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">4 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/30 group-hover:bg-brand-ember rounded-t h-14 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">6 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/70 group-hover:bg-brand-ember rounded-t h-32 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">8 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember rounded-t h-40 shadow-lg shadow-brand-ember/30 transition-all"></div>
+                <span class="text-[10px] font-mono text-white font-bold">9 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/80 group-hover:bg-brand-ember rounded-t h-36 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">10 PM</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1 group">
+                <div class="w-full bg-brand-ember/40 group-hover:bg-brand-ember rounded-t h-16 transition-all"></div>
+                <span class="text-[10px] font-mono text-slate-400">11 PM</span>
+              </div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-400 font-mono">
+              <span>Lunch Rush: $1,420</span>
+              <span>Dinner Peak: $2,890</span>
+            </div>
+          </div>
+
+          <!-- Payment Breakdown -->
+          <div class="bg-dark-900 border border-dark-800 rounded-2xl p-5 space-y-4">
+            <h3 class="text-sm font-bold text-white font-display">Payment Tender Breakdown</h3>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1">
+                  <span class="text-slate-300">Visa / Mastercard POS</span>
+                  <span class="text-white font-bold">58% ($2,837)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-dark-800 overflow-hidden">
+                  <div class="h-full bg-cyan-400 rounded-full" style="width: 58%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1">
+                  <span class="text-slate-300">Cash Drawer</span>
+                  <span class="text-white font-bold">28% ($1,370)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-dark-800 overflow-hidden">
+                  <div class="h-full bg-emerald-400 rounded-full" style="width: 28%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-mono mb-1">
+                  <span class="text-slate-300">Raast Instant QR / Pay</span>
+                  <span class="text-white font-bold">14% ($685)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-dark-800 overflow-hidden">
+                  <div class="h-full bg-brand-ember rounded-full" style="width: 14%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-dark-850 border border-dark-800 text-[11px] text-slate-400 space-y-1">
+              <span class="text-white font-semibold">Zero Commission Savings:</span>
+              <p>By owning this software, you saved <strong class="text-emerald-400">$733.80 today</strong> compared to cloud SaaS % and aggregator cuts.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 10: CUSTOMER LOYALTY CRM                          -->
+      <!-- ======================================================== -->
+      <section id="view-customers" class="screen-view h-full flex flex-col overflow-hidden hidden p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-dark-900 p-3.5 rounded-2xl border border-dark-800">
+          <div>
+            <h1 class="text-xl font-bold font-display text-white">Customer Database &amp; Loyalty Ledger</h1>
+            <p class="text-xs text-slate-400">Direct diner history &bull; One-click Meta WhatsApp API VIP promotions.</p>
+          </div>
+          <button onclick="window.open('https://wa.me/923098178527?text=Salam%20valued%20Growech%20Dine%20guest%2C%20enjoy%20a%20complimentary%20Valrhona%20Lava%20Cake%20tonight!')" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+            <span>Send VIP WhatsApp Broadcast</span>
+          </button>
+        </div>
+
+        <div class="flex-1 bg-dark-900 border border-dark-800 rounded-2xl overflow-y-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-dark-850 text-slate-400 font-mono border-b border-dark-800 sticky top-0">
+              <tr>
+                <th class="p-3">Guest Name</th>
+                <th class="p-3">WhatsApp Mobile</th>
+                <th class="p-3">Total Visits</th>
+                <th class="p-3">Lifetime Spend</th>
+                <th class="p-3">Favorite Order</th>
+                <th class="p-3">Tier</th>
+                <th class="p-3 text-right">Direct Ping</th>
+              </tr>
+            </thead>
+            <tbody id="customersTableBody" class="divide-y divide-dark-800 text-slate-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- SCREEN 11: SETTINGS & WHITE-LABEL AGENCY INFO            -->
+      <!-- ======================================================== -->
+      <section id="view-settings" class="screen-view h-full flex flex-col overflow-y-auto hidden p-6 space-y-6">
+        <div class="max-w-4xl mx-auto w-full space-y-6">
+          <div class="bg-dark-900 p-5 rounded-2xl border border-dark-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h1 class="text-2xl font-bold font-display text-white">System Configuration &amp; White-Labeling</h1>
+              <p class="text-xs text-slate-400 mt-1">Configure your brand logo, restaurant branches, currency, and offline LAN sync parameters.</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-mono bg-brand-ember/20 text-brand-ember border border-brand-ember/30 font-bold">
+              v4.2.0-ENTERPRISE
+            </span>
+          </div>
+
+          <!-- Agency Ownership Card -->
+          <div class="bg-gradient-to-r from-brand-ember/15 via-dark-900 to-dark-850 p-6 rounded-3xl border border-brand-ember/30 shadow-xl space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-ember flex items-center justify-center font-bold text-white text-lg">
+                G
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white font-display">Engineered by GROWECH SOLUTION</h3>
+                <p class="text-xs text-slate-300">Zero Monthly SaaS Commissions &bull; Full Source Code &amp; Database Ownership for Clients</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              This system is fully self-hosted on your premises on local hardware or private cloud. It eliminates ongoing SaaS licensing, aggregator cuts, and cloud outage liabilities.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="https://wa.me/923098178527?text=Salam%20Growech%2C%20I%20want%20to%20license%20and%20deploy%20Growech%20Dine%20for%20my%20restaurant%20chain" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Get Full Source Code &amp; Custom Setup (WhatsApp)</span>
+              </a>
+              <a href="../" class="px-4 py-2 rounded-xl bg-dark-800 hover:bg-dark-700 text-slate-200 text-xs font-semibold border border-dark-700 flex items-center gap-2">
+                <i data-lucide="globe" class="w-4 h-4"></i>
+                <span>Visit Growech Agency Main Site</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Restaurant Parameters -->
+          <div class="bg-dark-900 p-6 rounded-2xl border border-dark-800 space-y-4">
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider font-mono">Restaurant Profile &amp; Billing Rules</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div>
+                <label class="text-slate-400 block mb-1">Restaurant Legal Name</label>
+                <input type="text" value="Growech Dine Flagship Bistro" class="w-full bg-dark-800 text-white p-2.5 rounded-xl border border-dark-700">
+              </div>
+              <div>
+                <label class="text-slate-400 block mb-1">Default Operating Currency</label>
+                <select id="currencySelector" class="w-full bg-dark-800 text-white p-2.5 rounded-xl border border-dark-700">
+                  <option value="$" selected>USD ($) — United States Dollar</option>
+                  <option value="Rs. ">PKR (Rs.) — Pakistani Rupee</option>
+                  <option value="AED ">AED (AED) — United Arab Emirates Dirham</option>
+                  <option value="€">EUR (€) — Euro</option>
+                  <option value="£">GBP (£) — British Pound</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-slate-400 block mb-1">VAT / Sales Tax Percentage (%)</label>
+                <input type="number" value="5" class="w-full bg-dark-800 text-white p-2.5 rounded-xl border border-dark-700">
+              </div>
+              <div>
+                <label class="text-slate-400 block mb-1">Thermal Receipt Width</label>
+                <select class="w-full bg-dark-800 text-white p-2.5 rounded-xl border border-dark-700">
+                  <option selected>80mm Standard Thermal Slip</option>
+                  <option>58mm Compact Mobile ESC/POS</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: PAYMENT SETTLEMENT MODAL                          -->
+  <!-- ======================================================== -->
+  <div id="paymentModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-dark-800 rounded-3xl max-w-md w-full p-6 text-white shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-dark-800">
+        <div>
+          <h3 class="text-lg font-bold font-display">Tender &amp; Bill Settlement</h3>
+          <p class="text-xs text-slate-400" id="payModalTable">Table T-04 &bull; Dine-In</p>
+        </div>
+        <button onclick="closePaymentModal()" class="p-1.5 rounded-full bg-dark-800 text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Total Due Banner -->
+      <div class="p-4 rounded-2xl bg-dark-850 border border-dark-700 text-center">
+        <span class="text-xs font-mono text-slate-400 uppercase">Total Amount Due</span>
+        <div id="payModalTotal" class="text-3xl font-extrabold text-brand-ember font-mono mt-0.5">$0.00</div>
+      </div>
+
+      <!-- Payment Method Tabs -->
+      <div class="grid grid-cols-3 gap-2 text-xs font-semibold">
+        <button data-method="cash" class="pay-method-btn active py-2.5 px-3 rounded-xl bg-brand-ember text-white border border-brand-ember flex flex-col items-center gap-1">
+          <i data-lucide="banknote" class="w-4 h-4"></i>
+          <span>Cash</span>
+        </button>
+        <button data-method="card" class="pay-method-btn py-2.5 px-3 rounded-xl bg-dark-800 text-slate-300 hover:text-white border border-dark-700 flex flex-col items-center gap-1">
+          <i data-lucide="credit-card" class="w-4 h-4"></i>
+          <span>Card POS</span>
+        </button>
+        <button data-method="raast" class="pay-method-btn py-2.5 px-3 rounded-xl bg-dark-800 text-slate-300 hover:text-white border border-dark-700 flex flex-col items-center gap-1">
+          <i data-lucide="qr-code" class="w-4 h-4"></i>
+          <span>Raast QR</span>
+        </button>
+      </div>
+
+      <!-- Cash Quick Tender & Calculator -->
+      <div id="cashTenderArea" class="space-y-3">
+        <label class="text-xs text-slate-400 block">Cash Tendered by Guest</label>
+        <div class="grid grid-cols-4 gap-2 text-xs font-mono">
+          <button onclick="setCashTender(payTotalVal)" class="p-2 rounded-lg bg-dark-800 hover:bg-dark-700 border border-dark-700">Exact</button>
+          <button onclick="setCashTender(50)" class="p-2 rounded-lg bg-dark-800 hover:bg-dark-700 border border-dark-700">$50</button>
+          <button onclick="setCashTender(100)" class="p-2 rounded-lg bg-dark-800 hover:bg-dark-700 border border-dark-700">$100</button>
+          <button onclick="setCashTender(200)" class="p-2 rounded-lg bg-dark-800 hover:bg-dark-700 border border-dark-700">$200</button>
+        </div>
+        <div class="flex items-center justify-between text-xs font-mono p-3 rounded-xl bg-dark-950 border border-dark-800">
+          <span class="text-slate-400">Change Return to Guest:</span>
+          <span id="cashChangeDue" class="text-emerald-400 font-bold text-sm">$0.00</span>
+        </div>
+      </div>
+
+      <!-- Confirm & Print -->
+      <button onclick="completePaymentAndPrint()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30">
+        <i data-lucide="printer" class="w-4 h-4"></i>
+        <span>Confirm Payment &amp; Print Thermal Slip</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: 80MM THERMAL RECEIPT PREVIEW                      -->
+  <!-- ======================================================== -->
+  <div id="thermalReceiptModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white text-slate-900 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="closeThermalModal()" class="absolute top-3 right-3 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Thermal Printable Slip Area -->
+      <div id="thermalReceiptPrintArea" class="font-mono text-[11px] leading-tight space-y-2 text-slate-900">
+        <div class="text-center pb-2 border-b border-dashed border-slate-300">
+          <div class="text-base font-extrabold uppercase tracking-wider font-sans">GROWECH DINE</div>
+          <div class="text-[10px] text-slate-600">Clifton Block 4, Karachi &bull; Tel: +92 309 8178527</div>
+          <div class="text-[9px] text-slate-500 mt-1">OFFLINE LAN RESILIENT INVOICE</div>
+        </div>
+
+        <div class="space-y-0.5 text-[10px] text-slate-700">
+          <div class="flex justify-between">
+            <span>Invoice: <strong id="recInvoice">#INV-9284</strong></span>
+            <span id="recDate">2026-10-28 12:45</span>
+          </div>
+          <div class="flex justify-between">
+            <span id="recTable">Table: T-04</span>
+            <span id="recCashier">Server: Mustafa</span>
+          </div>
+          <div id="recGuest">Guest: Tariq Mansoor</div>
+        </div>
+
+        <!-- Receipt Line Items -->
+        <div class="py-2 border-y border-dashed border-slate-300 space-y-1.5" id="recItemsArea">
+          <!-- Populated via JS -->
+        </div>
+
+        <!-- Receipt Totals -->
+        <div class="space-y-1 text-right text-[11px] pt-1">
+          <div class="flex justify-between">
+            <span>Subtotal:</span>
+            <span id="recSubtotal">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Service (5%):</span>
+            <span id="recService">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Tax (5%):</span>
+            <span id="recTax">$0.00</span>
+          </div>
+          <div class="flex justify-between font-bold text-sm border-t border-slate-400 pt-1">
+            <span>GRAND TOTAL:</span>
+            <span id="recTotal">$0.00</span>
+          </div>
+          <div class="flex justify-between text-[10px] text-slate-600">
+            <span id="recPaymentMethod">Paid via: Cash</span>
+            <span class="text-emerald-700 font-bold">PAID IN FULL</span>
+          </div>
+        </div>
+
+        <!-- Receipt QR & Agency Footer -->
+        <div class="text-center pt-3 border-t border-dashed border-slate-300 space-y-1">
+          <div class="inline-block p-1 bg-white border border-slate-300 rounded">
+            <img src="../assets/qr_code.png" alt="Scan QR" class="w-16 h-16 mx-auto" />
+          </div>
+          <div class="text-[9px] text-slate-500">Scan to save digital receipt on WhatsApp</div>
+          <div class="text-[8px] text-slate-400 font-sans uppercase">Powered by Growech Solution &bull; growech.site</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-4 pt-3 border-t border-slate-200 flex gap-2">
+        <button onclick="window.print()" class="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span>Print Thermal Paper</span>
+        </button>
+        <button onclick="closeThermalModal()" class="py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: TABLE DETAILS / OCCUPANCY INSPECTOR               -->
+  <!-- ======================================================== -->
+  <div id="tableModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-dark-800 rounded-3xl max-w-sm w-full p-5 text-white shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-dark-800">
+        <div>
+          <h3 class="text-lg font-bold font-display" id="modalTableTitle">Table T-02</h3>
+          <p class="text-xs text-slate-400" id="modalTableSubtitle">Main Dining &bull; 4 Seats</p>
+        </div>
+        <button onclick="closeTableModal()" class="p-1.5 rounded-full bg-dark-800 text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="p-3 rounded-xl bg-dark-850 border border-dark-800 space-y-1.5 text-xs font-mono">
+        <div class="flex justify-between">
+          <span class="text-slate-400">Current Status:</span>
+          <span id="modalTableStatus" class="font-bold text-brand-ember">Occupied (4 Guests)</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Seated Duration:</span>
+          <span class="text-slate-200">42 Minutes</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Current Check:</span>
+          <span class="text-white font-bold">$74.50</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 pt-2">
+        <button id="modalTablePosBtn" class="w-full py-2.5 rounded-xl bg-brand-ember hover:bg-brand-ember/90 text-white font-bold text-xs flex items-center justify-center gap-1.5">
+          <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>
+          <span>Open in Touch POS Terminal</span>
+        </button>
+        <button onclick="closeTableModal()" class="w-full py-2 rounded-xl bg-dark-800 text-slate-300 text-xs hover:text-white">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION CORE JAVASCRIPT -->
+  <script>
+    // --- 1. Master Menu Catalog Data ---
+    const menuCatalog = [
+      { id: 'b1', name: 'Wagyu Truffle Smash Burger', cat: 'burgers', price: 18.50, cost: 4.80, prep: '9m', inStock: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=80', desc: 'Double Wagyu smash patties, black truffle aioli, aged cheddar on toasted brioche' },
+      { id: 'b2', name: 'Smoked Bacon Double Cheese', cat: 'burgers', price: 16.00, cost: 4.20, prep: '8m', inStock: true, image: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500&auto=format&fit=crop&q=80', desc: 'Applewood smoked beef bacon, caramelized onions, house burger glaze' },
+      { id: 'b3', name: 'Crispy Buffalo Chicken Stack', cat: 'burgers', price: 14.50, cost: 3.60, prep: '10m', inStock: true, image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500&auto=format&fit=crop&q=80', desc: 'Nashville spiced crisp chicken, buttermilk ranch, crunchy dill pickles' },
+      { id: 'p1', name: 'Neapolitan Margherita D.O.P.', cat: 'pizza', price: 15.00, cost: 3.10, prep: '7m', inStock: true, image: 'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=500&auto=format&fit=crop&q=80', desc: 'San Marzano tomatoes, fresh buffalo mozzarella, fragrant wild basil' },
+      { id: 'p2', name: 'Black Truffle & Wild Mushroom', cat: 'pizza', price: 21.00, cost: 5.50, prep: '8m', inStock: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=80', desc: 'Cremini mushrooms, fontina cheese, shaved black summer truffles' },
+      { id: 'p3', name: 'Spicy Pepperoni & Hot Honey', cat: 'pizza', price: 17.50, cost: 4.00, prep: '7m', inStock: true, image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=500&auto=format&fit=crop&q=80', desc: 'Crispy pepperoni cups, chili flakes, hot honey drizzle' },
+      { id: 's1', name: 'USDA Prime Ribeye 300g', cat: 'steaks', price: 38.00, cost: 12.00, prep: '14m', inStock: true, image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop&q=80', desc: 'Cast-iron seared prime ribeye with herb garlic butter and chimichurri' },
+      { id: 's2', name: 'A5 Wagyu Striploin 200g', cat: 'steaks', price: 54.00, cost: 18.50, prep: '12m', inStock: true, image: 'https://images.unsplash.com/photo-1558030006-450675393462?w=500&auto=format&fit=crop&q=80', desc: 'Miyazaki Wagyu grade A5 with smoked maldon flake salt' },
+      { id: 'f1', name: 'Parmesan Truffle Shoestring Fries', cat: 'starters', price: 8.50, cost: 1.50, prep: '5m', inStock: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f3908594?w=500&auto=format&fit=crop&q=80', desc: 'Hand-cut russet fries tossed in white truffle oil and parmigiano-reggiano' },
+      { id: 'f2', name: 'Crispy Buffalo Wings (8pcs)', cat: 'starters', price: 11.50, cost: 2.80, prep: '9m', inStock: true, image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=500&auto=format&fit=crop&q=80', desc: 'Glazed in aged cayenne pepper sauce, served with blue cheese dip' },
+      { id: 'd1', name: 'Passionfruit Mint Soda Fizz', cat: 'drinks', price: 6.50, cost: 0.90, prep: '3m', inStock: true, image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500&auto=format&fit=crop&q=80', desc: 'Real passionfruit pulp, fresh garden mint, sparkling soda' },
+      { id: 'd2', name: 'Nitro Cold Brew Espresso', cat: 'drinks', price: 5.50, cost: 0.70, prep: '2m', inStock: true, image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500&auto=format&fit=crop&q=80', desc: 'Slow-dripped single origin Ethiopian beans infused with nitrogen' },
+      { id: 'sw1', name: 'Molten Valrhona Lava Cake', cat: 'desserts', price: 9.00, cost: 1.80, prep: '8m', inStock: true, image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=80', desc: '70% dark chocolate core served with Madagascar vanilla gelato' },
+      { id: 'sw2', name: 'Sicilian Pistachio Tiramisu', cat: 'desserts', price: 8.50, cost: 1.60, prep: '2m', inStock: true, image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=80', desc: 'Ladyfingers soaked in espresso, mascarpone cream and bronte pistachios' }
+    ];
+
+    // --- 2. Real-Time Cart State ---
+    let cart = [
+      { id: 'b1', name: 'Wagyu Truffle Smash Burger', price: 18.50, qty: 2, note: 'Med-Rare, Extra Truffle' },
+      { id: 'f1', name: 'Parmesan Truffle Shoestring Fries', price: 8.50, qty: 1, note: '' },
+      { id: 'd1', name: 'Passionfruit Mint Soda Fizz', price: 6.50, qty: 2, note: 'Less ice' }
+    ];
+
+    let currentOrderType = 'DINE_IN';
+    let currentTable = 'T-04';
+    let activeCategory = 'all';
+    let payTotalVal = 0;
+    let currencySymbol = '$';
+    let soundEnabled = true;
+
+    // --- 3. Audio Chime (Web Audio API Synthesizer) ---
+    function playTerminalChime() {
+      if (!soundEnabled) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+        osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1); // A5
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.45);
+      } catch (e) {
+        console.warn('Audio unlock required');
+      }
+    }
+
+    // --- 4. Render Product Grid ---
+    function renderProducts() {
+      const container = document.getElementById('productGrid');
+      const searchVal = document.getElementById('dishSearchInput').value.toLowerCase();
+      
+      const filtered = menuCatalog.filter(item => {
+        const matchCat = activeCategory === 'all' || item.cat === activeCategory;
+        const matchSearch = item.name.toLowerCase().includes(searchVal) || item.desc.toLowerCase().includes(searchVal);
+        return matchCat && matchSearch;
+      });
+
+      container.innerHTML = filtered.map(item => {
+        const inCartItem = cart.find(c => c.id === item.id);
+        const qtyInCart = inCartItem ? inCartItem.qty : 0;
+
+        return `
+          <div class="product-card bg-dark-900 border ${item.inStock ? 'border-dark-800 hover:border-brand-ember/50' : 'border-rose-900/40 opacity-60'} rounded-2xl p-2.5 flex flex-col justify-between transition-all group">
+            <div class="relative rounded-xl overflow-hidden aspect-[4/3] bg-dark-950 mb-2">
+              <img src="${item.image}" alt="${item.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <div class="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-dark-950/80 backdrop-blur-sm text-brand-gold border border-white/10">
+                ${item.prep}
+              </div>
+              ${!item.inStock ? '<div class="absolute inset-0 bg-black/70 flex items-center justify-center font-bold text-xs text-rose-400 font-mono">86 SOLD OUT</div>' : ''}
+            </div>
+
+            <div>
+              <div class="flex items-start justify-between gap-1 mb-1">
+                <h4 class="text-xs font-bold text-white group-hover:text-brand-ember transition-colors leading-snug line-clamp-1">${item.name}</h4>
+              </div>
+              <p class="text-[10px] text-slate-400 line-clamp-1 mb-2">${item.desc}</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-1 border-t border-dark-800">
+              <span class="text-xs font-mono font-bold text-brand-gold">${currencySymbol}${item.price.toFixed(2)}</span>
+              ${item.inStock ? `
+                <button onclick="addToCart('${item.id}')" class="px-2.5 py-1 rounded-lg bg-brand-ember/20 hover:bg-brand-ember text-brand-ember hover:text-white text-[11px] font-bold border border-brand-ember/30 transition-all flex items-center gap-1">
+                  ${qtyInCart > 0 ? `<span class="bg-brand-ember text-white rounded-full w-4 h-4 flex items-center justify-center text-[9px]">${qtyInCart}</span>` : '+ Add'}
+                </button>
+              ` : `
+                <span class="text-[10px] font-mono text-rose-400">Unavailable</span>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // --- 5. Cart Management ---
+    function addToCart(itemId) {
+      const product = menuCatalog.find(p => p.id === itemId);
+      if (!product || !product.inStock) return;
+
+      const existing = cart.find(c => c.id === itemId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id: product.id, name: product.name, price: product.price, qty: 1, note: '' });
+      }
+      playTerminalChime();
+      renderCart();
+      renderProducts();
+    }
+
+    function updateCartQty(itemId, delta) {
+      const idx = cart.findIndex(c => c.id === itemId);
+      if (idx === -1) return;
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) {
+        cart.splice(idx, 1);
+      }
+      renderCart();
+      renderProducts();
+    }
+
+    function renderCart() {
+      const list = document.getElementById('cartItemList');
+      if (cart.length === 0) {
+        list.innerHTML = `
+          <div class="h-44 flex flex-col items-center justify-center text-center p-4 text-slate-500">
+            <i data-lucide="shopping-bag" class="w-8 h-8 mb-2 opacity-50"></i>
+            <span class="text-xs">No items punched on ticket</span>
+            <span class="text-[10px] text-slate-600 mt-0.5">Click dishes on the menu to add</span>
+          </div>
+        `;
+      } else {
+        list.innerHTML = cart.map(item => `
+          <div class="p-2 rounded-xl bg-dark-950 border border-dark-800 flex items-center justify-between gap-2 text-xs">
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-white truncate">${item.name}</div>
+              <div class="text-[10px] text-slate-400 font-mono">${currencySymbol}${item.price.toFixed(2)} each ${item.note ? `&bull; <span class="text-brand-gold">${item.note}</span>` : ''}</div>
+            </div>
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <button onclick="updateCartQty('${item.id}', -1)" class="w-6 h-6 rounded bg-dark-800 hover:bg-dark-700 text-slate-300 flex items-center justify-center font-bold text-xs">-</button>
+              <span class="w-5 text-center font-mono font-bold text-white text-xs">${item.qty}</span>
+              <button onclick="updateCartQty('${item.id}', 1)" class="w-6 h-6 rounded bg-dark-800 hover:bg-dark-700 text-slate-300 flex items-center justify-center font-bold text-xs">+</button>
+            </div>
+            <div class="text-right font-mono font-bold text-brand-gold text-xs w-14">
+              ${currencySymbol}${(item.price * item.qty).toFixed(2)}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Calculations
+      const subtotal = cart.reduce((acc, c) => acc + (c.price * c.qty), 0);
+      const service = subtotal > 0 ? subtotal * 0.05 : 0;
+      const tax = subtotal > 0 ? subtotal * 0.05 : 0;
+      const grandTotal = subtotal + service + tax;
+      payTotalVal = grandTotal;
+
+      document.getElementById('cartSubtotal').textContent = `${currencySymbol}${subtotal.toFixed(2)}`;
+      document.getElementById('cartService').textContent = `${currencySymbol}${service.toFixed(2)}`;
+      document.getElementById('cartTax').textContent = `${currencySymbol}${tax.toFixed(2)}`;
+      document.getElementById('cartGrandTotal').textContent = `${currencySymbol}${grandTotal.toFixed(2)}`;
+
+      lucide.createIcons();
+    }
+
+    // --- 6. KDS Multi-Station Data & Progression ---
+    let kdsTickets = [
+      { id: 'KOT-104', table: 'T-04', type: 'Dine-In', server: 'Mustafa S.', elapsed: '03:45', status: 'NEW', items: ['2x Wagyu Truffle Smash (MED)', '1x Truffle Fries', '2x Passionfruit Soda'] },
+      { id: 'KOT-103', table: 'T-02', type: 'Dine-In', server: 'Hamza K.', elapsed: '06:12', status: 'ACCEPTED', items: ['1x Ribeye 300g (MED-RARE)', '1x Neapolitan Margherita'] },
+      { id: 'KOT-102', table: 'T-07', type: 'Dine-In', server: 'Zain A.', elapsed: '09:20', status: 'PREPARING', items: ['2x Spicy Pepperoni Pizza', '1x Buffalo Wings'] },
+      { id: 'KOT-101', table: 'T-09', type: 'Dine-In', server: 'Mustafa S.', elapsed: '11:45', status: 'READY', items: ['1x Smoked Bacon Burger', '1x Lava Cake'] },
+    ];
+
+    function renderKDS() {
+      const colNew = document.getElementById('kdsColNew');
+      const colAccepted = document.getElementById('kdsColAccepted');
+      const colPrep = document.getElementById('kdsColPrep');
+      const colReady = document.getElementById('kdsColReady');
+
+      const byStatus = (st) => kdsTickets.filter(t => t.status === st);
+
+      const makeCard = (t, nextStatus, nextLabel, nextColor) => `
+        <div class="p-3.5 rounded-xl bg-dark-950 border border-dark-800 space-y-2 text-xs">
+          <div class="flex items-center justify-between pb-1.5 border-b border-dark-800">
+            <span class="font-mono font-bold text-white">${t.id} &bull; ${t.table}</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-dark-800 text-brand-gold font-bold">${t.elapsed}</span>
+          </div>
+          <div class="text-[10px] text-slate-400 font-mono">Server: ${t.server} &bull; ${t.type}</div>
+          <div class="space-y-1 py-1 text-slate-200 font-mono text-[11px]">
+            ${t.items.map(i => `<div>&bull; ${i}</div>`).join('')}
+          </div>
+          ${nextStatus ? `
+            <button onclick="advanceKdsStatus('${t.id}', '${nextStatus}')" class="w-full py-1.5 rounded-lg ${nextColor} text-white font-bold text-[11px] transition-colors">
+              ${nextLabel} &rarr;
+            </button>
+          ` : `
+            <button onclick="advanceKdsStatus('${t.id}', 'BUMPED')" class="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px]">
+              Bump / Dispatch Ticket &check;
+            </button>
+          `}
+        </div>
+      `;
+
+      colNew.innerHTML = byStatus('NEW').map(t => makeCard(t, 'ACCEPTED', 'Accept Order', 'bg-rose-600 hover:bg-rose-500')).join('') || '<div class="text-center p-4 text-slate-500 text-xs">No new orders</div>';
+      colAccepted.innerHTML = byStatus('ACCEPTED').map(t => makeCard(t, 'PREPARING', 'Start Cooking', 'bg-amber-600 hover:bg-amber-500')).join('') || '<div class="text-center p-4 text-slate-500 text-xs">Queue clear</div>';
+      colPrep.innerHTML = byStatus('PREPARING').map(t => makeCard(t, 'READY', 'Mark Food Ready', 'bg-cyan-600 hover:bg-cyan-500')).join('') || '<div class="text-center p-4 text-slate-500 text-xs">Station idle</div>';
+      colReady.innerHTML = byStatus('READY').map(t => makeCard(t, null, 'Bump Ticket', 'bg-emerald-600 hover:bg-emerald-500')).join('') || '<div class="text-center p-4 text-slate-500 text-xs">No pending pickups</div>';
+
+      document.getElementById('kdsNewCount').textContent = byStatus('NEW').length;
+      document.getElementById('kdsAcceptedCount').textContent = byStatus('ACCEPTED').length;
+      document.getElementById('kdsPrepCount').textContent = byStatus('PREPARING').length;
+      document.getElementById('kdsReadyCount').textContent = byStatus('READY').length;
+      document.getElementById('kdsBadge').textContent = `${kdsTickets.length} Orders`;
+    }
+
+    function advanceKdsStatus(kotId, nextStatus) {
+      if (nextStatus === 'BUMPED') {
+        kdsTickets = kdsTickets.filter(t => t.id !== kotId);
+      } else {
+        const ticket = kdsTickets.find(t => t.id === kotId);
+        if (ticket) ticket.status = nextStatus;
+      }
+      playTerminalChime();
+      renderKDS();
+    }
+
+    // --- 7. Orders Queue Table ---
+    function renderOrdersQueue() {
+      const orders = [
+        { id: '#ORD-4821', type: 'Dine-In', table: 'T-04', guest: 'Tariq Mansoor', items: '2x Wagyu Smash, 1x Fries', total: 58.50, status: 'Cooking' },
+        { id: '#ORD-4820', type: 'Dine-In', table: 'T-02', guest: 'Danish Khan', items: '1x Ribeye 300g, 1x Margherita', total: 74.50, status: 'Served' },
+        { id: '#ORD-4819', type: 'Takeaway', table: 'Counter #1', guest: 'Bilal Ahmed', items: '2x Pepperoni Pizza', total: 35.00, status: 'Ready' },
+        { id: '#ORD-4818', type: 'Delivery', table: 'Rider: Ali', guest: 'Sara Farooq', items: '1x Buffalo Burger, 1x Lava Cake', total: 28.50, status: 'Dispatched' },
+        { id: '#ORD-4817', type: 'Dine-In', table: 'T-05', guest: 'Kamran & Co (VIP)', items: 'Steak Banquet x4', total: 145.20, status: 'Billing' },
+      ];
+
+      const tbody = document.getElementById('ordersTableBody');
+      tbody.innerHTML = orders.map(o => `
+        <tr class="hover:bg-dark-850 transition-colors">
+          <td class="p-3 font-mono font-bold text-white">${o.id}</td>
+          <td class="p-3 font-mono text-slate-400">${o.type}</td>
+          <td class="p-3 font-bold text-brand-gold">${o.table}</td>
+          <td class="p-3 text-white">${o.guest}</td>
+          <td class="p-3 text-slate-300 font-mono">${o.items}</td>
+          <td class="p-3 font-mono font-bold text-white">${currencySymbol}${o.total.toFixed(2)}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${o.status === 'Ready' || o.status === 'Served' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-brand-ember/20 text-brand-ember'}">
+              ${o.status}
+            </span>
+          </td>
+          <td class="p-3 text-right">
+            <button onclick="alert('Reprinting receipt for ${o.id}')" class="px-2 py-1 rounded bg-dark-800 hover:bg-dark-700 text-slate-300 text-[10px] font-mono border border-dark-700">Receipt</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // --- 8. Menu Catalog Table with 86 Live Toggle ---
+    function renderMenuTable() {
+      const tbody = document.getElementById('menuTableBody');
+      tbody.innerHTML = menuCatalog.map(m => {
+        const margin = (((m.price - m.cost) / m.price) * 100).toFixed(1);
+        return `
+          <tr class="hover:bg-dark-850 transition-colors">
+            <td class="p-3 font-bold text-white">${m.name}</td>
+            <td class="p-3 font-mono text-slate-400 uppercase">${m.cat}</td>
+            <td class="p-3 font-mono font-bold text-brand-gold">${currencySymbol}${m.price.toFixed(2)}</td>
+            <td class="p-3 font-mono text-slate-400">${currencySymbol}${m.cost.toFixed(2)}</td>
+            <td class="p-3 font-mono text-emerald-400 font-bold">${margin}%</td>
+            <td class="p-3 font-mono text-slate-300">${m.prep}</td>
+            <td class="p-3 text-center">
+              <button onclick="toggle86Item('${m.id}')" class="px-3 py-1 rounded-full text-[10px] font-mono font-bold ${m.inStock ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
+                ${m.inStock ? '&check; In Stock' : '&cross; 86 Sold Out'}
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function toggle86Item(id) {
+      const item = menuCatalog.find(m => m.id === id);
+      if (item) {
+        item.inStock = !item.inStock;
+        renderMenuTable();
+        renderProducts();
+      }
+    }
+
+    // --- 9. Inventory Data & Restock ---
+    let inventoryData = [
+      { id: 'i1', name: 'Wagyu Ground Beef Patties', unit: 'kg', stock: 18.5, min: 25.0, health: 'Reorder Soon' },
+      { id: 'i2', name: 'Fresh Brioche Burger Buns', unit: 'pcs', stock: 64, min: 50, health: 'Adequate' },
+      { id: 'i3', name: 'Italian Buffalo Mozzarella', unit: 'kg', stock: 8.2, min: 10.0, health: 'Reorder Soon' },
+      { id: 'i4', name: 'Black Truffle Infused Oil', unit: 'bottles', stock: 1, min: 3, health: 'Critical' },
+      { id: 'i5', name: 'USDA Prime Ribeye Loins', unit: 'kg', stock: 22.0, min: 15.0, health: 'Adequate' },
+      { id: 'i6', name: 'Idaho Russet Potatoes', unit: 'kg', stock: 45.0, min: 30.0, health: 'Adequate' },
+      { id: 'i7', name: 'Single Origin Espresso Beans', unit: 'kg', stock: 12.0, min: 8.0, health: 'Adequate' }
+    ];
+
+    function renderInventory() {
+      const tbody = document.getElementById('inventoryTableBody');
+      tbody.innerHTML = inventoryData.map(inv => `
+        <tr class="hover:bg-dark-850 transition-colors">
+          <td class="p-3 font-bold text-white">${inv.name}</td>
+          <td class="p-3 font-mono text-slate-400">${inv.unit}</td>
+          <td class="p-3 font-mono font-bold text-white">${inv.stock} ${inv.unit}</td>
+          <td class="p-3 font-mono text-slate-400">${inv.min} ${inv.unit}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${inv.health === 'Adequate' ? 'bg-emerald-500/10 text-emerald-400' : inv.health === 'Critical' ? 'bg-rose-500/10 text-rose-400' : 'bg-amber-500/10 text-amber-400'}">
+              ${inv.health}
+            </span>
+          </td>
+          <td class="p-3 text-right">
+            <button onclick="restockItem('${inv.id}')" class="px-2.5 py-1 rounded bg-brand-ember/20 hover:bg-brand-ember text-brand-ember hover:text-white text-[10px] font-mono font-bold transition-colors">
+              + Restock
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function restockItem(id) {
+      const inv = inventoryData.find(i => i.id === id);
+      if (inv) {
+        inv.stock += 10;
+        if (inv.stock >= inv.min) inv.health = 'Adequate';
+        renderInventory();
+      }
+    }
+
+    // --- 10. Table Reservations Table ---
+    function renderReservations() {
+      const reservations = [
+        { time: '08:00 PM', name: 'Ahmed Al-Falasi', guests: 4, phone: '+923098178527', table: 'T-03', status: 'Confirmed' },
+        { time: '08:30 PM', name: 'Zubair Chaudhry', guests: 6, phone: '+923098178527', table: 'T-10', status: 'Confirmed' },
+        { time: '09:00 PM', name: 'Dr. Fatima Zahra', guests: 2, phone: '+923098178527', table: 'T-01', status: 'Seated' },
+        { time: '09:45 PM', name: 'Saad Rafique (VIP)', guests: 8, phone: '+923098178527', table: 'T-12', status: 'Pending Deposit' }
+      ];
+
+      const tbody = document.getElementById('reservationsTableBody');
+      tbody.innerHTML = reservations.map(r => `
+        <tr class="hover:bg-dark-850 transition-colors">
+          <td class="p-3 font-mono font-bold text-brand-gold">${r.time}</td>
+          <td class="p-3 font-bold text-white">${r.name}</td>
+          <td class="p-3 font-mono text-slate-300">${r.guests} Guests</td>
+          <td class="p-3 font-mono text-slate-400">${r.phone}</td>
+          <td class="p-3 font-mono font-bold text-emerald-400">${r.table}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${r.status === 'Confirmed' || r.status === 'Seated' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">
+              ${r.status}
+            </span>
+          </td>
+          <td class="p-3 text-right">
+            <a href="https://wa.me/923098178527?text=Salam%20${encodeURIComponent(r.name)}%2C%20your%20table%20${r.table}%20at%20Growech%20Dine%20is%20reserved%20for%20${encodeURIComponent(r.time)}%20(${r.guests}%20guests).%20Looking%20forward%20to%20hosting%20you!" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-semibold transition-colors">
+              <i data-lucide="message-circle" class="w-3 h-3"></i>
+              <span>WhatsApp</span>
+            </a>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // --- 11. Customer Loyalty CRM Table ---
+    function renderCustomers() {
+      const customers = [
+        { name: 'Tariq Mansoor', phone: '+92 300 1234567', visits: 18, spend: 890.00, fav: 'Wagyu Smash Burger', tier: 'PLATINUM VIP' },
+        { name: 'Danish Khan', phone: '+92 321 9876543', visits: 12, spend: 540.00, fav: 'USDA Prime Ribeye', tier: 'GOLD' },
+        { name: 'Ahmed Al-Falasi', phone: '+971 50 1234567', visits: 9, spend: 720.00, fav: 'Truffle Pizza', tier: 'GOLD' },
+        { name: 'Saad Rafique', phone: '+92 333 5556677', visits: 24, spend: 1420.00, fav: 'A5 Wagyu Striploin', tier: 'DIAMOND VIP' },
+      ];
+
+      const tbody = document.getElementById('customersTableBody');
+      tbody.innerHTML = customers.map(c => `
+        <tr class="hover:bg-dark-850 transition-colors">
+          <td class="p-3 font-bold text-white">${c.name}</td>
+          <td class="p-3 font-mono text-slate-400">${c.phone}</td>
+          <td class="p-3 font-mono text-white">${c.visits} Dinners</td>
+          <td class="p-3 font-mono font-bold text-brand-gold">${currencySymbol}${c.spend.toFixed(2)}</td>
+          <td class="p-3 text-slate-300">${c.fav}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${c.tier.includes('DIAMOND') ? 'bg-cyan-500/20 text-cyan-300' : 'bg-amber-500/20 text-amber-300'}">
+              ${c.tier}
+            </span>
+          </td>
+          <td class="p-3 text-right">
+            <button onclick="window.open('https://wa.me/923098178527?text=Salam%20${encodeURIComponent(c.name)}%2C%20Growech%20Dine%20has%20reserved%20a%20special%20chef%20treat%20for%20your%20next%20visit!')" class="px-2 py-1 rounded bg-dark-800 hover:bg-dark-700 text-slate-300 text-[10px] font-mono border border-dark-700">Ping VIP</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // --- 12. Modal & Interaction Handlers ---
+    function openTableModal(tId) {
+      document.getElementById('modalTableTitle').textContent = `Table ${tId}`;
+      document.getElementById('tableModal').classList.remove('hidden');
+      document.getElementById('modalTablePosBtn').onclick = () => {
+        closeTableModal();
+        switchView('pos');
+        document.getElementById('cartTableSelect').value = tId;
+        document.getElementById('posTableDisplay').textContent = `Table: ${tId} (Dine-In)`;
+      };
+    }
+
+    function closeTableModal() {
+      document.getElementById('tableModal').classList.add('hidden');
+    }
+
+    function openPaymentModal() {
+      if (cart.length === 0) {
+        alert('Please add at least one item to the order ticket first!');
+        return;
+      }
+      document.getElementById('payModalTable').textContent = `${currentTable} &bull; ${currentOrderType}`;
+      document.getElementById('payModalTotal').textContent = `${currencySymbol}${payTotalVal.toFixed(2)}`;
+      document.getElementById('cashChangeDue').textContent = `${currencySymbol}0.00`;
+      document.getElementById('paymentModal').classList.remove('hidden');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.add('hidden');
+    }
+
+    function setCashTender(val) {
+      const change = Math.max(0, val - payTotalVal);
+      document.getElementById('cashChangeDue').textContent = `${currencySymbol}${change.toFixed(2)}`;
+    }
+
+    function completePaymentAndPrint() {
+      closePaymentModal();
+      playTerminalChime();
+
+      // Populate thermal receipt
+      const now = new Date();
+      document.getElementById('recInvoice').textContent = `#INV-${Math.floor(1000 + Math.random() * 9000)}`;
+      document.getElementById('recDate').textContent = `${now.toISOString().split('T')[0]} ${now.toLocaleTimeString()}`;
+      document.getElementById('recTable').textContent = `Table: ${currentTable}`;
+      document.getElementById('recGuest').textContent = `Guest: ${document.getElementById('guestNameInput').value || 'Dining Guest'}`;
+      
+      const subtotal = cart.reduce((acc, c) => acc + (c.price * c.qty), 0);
+      const service = subtotal * 0.05;
+      const tax = subtotal * 0.05;
+      const grandTotal = subtotal + service + tax;
+
+      document.getElementById('recSubtotal').textContent = `${currencySymbol}${subtotal.toFixed(2)}`;
+      document.getElementById('recService').textContent = `${currencySymbol}${service.toFixed(2)}`;
+      document.getElementById('recTax').textContent = `${currencySymbol}${tax.toFixed(2)}`;
+      document.getElementById('recTotal').textContent = `${currencySymbol}${grandTotal.toFixed(2)}`;
+
+      const itemsArea = document.getElementById('recItemsArea');
+      itemsArea.innerHTML = cart.map(i => `
+        <div class="flex justify-between">
+          <span class="truncate pr-2">${i.qty}x ${i.name}</span>
+          <span class="font-bold flex-shrink-0">${currencySymbol}${(i.price * i.qty).toFixed(2)}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('thermalReceiptModal').classList.remove('hidden');
+
+      // Add to KDS as paid order ticket
+      kdsTickets.unshift({
+        id: `KOT-${Math.floor(100 + Math.random() * 900)}`,
+        table: currentTable,
+        type: currentOrderType,
+        server: 'Mustafa S.',
+        elapsed: '00:05',
+        status: 'NEW',
+        items: cart.map(c => `${c.qty}x ${c.name} ${c.note ? `(${c.note})` : ''}`)
+      });
+      renderKDS();
+
+      // Clear Cart
+      cart = [];
+      renderCart();
+      renderProducts();
+    }
+
+    function closeThermalModal() {
+      document.getElementById('thermalReceiptModal').classList.add('hidden');
+    }
+
+    // --- 13. Screen Navigation Controller ---
+    function switchView(viewId) {
+      document.querySelectorAll('.screen-view').forEach(v => v.classList.add('hidden'));
+      const activeScreen = document.getElementById(`view-${viewId}`);
+      if (activeScreen) activeScreen.classList.remove('hidden');
+
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        if (btn.dataset.nav === viewId) {
+          btn.classList.add('active', 'bg-dark-800', 'text-white');
+        } else {
+          btn.classList.remove('active', 'bg-dark-800', 'text-white');
+        }
+      });
+
+      // Mobile close sidebar
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+
+      // Trigger re-renders
+      if (viewId === 'pos') { renderProducts(); renderCart(); }
+      else if (viewId === 'kds') { renderKDS(); }
+      else if (viewId === 'orders') { renderOrdersQueue(); }
+      else if (viewId === 'menu') { renderMenuTable(); }
+      else if (viewId === 'inventory') { renderInventory(); }
+      else if (viewId === 'reservations') { renderReservations(); }
+      else if (viewId === 'customers') { renderCustomers(); }
+
+      lucide.createIcons();
+    }
+
+    // --- 14. Event Listeners Initialization ---
+    document.addEventListener('DOMContentLoaded', () => {
+      // Clock timer
+      setInterval(() => {
+        const d = new Date();
+        document.getElementById('liveClock').textContent = d.toLocaleTimeString();
+      }, 1000);
+
+      // Nav buttons
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', () => switchView(btn.dataset.nav));
+      });
+
+      // Category filter buttons
+      document.querySelectorAll('.pos-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.pos-cat-btn').forEach(b => {
+            b.classList.remove('active', 'bg-brand-ember', 'text-white');
+            b.classList.add('bg-dark-800', 'text-slate-300');
+          });
+          btn.classList.add('active', 'bg-brand-ember', 'text-white');
+          btn.classList.remove('bg-dark-800', 'text-slate-300');
+          activeCategory = btn.dataset.cat;
+          renderProducts();
+        });
+      });
+
+      // Search dish
+      document.getElementById('dishSearchInput').addEventListener('input', renderProducts);
+
+      // Order type buttons
+      document.querySelectorAll('.order-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.order-type-btn').forEach(b => {
+            b.classList.remove('active', 'bg-brand-ember', 'text-white');
+            b.classList.add('text-slate-400');
+          });
+          btn.classList.add('active', 'bg-brand-ember', 'text-white');
+          btn.classList.remove('text-slate-400');
+          currentOrderType = btn.dataset.ordertype;
+          document.getElementById('posTableDisplay').textContent = `Table: ${currentTable} (${currentOrderType})`;
+        });
+      });
+
+      // Table selector in cart
+      document.getElementById('cartTableSelect').addEventListener('change', (e) => {
+        currentTable = e.target.value;
+        document.getElementById('posTableDisplay').textContent = `Table: ${currentTable} (${currentOrderType})`;
+      });
+
+      // Pay & Settle button
+      document.getElementById('paySettleBtn').addEventListener('click', openPaymentModal);
+
+      // Split bill button
+      document.getElementById('splitBillBtn').addEventListener('click', () => {
+        if (payTotalVal <= 0) return alert('Add items to order first');
+        const half = (payTotalVal / 2).toFixed(2);
+        const third = (payTotalVal / 3).toFixed(2);
+        alert(`Split Check Calculations:\n\n• 2 Guests: ${currencySymbol}${half} each\n• 3 Guests: ${currencySymbol}${third} each\n• 4 Guests: ${currencySymbol}${(payTotalVal / 4).toFixed(2)} each`);
+      });
+
+      // Send to KDS button
+      document.getElementById('sendKotBtn').addEventListener('click', () => {
+        if (cart.length === 0) return alert('Cart is empty');
+        kdsTickets.unshift({
+          id: `KOT-${Math.floor(100 + Math.random() * 900)}`,
+          table: currentTable,
+          type: currentOrderType,
+          server: 'Mustafa S.',
+          elapsed: '00:01',
+          status: 'NEW',
+          items: cart.map(c => `${c.qty}x ${c.name}`)
+        });
+        playTerminalChime();
+        alert(`KOT Ticket sent to Kitchen Display System (KDS)! Table: ${currentTable}`);
+        renderKDS();
+      });
+
+      // Simulate KDS Push button
+      document.getElementById('kdsSimulateOrderBtn').addEventListener('click', () => {
+        const demoDishes = ['2x Wagyu Truffle Smash', '1x Truffle Fries', '1x Neapolitan Margherita', '2x Cold Brew'];
+        kdsTickets.unshift({
+          id: `KOT-${Math.floor(100 + Math.random() * 900)}`,
+          table: `T-0${Math.floor(1 + Math.random() * 9)}`,
+          type: 'Dine-In',
+          server: 'Hamza K.',
+          elapsed: '00:02',
+          status: 'NEW',
+          items: [demoDishes[Math.floor(Math.random() * demoDishes.length)], demoDishes[Math.floor(Math.random() * demoDishes.length)]]
+        });
+        playTerminalChime();
+        renderKDS();
+      });
+
+      // Chime toggle
+      document.getElementById('chimeToggleBtn').addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        const icon = document.getElementById('bellIcon');
+        if (soundEnabled) {
+          icon.className = 'w-4 h-4 text-brand-gold';
+          playTerminalChime();
+        } else {
+          icon.className = 'w-4 h-4 text-slate-500';
+        }
+      });
+
+      // Fullscreen toggle
+      document.getElementById('fullscreenBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      // Mobile Menu button
+      document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('-translate-x-full');
+      });
+
+      // Currency selector
+      document.getElementById('currencySelector').addEventListener('change', (e) => {
+        currencySymbol = e.target.value;
+        renderCart();
+        renderProducts();
+        renderOrdersQueue();
+        renderMenuTable();
+      });
+
+      // Initial Renders
+      renderProducts();
+      renderCart();
+      renderKDS();
+      renderOrdersQueue();
+      renderMenuTable();
+      renderInventory();
+      renderReservations();
+      renderCustomers();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
