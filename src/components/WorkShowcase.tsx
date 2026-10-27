@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const WorkShowcase: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
   const [activeFilter, setActiveFilter] = useState<string>('ALL');
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
+  const [posTab, setPosTab] = useState<'pos' | 'kds' | 'tables' | 'whatsapp'>('pos');
   const sectionRef = useRef<HTMLElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
@@ -210,6 +211,199 @@ export const WorkShowcase: React.FC<{ onOpenContact: () => void }> = ({ onOpenCo
               <h3 className="text-2xl font-bold font-display text-white pr-8">
                 {selectedCase.title}
               </h3>
+
+              {/* Interactive Live Growech Dine POS Suite Feature Showcase */}
+              {selectedCase.id === 'restaurant-demo' && (
+                <div className="mt-5 p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-ember/30 shadow-xl space-y-3.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/10">
+                    <div>
+                      <div className="text-[10px] font-mono uppercase text-ember font-bold tracking-wider">
+                        AGENCY DEMONSTRATION &bull; GROWECH DINE
+                      </div>
+                      <div className="text-sm font-bold text-white">
+                        Full-Stack Restaurant POS, KDS &amp; WhatsApp Architecture
+                      </div>
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 self-start sm:self-auto">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>Offline-First LAN Ready (0% Cloud Downtime)</span>
+                    </div>
+                  </div>
+
+                  {/* Interactive Switcher Tabs */}
+                  <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-white/[0.04] border border-white/5">
+                    <button
+                      onClick={() => setPosTab('pos')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        posTab === 'pos'
+                          ? 'bg-ember text-white shadow-glow-sm font-semibold'
+                          : 'text-zinc-400 hover:text-white'
+                      }`}
+                    >
+                      Touch POS Terminal
+                    </button>
+                    <button
+                      onClick={() => setPosTab('kds')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        posTab === 'kds'
+                          ? 'bg-ember text-white shadow-glow-sm font-semibold'
+                          : 'text-zinc-400 hover:text-white'
+                      }`}
+                    >
+                      Kitchen Display (KDS)
+                    </button>
+                    <button
+                      onClick={() => setPosTab('tables')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        posTab === 'tables'
+                          ? 'bg-ember text-white shadow-glow-sm font-semibold'
+                          : 'text-zinc-400 hover:text-white'
+                      }`}
+                    >
+                      Live Floor Plan
+                    </button>
+                    <button
+                      onClick={() => setPosTab('whatsapp')}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        posTab === 'whatsapp'
+                          ? 'bg-ember text-white shadow-glow-sm font-semibold'
+                          : 'text-zinc-400 hover:text-white'
+                      }`}
+                    >
+                      WhatsApp Sync
+                    </button>
+                  </div>
+
+                  {/* Tab 1: POS Touch Terminal */}
+                  {posTab === 'pos' && (
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-2.5 font-mono text-xs">
+                      <div className="flex items-center justify-between text-zinc-400 text-[11px] pb-2 border-b border-white/5">
+                        <span className="text-white font-bold">Terminal #01 &bull; Table #04 (Dine-In)</span>
+                        <span className="text-emerald-400 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                          <span>LAN Active</span>
+                        </span>
+                      </div>
+                      <div className="space-y-1.5 text-zinc-300">
+                        <div className="flex justify-between">
+                          <span>2x Wagyu Beef Burger (Med, Extra Cheddar)</span>
+                          <span className="font-bold text-white">$42.00</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>1x Truffle Parmesan Fries</span>
+                          <span className="font-bold text-white">$12.50</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>2x Passionfruit Soda Fizz</span>
+                          <span className="font-bold text-white">$14.00</span>
+                        </div>
+                      </div>
+                      <div className="pt-2 border-t border-white/5 flex items-center justify-between">
+                        <span className="text-zinc-400">Total with 5% VAT:</span>
+                        <span className="text-sm font-bold text-ember">$71.92</span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 pt-1">
+                        <div className="p-1.5 rounded-lg bg-white/5 text-center text-[10px] text-zinc-300 border border-white/5">
+                          Split Check (1/2)
+                        </div>
+                        <div className="p-1.5 rounded-lg bg-white/5 text-center text-[10px] text-zinc-300 border border-white/5">
+                          Apply Discount
+                        </div>
+                        <div className="p-1.5 rounded-lg bg-ember/20 text-center text-[10px] text-ember font-bold border border-ember/30">
+                          Print Thermal KOT &rarr;
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Tab 2: Kitchen Display (KDS) */}
+                  {posTab === 'kds' && (
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-2 font-mono text-xs">
+                      <div className="flex items-center justify-between text-[11px] text-zinc-400 pb-1.5 border-b border-white/5">
+                        <span>Kitchen Station: Hot Line (Grill &amp; Fryer)</span>
+                        <span className="text-amber-400">2 Active Tickets</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 space-y-1">
+                          <div className="flex justify-between text-[10px] text-emerald-400 font-bold">
+                            <span>#T04 &bull; DINE-IN</span>
+                            <span>03:45 (COOKING)</span>
+                          </div>
+                          <div className="text-[11px] text-zinc-200">2x Wagyu Burger</div>
+                          <div className="text-[10px] text-zinc-400">Mod: Medium / Extra Cheese</div>
+                        </div>
+                        <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/30 space-y-1">
+                          <div className="flex justify-between text-[10px] text-amber-400 font-bold">
+                            <span>#T02 &bull; TAKEAWAY</span>
+                            <span>00:45 (NEW ORDER)</span>
+                          </div>
+                          <div className="text-[11px] text-zinc-200">1x Smoked BBQ Ribs</div>
+                          <div className="text-[10px] text-zinc-400">Side: Garlic Toast</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Tab 3: Floor Plan */}
+                  {posTab === 'tables' && (
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-2 font-mono text-xs">
+                      <div className="text-[11px] text-zinc-400 pb-1.5 border-b border-white/5 flex justify-between">
+                        <span>Dining Hall Floor Plan</span>
+                        <span className="text-zinc-300">Table Turnover: 62%</span>
+                      </div>
+                      <div className="grid grid-cols-4 gap-2">
+                        <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-center">
+                          <div className="text-[10px] font-bold text-white">T-01</div>
+                          <div className="text-[9px] text-emerald-400">Vacant</div>
+                        </div>
+                        <div className="p-2 rounded-lg bg-ember/20 border border-ember/30 text-center">
+                          <div className="text-[10px] font-bold text-white">T-02</div>
+                          <div className="text-[9px] text-ember">Seated (4p)</div>
+                        </div>
+                        <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 text-center">
+                          <div className="text-[10px] font-bold text-white">T-03</div>
+                          <div className="text-[9px] text-purple-400">Reserved</div>
+                        </div>
+                        <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-center">
+                          <div className="text-[10px] font-bold text-white">T-04</div>
+                          <div className="text-[9px] text-amber-400">Billing</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Tab 4: WhatsApp Integration */}
+                  {posTab === 'whatsapp' && (
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-2 font-mono text-xs">
+                      <div className="text-[11px] text-emerald-400 pb-1.5 border-b border-white/5 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>Meta WhatsApp Business Cloud API Live Webhook</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-emerald-950/20 border border-emerald-500/20 text-[11px] text-zinc-300 space-y-1">
+                        <div className="text-emerald-400 font-bold">&gt; Automated Dispatch Message to Customer:</div>
+                        <div>"Salam Ahmed, your table for 4 guests is booked for 8:30 PM. Your order #4928 is preparing in the kitchen. View digital receipt: growech.site/pos/demo"</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Direct Agency Pitch Bar */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 bg-gradient-to-r from-ember/10 to-transparent p-3 rounded-xl border border-ember/20">
+                    <div className="text-[11px] text-zinc-300 leading-tight">
+                      <strong className="text-white">Customized &amp; Deployed by Growech Solution</strong>
+                      <p className="text-zinc-400 text-[10px]">Zero monthly commissions. 100% full source code ownership for restaurant chains.</p>
+                    </div>
+                    <a
+                      href="https://wa.me/923098178527?text=Salam%20Growech%2C%20I%20want%20a%20live%20walkthrough%20of%20Growech%20Dine%20Restaurant%20POS"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 rounded-full text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-colors flex items-center gap-1.5 flex-shrink-0 shadow-lg shadow-emerald-600/20"
+                    >
+                      <span>Live POS Demo on WhatsApp</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              )}
 
               <div className="mt-6 space-y-4 text-xs text-zinc-300 leading-relaxed">
                 <div>

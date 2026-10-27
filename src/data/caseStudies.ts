@@ -16,28 +16,33 @@ export const caseStudiesData: CaseStudy[] = [
   {
     id: 'restaurant-demo',
     badgeType: 'DEMO PROJECT',
-    title: 'Multi-Location Restaurant Reservation & WhatsApp Order Dispatcher',
-    industry: 'Hospitality & Dining',
-    overview: 'An interactive demonstration demonstrating how high-volume eateries can eliminate telephone reservation bottlenecks and bypass commission-heavy food delivery aggregators.',
-    problem: 'Peak-hour phone lines often resulted in unanswered calls, lost table reservations, and 20-30% aggregator platform commissions on everyday takeaway orders.',
-    solution: 'Designed an interactive mobile-optimized digital menu web application integrated directly with the official WhatsApp Business Cloud API for automated table reservations and takeaway order coordination.',
+    title: 'Growech Dine — Offline-First Restaurant POS & Kitchen Display Suite',
+    industry: 'Hospitality, Dining & QSR Chains',
+    overview: 'An enterprise-grade, offline-first restaurant management and touch POS system engineered by Growech Solution. Built with local LAN resilience for 100% zero downtime during peak rush hours, multi-station Kitchen Display (KDS), table floor maps, and automated WhatsApp guest notifications.',
+    problem: 'Restaurants lose 15-30% revenue to third-party delivery aggregators, pay recurring monthly cloud POS SaaS subscriptions, and suffer complete operational shutdowns when their cloud POS loses internet connection during peak dinner service.',
+    solution: 'Engineered an offline-first, local-server POS ecosystem running on local restaurant hardware with zero cloud dependencies for billing and kitchen ticketing, coupled with contactless QR menus and WhatsApp automated order tracking.',
     whatWasBuilt: [
-      'Sub-second mobile responsive menu with real-time dietary filtering',
-      'Automated WhatsApp reservation bot with dynamic table slot verification',
-      'Kitchen order dispatch webhook feeding orders directly to kitchen thermal printers',
-      'Automated SMS / WhatsApp reservation reminders with one-tap cancellation'
+      'Touch-Optimized Billing & Dine-In POS Terminal (Split checks, combos, modifiers, thermal printing)',
+      'Digital Kitchen Display System (KDS) routing food orders with live prep timers across stations',
+      'Interactive Graphical Table & Floor Map showing real-time dining, vacant, and billing status',
+      'Contactless Table QR Menu with instant guest mobile ordering',
+      'Ingredient-Level Inventory Management & Recipe Costing to eliminate kitchen pilferage',
+      'Staff Role-Based Access Control (RBAC) with secure 4-digit PIN authentication',
+      'Automated WhatsApp Table Reservation bot with instant guest confirmation receipts'
     ],
     automationHighlights: [
-      'Zero manual staff handling required for standard table reservation confirmations',
-      'Automated reminder sent 2 hours before dining, significantly reducing empty table no-shows',
-      'Direct order receipts and Google Maps location pins dispatched instantly to guest phones'
+      '100% Offline LAN operation: Billing and kitchen order tickets (KOT) function without internet',
+      'Automated table status updates synchronization between hostess station, waiters, and kitchen',
+      'Automated WhatsApp reservation reminders and direct digital receipt delivery to guest phones',
+      'Zero monthly SaaS recurring fee trap: 100% client code and database ownership'
     ],
     businessImpact: [
-      'Can eliminate telephone congestion during dinner peak hours',
-      'Protects profit margins by routing repeat loyal diners to direct ordering channels',
-      'Builds an owned, compliant guest contact database for future seasonal announcements'
+      'Cuts table checkout and order punching time by 50% during peak service',
+      'Eliminates lost orders and paper kitchen ticket clutter with color-coded KDS screens',
+      'Saves restaurants thousands of dollars annually in aggregator commissions and SaaS subscriptions',
+      'Guarantees zero operational downtime even during total ISP or internet outages'
     ],
-    technologies: ['React', 'Tailwind CSS', 'WhatsApp Cloud API', 'Webhooks', 'Node.js']
+    technologies: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'Offline LAN Engine', 'Prisma ORM', 'WhatsApp Cloud API', 'WebSockets', 'Thermal Print Esc/POS']
   },
   {
     id: 'real-estate-concept',
