@@ -232,7 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                             <span className="text-ember font-extrabold tracking-wider">Client Owned</span>
                           </div>
 
-                          {/* 1. Growech Dine POS & KDS (Highlighted with Live Demo Button) */}
+                          {/* 1. Restaurant POS System (Highlighted with Live Demo Button) */}
                           <div className="p-3 rounded-xl bg-gradient-to-r from-ember/30 via-ember/15 to-white/[0.04] border border-ember/50 flex items-center justify-between gap-3 shadow-md group">
                             <div className="flex items-center gap-3 min-w-0">
                               <div className="w-9 h-9 rounded-xl bg-ember/30 border border-ember/50 flex items-center justify-center flex-shrink-0 group-hover:bg-ember/40 transition-colors shadow-inner">
@@ -241,14 +241,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
                                   <span className="text-xs sm:text-sm font-bold text-white truncate">
-                                    Growech Dine POS
+                                    Restaurant POS System
                                   </span>
                                   <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/25 text-emerald-300 font-extrabold border border-emerald-400/50">
                                     LIVE DEMO
                                   </span>
                                 </div>
                                 <p className="text-[11px] text-zinc-200 truncate mt-0.5">
-                                  Offline LAN billing &amp; kitchen KDS OS
+                                  Offline LAN billing, kitchen KDS &amp; floor plan OS
                                 </p>
                               </div>
                             </div>
@@ -264,77 +264,65 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                             </a>
                           </div>
 
-                          {/* 2. Hospital & Clinic Management Suite */}
-                          <a
-                            href="#solutions"
-                            onClick={(e) => handleNavClick(e, '#solutions')}
-                            className="p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-cyan-500/50 transition-all flex items-start gap-3 group"
-                          >
-                            <div className="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center flex-shrink-0 group-hover:border-cyan-400 group-hover:bg-cyan-500/25 transition-colors">
-                              <Building2 className="w-4 h-4 text-cyan-300" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                          {/* 2. Hospital & Clinic Management Suite (Coming Soon - No Link) */}
+                          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3 min-w-0">
+                              <div className="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center flex-shrink-0">
+                                <Building2 className="w-4 h-4 text-cyan-300" />
+                              </div>
+                              <div className="min-w-0">
+                                <span className="text-xs sm:text-sm font-bold text-white truncate block">
                                   Hospital &amp; Clinic Management
                                 </span>
-                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 font-bold">
-                                  ENTERPRISE
-                                </span>
+                                <p className="text-[11px] text-zinc-300 truncate mt-0.5">
+                                  Patient EHR, OPD triage, appointments &amp; pharmacy billing
+                                </p>
                               </div>
-                              <p className="text-[11px] text-zinc-200 truncate mt-0.5">
-                                Patient EHR, OPD triage, appointments &amp; pharmacy billing
-                              </p>
                             </div>
-                          </a>
+                            <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-bold whitespace-nowrap">
+                              COMING SOON
+                            </span>
+                          </div>
 
-                          {/* 3. BaaS & Custom Enterprise Softwares */}
-                          <a
-                            href="#solutions"
-                            onClick={(e) => handleNavClick(e, '#solutions')}
-                            className="p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-purple-500/50 transition-all flex items-start gap-3 group"
-                          >
-                            <div className="w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center flex-shrink-0 group-hover:border-purple-400 group-hover:bg-purple-500/25 transition-colors">
-                              <Server className="w-4 h-4 text-purple-300" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-purple-300 transition-colors">
+                          {/* 3. BaaS & Custom Enterprise Softwares (Coming Soon - No Link) */}
+                          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3 min-w-0">
+                              <div className="w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+                                <Server className="w-4 h-4 text-purple-300" />
+                              </div>
+                              <div className="min-w-0">
+                                <span className="text-xs sm:text-sm font-bold text-white truncate block">
                                   BaaS &amp; Custom Enterprise SaaS
                                 </span>
-                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/50 font-bold">
-                                  BaaS / SaaS
-                                </span>
+                                <p className="text-[11px] text-zinc-300 truncate mt-0.5">
+                                  Backend-as-a-service, edge APIs &amp; custom workflow systems
+                                </p>
                               </div>
-                              <p className="text-[11px] text-zinc-200 truncate mt-0.5">
-                                Backend-as-a-service, edge APIs &amp; custom workflow systems
-                              </p>
                             </div>
-                          </a>
+                            <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/40 font-bold whitespace-nowrap">
+                              COMING SOON
+                            </span>
+                          </div>
 
-                          {/* 4. Turnkey Industry Portals */}
-                          <a
-                            href="#solutions"
-                            onClick={(e) => handleNavClick(e, '#solutions')}
-                            className="p-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-amber-500/50 transition-all flex items-start gap-3 group"
-                          >
-                            <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center flex-shrink-0 group-hover:border-amber-400 group-hover:bg-amber-500/25 transition-colors">
-                              <Layers className="w-4 h-4 text-amber-300" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition-colors">
+                          {/* 4. Turnkey Industry Portals (Coming Soon - No Link) */}
+                          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3 min-w-0">
+                              <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center flex-shrink-0">
+                                <Layers className="w-4 h-4 text-amber-300" />
+                              </div>
+                              <div className="min-w-0">
+                                <span className="text-xs sm:text-sm font-bold text-white truncate block">
                                   Turnkey Industry Portals
                                 </span>
-                                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/50 font-bold">
-                                  TURNKEY
-                                </span>
+                                <p className="text-[11px] text-zinc-300 truncate mt-0.5">
+                                  Lead intake engines &amp; automated VIP client portals
+                                </p>
                               </div>
-                              <p className="text-[11px] text-zinc-200 truncate mt-0.5">
-                                Lead intake engines &amp; automated VIP client portals
-                              </p>
                             </div>
-                          </a>
+                            <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 font-bold whitespace-nowrap">
+                              COMING SOON
+                            </span>
+                          </div>
 
                           <div className="pt-2 mt-0.5 border-t border-white/15 flex items-center justify-between px-2">
                             <a
@@ -436,13 +424,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                   <span className="text-ember font-bold">Live Demo Inside</span>
                 </div>
 
-                {/* 1. Growech Dine POS Highlighted Live Demo */}
+                {/* 1. Restaurant POS System Highlighted Live Demo */}
                 <div className="p-3 rounded-xl bg-gradient-to-r from-ember/30 via-ember/15 to-white/[0.04] border border-ember/50 flex items-center justify-between gap-2 shadow-sm">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <UtensilsCrossed className="w-5 h-5 text-ember flex-shrink-0" />
                     <div className="min-w-0">
-                      <div className="text-xs sm:text-sm font-bold text-white truncate">Growech Dine POS</div>
-                      <div className="text-[11px] text-zinc-200 truncate">Restaurant POS &amp; KDS</div>
+                      <div className="text-xs sm:text-sm font-bold text-white truncate">Restaurant POS System</div>
+                      <div className="text-[11px] text-zinc-200 truncate">Offline LAN billing &amp; kitchen OS</div>
                     </div>
                   </div>
                   <a
@@ -457,37 +445,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                   </a>
                 </div>
 
-                {/* 2. Hospital & Clinic Management */}
-                <a
-                  href="#solutions"
-                  onClick={(e) => {
-                    setMobileMenuOpen(false);
-                    handleNavClick(e, '#solutions');
-                  }}
-                  className="px-3 py-2 rounded-lg bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 text-xs text-white flex items-center justify-between"
-                >
+                {/* 2. Hospital & Clinic Management (Coming Soon - No Link) */}
+                <div className="px-3 py-2 rounded-lg bg-white/[0.02] border border-white/5 text-xs text-white flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-cyan-300" />
                     <span className="font-semibold text-white">Hospital Management (HMS)</span>
                   </div>
-                  <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 font-bold">ENTERPRISE</span>
-                </a>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-bold whitespace-nowrap">COMING SOON</span>
+                </div>
 
-                {/* 3. BaaS & Custom Enterprise SaaS */}
-                <a
-                  href="#solutions"
-                  onClick={(e) => {
-                    setMobileMenuOpen(false);
-                    handleNavClick(e, '#solutions');
-                  }}
-                  className="px-3 py-2 rounded-lg bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 text-xs text-white flex items-center justify-between"
-                >
+                {/* 3. BaaS & Custom Enterprise SaaS (Coming Soon - No Link) */}
+                <div className="px-3 py-2 rounded-lg bg-white/[0.02] border border-white/5 text-xs text-white flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Server className="w-4 h-4 text-purple-300" />
                     <span className="font-semibold text-white">BaaS &amp; Custom Softwares</span>
                   </div>
-                  <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/50 font-bold">BaaS</span>
-                </a>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/40 font-bold whitespace-nowrap">COMING SOON</span>
+                </div>
               </div>
 
               {/* Standard Remaining Nav Links */}
