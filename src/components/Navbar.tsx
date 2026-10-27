@@ -109,13 +109,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
       tag: 'FAST',
     },
     {
-      title: 'Growech Dine (Restaurant POS)',
-      desc: 'Offline-first LAN POS & Kitchen Display Suite',
-      href: './dine/',
-      icon: UtensilsCrossed,
-      tag: 'LIVE APP',
-    },
-    {
       title: 'E-Commerce & Shopify',
       desc: 'Custom storefronts & WhatsApp COD triage',
       href: '/services/ecommerce-solutions.html',
@@ -129,11 +122,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
     },
   ];
 
-  // Top-Level Streamlined Navigation Links
+  // Top-Level Streamlined Navigation Links (Minimal & Clean, Zero Wrapping)
   const navLinks = [
-    { name: 'Capabilities', href: '#bento' },
-    { name: 'Live POS Demo', href: './dine/' },
-    { name: 'Software Demos', href: '#work' },
+    { name: 'Showcase', href: '#work' },
     { name: 'Architecture', href: '#architecture' },
     { name: 'FAQ', href: '#faq' },
   ];
@@ -237,8 +228,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
             </motion.div>
           </a>
 
-          {/* Desktop Navigation Links (Clean 5-Item Layout) */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+          {/* Desktop Navigation Links (Clean 4-Item Minimal Layout, No Wrapping) */}
+          <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2 whitespace-nowrap">
             {/* Services & Solutions Dropdown Trigger */}
             <div
               ref={dropdownRef}
@@ -248,7 +239,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
             >
               <button
                 onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className={`px-3 py-1.5 text-xs xl:text-sm font-medium rounded-full flex items-center gap-1.5 transition-all duration-200 ${
+                className={`px-3 py-1.5 text-xs xl:text-sm font-medium rounded-full flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap ${
                   servicesDropdownOpen || activeSection === 'services' || activeSection === 'solutions'
                     ? 'text-white bg-white/10'
                     : 'text-zinc-300 hover:text-white hover:bg-white/5'
@@ -308,6 +299,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                       );
                     })}
 
+                    {/* Highlighted POS Live Demo Banner inside Dropdown */}
+                    <div className="mt-1 p-2.5 rounded-xl bg-gradient-to-r from-ember/15 via-ember/5 to-transparent border border-ember/30 flex items-center justify-between gap-2 shadow-sm">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-ember/20 border border-ember/40 flex items-center justify-center flex-shrink-0">
+                          <UtensilsCrossed className="w-4 h-4 text-ember" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold text-white truncate">
+                              Growech Dine POS
+                            </span>
+                            <span className="text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                              LIVE DEMO
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-zinc-400 truncate">
+                            Offline LAN billing &amp; kitchen OS
+                          </p>
+                        </div>
+                      </div>
+
+                      <a
+                        href="./dine/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 rounded-lg bg-ember hover:bg-orange-600 text-white font-bold text-[10px] shadow-sm shadow-ember/30 flex items-center gap-1 flex-shrink-0 transition-transform hover:scale-105"
+                      >
+                        <span>Live Demo</span>
+                        <ArrowUpRight className="w-3 h-3" />
+                      </a>
+                    </div>
+
                     <div className="pt-2 mt-1 border-t border-white/10 flex items-center justify-between px-2">
                       <a
                         href="#services"
@@ -321,7 +344,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                         href="/sitemap.xml"
                         className="text-[10px] text-zinc-500 hover:text-zinc-300 font-mono"
                       >
-                        View All (12 Pages) &rarr;
+                        View All (13 Pages) &rarr;
                       </a>
                     </div>
                   </motion.div>
@@ -335,7 +358,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`px-3 py-1.5 text-xs xl:text-sm font-medium rounded-full transition-all duration-200 ${
+                className={`px-3 py-1.5 text-xs xl:text-sm font-medium rounded-full transition-all duration-200 whitespace-nowrap ${
                   activeSection === link.href.replace('#', '')
                     ? 'text-white bg-white/10'
                     : 'text-zinc-300 hover:text-white hover:bg-white/5'
@@ -418,6 +441,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                   );
                 })}
               </div>
+            </div>
+
+            {/* Highlighted POS Live Demo Banner in Mobile Drawer */}
+            <div className="p-3 rounded-2xl bg-gradient-to-r from-ember/15 via-ember/5 to-transparent border border-ember/30 flex items-center justify-between gap-3 shadow-sm">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-8 h-8 rounded-xl bg-ember/20 border border-ember/40 flex items-center justify-center flex-shrink-0">
+                  <UtensilsCrossed className="w-4 h-4 text-ember" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-white truncate">Growech Dine POS</span>
+                    <span className="text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                      LIVE DEMO
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-zinc-400 truncate">Offline LAN billing &amp; kitchen OS</p>
+                </div>
+              </div>
+              <a
+                href="./dine/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-2.5 py-1.5 rounded-lg bg-ember hover:bg-orange-600 text-white font-bold text-xs shadow-sm shadow-ember/30 flex items-center gap-1 flex-shrink-0"
+              >
+                <span>Live Demo</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
 
             {/* Standard On-Page Sections */}
