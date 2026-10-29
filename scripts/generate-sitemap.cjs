@@ -89,6 +89,12 @@ const candidateRoutes = [
     file: 'public/dine/index.html',
     changefreq: 'daily',
     priority: '0.95'
+  },
+  {
+    path: 'care/',
+    file: 'public/care/index.html',
+    changefreq: 'daily',
+    priority: '0.95'
   }
 ];
 

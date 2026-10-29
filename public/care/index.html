@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Growech Care — Enterprise Hospital & Clinic Management OS</title>
+  <meta name="description" content="White-labeled enterprise Hospital & Clinic Management System (HMS/EHR) engineered by Growech Solution. Patient EHR, OPD triage, bed matrix, pharmacy dispensing, lab reporting, and WhatsApp alerts." />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Inter, JetBrains Mono, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              teal: '#00C2CB',
+              cyan: '#06B6D4',
+              ember: '#FF5500',
+              emerald: '#10B981',
+              rose: '#F43F5E',
+              amber: '#F59E0B',
+              indigo: '#6366F1',
+            },
+            dark: {
+              950: '#06080F',
+              900: '#0B0F19',
+              850: '#111827',
+              800: '#1E293B',
+              700: '#334155',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(11, 15, 25, 0.8); }
+    ::-webkit-scrollbar-thumb { background: rgba(0, 194, 203, 0.35); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0, 194, 203, 0.7); }
+
+    /* Print Styles */
+    @media print {
+      body * { visibility: hidden; }
+      #printableMedicalDoc, #printableMedicalDoc * { visibility: visible; }
+      #printableMedicalDoc {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100% !important;
+        margin: 0;
+        padding: 20px;
+        background: #fff !important;
+        color: #000 !important;
+      }
+    }
+
+    .pulse-glow {
+      box-shadow: 0 0 25px rgba(0, 194, 203, 0.25);
+    }
+    .pulse-red {
+      box-shadow: 0 0 20px rgba(244, 63, 94, 0.35);
+    }
+  </style>
+</head>
+
+<body class="h-full flex flex-col font-sans bg-dark-950 text-slate-100 antialiased selection:bg-brand-teal selection:text-black overflow-hidden">
+
+  <!-- TOP AGENCY BANNER & WHITE-LABEL ANNOUNCEMENT -->
+  <aside class="bg-gradient-to-r from-dark-900 via-dark-850 to-dark-900 border-b border-white/10 px-4 py-2 flex flex-wrap items-center justify-between gap-2 z-50 text-xs">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-teal/20 text-brand-teal font-mono font-bold text-[10px] border border-brand-teal/40 uppercase tracking-wider">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-teal animate-pulse"></span>
+        Enterprise Clinical OS
+      </span>
+      <span class="text-slate-300 hidden sm:inline">
+        <strong class="text-white font-semibold">Growech Care Suite:</strong> 100% Client Code Ownership &bull; Zero SaaS Subscriptions &bull; HIPAA &amp; FHIR-Ready Architecture
+      </span>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="https://wa.me/923098178527?text=Salam%20Growech%2C%20I%20tested%20your%20Growech%20Care%20Hospital%20Management%20System%20and%20want%20this%20customized%20for%20my%20hospital%20clinic" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-[11px] transition-all shadow-sm shadow-emerald-500/20">
+        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+        <span>Deploy For Your Hospital (WhatsApp)</span>
+      </a>
+      <a href="../" class="inline-flex items-center gap-1 text-slate-400 hover:text-white text-[11px] font-medium transition-colors">
+        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+        <span>Growech Agency</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- TOP CLINICAL CONTROL BAR -->
+  <header class="bg-dark-900/90 backdrop-blur-xl border-b border-white/10 px-4 py-2.5 flex items-center justify-between gap-4 z-40">
+    <div class="flex items-center gap-3 min-w-0">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2.5 group flex-shrink-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-teal via-cyan-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-brand-teal/20 text-black font-extrabold font-display">
+          <i data-lucide="activity" class="w-5 h-5 text-dark-950"></i>
+        </div>
+        <div class="hidden sm:block">
+          <div class="flex items-center gap-1.5">
+            <span class="font-display font-black text-sm tracking-tight text-white">GROWECH<span class="text-brand-teal font-light">CARE</span></span>
+            <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-brand-teal/20 text-brand-teal font-bold border border-brand-teal/30">HOSPITAL OS</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono -mt-0.5">Enterprise Clinic &amp; Triage Suite</p>
+        </div>
+      </a>
+
+      <!-- Facility Switcher Dropdown -->
+      <div class="hidden md:flex items-center gap-2 pl-3 border-l border-white/10">
+        <i data-lucide="building-2" class="w-4 h-4 text-brand-teal flex-shrink-0"></i>
+        <select id="facilitySelect" onchange="switchFacility(this.value)" class="bg-dark-950/80 border border-white/15 text-xs text-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-brand-teal cursor-pointer">
+          <option value="karachi">Growech Central Hospital &amp; Cardiac Center &bull; Karachi</option>
+          <option value="dubai">Growech Care Polyclinic &amp; Day Surgery &bull; Dubai Healthcare City</option>
+          <option value="london">Royal Growech Medical Complex &bull; London UK</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Right Controls: Active Doctor, Code Blue Alert, Clock, Audio Chime -->
+    <div class="flex items-center gap-2.5">
+      <!-- Emergency Code Blue Alert Indicator -->
+      <div id="emergencyPill" onclick="toggleEmergencyModal()" class="cursor-pointer flex items-center gap-2 px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs hover:bg-rose-500/25 transition-all">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+        </span>
+        <span class="font-mono font-bold text-[11px] text-white hidden sm:inline">ER TRIAGE:</span>
+        <span class="font-bold text-[11px] text-rose-300" id="emergencyStatusText">2 CRITICAL</span>
+      </div>
+
+      <!-- Active Doctor Badge -->
+      <div class="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs">
+        <div class="w-6 h-6 rounded-full bg-brand-teal/20 border border-brand-teal/40 flex items-center justify-center text-brand-teal font-bold text-[10px]">
+          DS
+        </div>
+        <div class="leading-tight">
+          <div class="font-semibold text-slate-200 text-[11px]">Dr. Mustafa Shaikh</div>
+          <div class="text-[9px] text-slate-400 font-mono">Medical Director / Surgery</div>
+        </div>
+      </div>
+
+      <!-- Audio Synthesizer Toggle -->
+      <button onclick="toggleAudio()" id="audioToggleBtn" title="Toggle OPD Chime & Alert Sound" class="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">
+        <i data-lucide="volume-2" id="audioIcon" class="w-4 h-4 text-brand-teal"></i>
+      </button>
+
+      <!-- Live Digital Clock -->
+      <div class="hidden sm:flex flex-col text-right font-mono text-xs text-slate-300 pl-2 border-l border-white/10">
+        <span id="digitalClock" class="font-bold text-white text-xs">12:00:00 PM</span>
+        <span id="digitalDate" class="text-[9px] text-slate-400">OCT 29, 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN BODY LAYOUT: SIDEBAR + CONTENT AREA -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- NAVIGATION SIDEBAR -->
+    <nav class="w-16 md:w-56 bg-dark-900 border-r border-white/10 flex flex-col justify-between p-2 md:p-3 flex-shrink-0 z-30">
+      <div class="space-y-1.5">
+        <div class="px-2 py-1 text-[10px] font-mono text-slate-400 uppercase tracking-wider hidden md:block">Clinical Operations</div>
+
+        <!-- Dashboard Tab -->
+        <button onclick="switchTab('dashboard')" id="tabBtn-dashboard" class="nav-tab active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all bg-brand-teal/15 text-brand-teal border border-brand-teal/30">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">Dashboard</span>
+        </button>
+
+        <!-- Patients EHR Tab -->
+        <button onclick="switchTab('patients')" id="tabBtn-patients" class="nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <i data-lucide="users" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">Patient EHR</span>
+          <span class="ml-auto hidden md:inline-block px-1.5 py-0.5 rounded-full bg-white/10 text-[9px] font-mono text-slate-300" id="totalPatientsBadge">142</span>
+        </button>
+
+        <!-- OPD Consultations & Token Queue Tab -->
+        <button onclick="switchTab('opd')" id="tabBtn-opd" class="nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <i data-lucide="stethoscope" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">OPD &amp; Token Triage</span>
+          <span class="ml-auto hidden md:inline-block px-1.5 py-0.5 rounded-full bg-brand-amber/20 text-brand-amber text-[9px] font-mono font-bold" id="opdQueueBadge">6</span>
+        </button>
+
+        <!-- Bed / Ward Matrix Tab -->
+        <button onclick="switchTab('beds')" id="tabBtn-beds" class="nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <i data-lucide="bed" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">Bed Matrix (IPD)</span>
+          <span class="ml-auto hidden md:inline-block px-1.5 py-0.5 rounded-full bg-brand-rose/20 text-brand-rose text-[9px] font-mono font-bold">84%</span>
+        </button>
+
+        <!-- Pharmacy & Prescriptions Tab -->
+        <button onclick="switchTab('pharmacy')" id="tabBtn-pharmacy" class="nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <i data-lucide="pill" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">Pharmacy &amp; Rx</span>
+          <span class="ml-auto hidden md:inline-block px-1.5 py-0.5 rounded-full bg-brand-teal/20 text-brand-teal text-[9px] font-mono font-bold">3 Pend</span>
+        </button>
+
+        <!-- Laboratory & Radiology Tab -->
+        <button onclick="switchTab('lab')" id="tabBtn-lab" class="nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <i data-lucide="flask-conical" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">Diagnostic Lab</span>
+        </button>
+
+        <!-- Medical Billing & Insurance Tab -->
+        <button onclick="switchTab('billing')" id="tabBtn-billing" class="nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <i data-lucide="receipt" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">Billing &amp; Invoices</span>
+        </button>
+
+        <!-- WhatsApp Telehealth & CRM Tab -->
+        <button onclick="switchTab('whatsapp')" id="tabBtn-whatsapp" class="nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          <i data-lucide="message-square" class="w-4 h-4 flex-shrink-0 text-emerald-400"></i>
+          <span class="hidden md:inline text-emerald-300">WhatsApp Hub</span>
+        </button>
+      </div>
+
+      <!-- Sidebar Footer: Agency License & WhatsApp Direct -->
+      <div class="pt-3 border-t border-white/10 hidden md:block">
+        <div class="p-2.5 rounded-xl bg-gradient-to-br from-white/[0.04] to-brand-teal/10 border border-brand-teal/20 text-[11px]">
+          <div class="font-bold text-white flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-teal"></i>
+            <span>Growech Solution</span>
+          </div>
+          <p class="text-[10px] text-slate-400 mt-0.5">Need customized deployment for your clinic or hospital chain?</p>
+          <a href="https://wa.me/923098178527?text=Salam%20Growech%2C%20let%27s%20discuss%20hospital%20management%20system%20deployment" target="_blank" rel="noopener noreferrer" class="mt-2 w-full py-1 px-2 rounded-lg bg-brand-teal/20 hover:bg-brand-teal/30 text-brand-teal border border-brand-teal/40 font-bold text-[10px] flex items-center justify-center gap-1 transition-colors">
+            <span>+92 309 8178527</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN SCROLLABLE CONTENT VIEWPORT -->
+    <main class="flex-1 bg-dark-950 overflow-y-auto p-4 sm:p-6" id="mainContentView">
+
+      <!-- ========================================== -->
+      <!-- MODULE 1: EXECUTIVE HOSPITAL DASHBOARD -->
+      <!-- ========================================== -->
+      <section id="view-dashboard" class="space-y-6">
+        <!-- Top Welcome Banner & Quick Action Buttons -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-dark-900 via-dark-850 to-dark-900 border border-white/10 shadow-xl">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-full bg-brand-teal/20 text-brand-teal font-mono text-[10px] font-bold border border-brand-teal/30">ONLINE CLINICAL HUB</span>
+              <span class="text-xs text-slate-400" id="facilityLabelHeader">Growech Central Hospital &bull; Karachi Main Campus</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display mt-1">Hospital Executive Overview &amp; Live Triage</h1>
+            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">Real-time bed occupancy, emergency triage vitals, and doctor consultation status.</p>
+          </div>
+
+          <!-- Quick Action Bar -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openNewPatientModal()" class="px-3.5 py-2 rounded-xl bg-brand-teal hover:bg-cyan-400 text-dark-950 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-brand-teal/25 transition-all">
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              <span>+ New Patient</span>
+            </button>
+            <button onclick="callNextToken()" class="px-3.5 py-2 rounded-xl bg-brand-ember hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-brand-ember/25 transition-all">
+              <i data-lucide="megaphone" class="w-4 h-4"></i>
+              <span>Call Next Token</span>
+            </button>
+            <button onclick="switchTab('beds')" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold text-xs border border-white/10 flex items-center gap-1.5 transition-all">
+              <i data-lucide="bed" class="w-4 h-4 text-brand-teal"></i>
+              <span>Bed Matrix</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 6 High-Impact Operational KPI Metric Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
+          <!-- Card 1: Total Patients -->
+          <div class="p-4 rounded-2xl bg-dark-900/90 border border-white/10 hover:border-brand-teal/40 transition-colors">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-[11px] font-medium">Registered Patients</span>
+              <div class="w-7 h-7 rounded-lg bg-brand-teal/15 flex items-center justify-center text-brand-teal">
+                <i data-lucide="users" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <div class="text-xl sm:text-2xl font-black text-white font-display" id="statTotalPatients">1,428</div>
+            <div class="text-[10px] text-emerald-400 font-mono mt-1 flex items-center gap-1">
+              <i data-lucide="trending-up" class="w-3 h-3"></i>
+              <span>+18 registered today</span>
+            </div>
+          </div>
+
+          <!-- Card 2: OPD Queue Waiting -->
+          <div class="p-4 rounded-2xl bg-dark-900/90 border border-white/10 hover:border-brand-amber/40 transition-colors">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-[11px] font-medium">OPD Waiting</span>
+              <div class="w-7 h-7 rounded-lg bg-brand-amber/15 flex items-center justify-center text-brand-amber">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <div class="text-xl sm:text-2xl font-black text-brand-amber font-display" id="statOpdWaiting">26</div>
+            <div class="text-[10px] text-slate-400 font-mono mt-1">Avg Wait: ~12 mins</div>
+          </div>
+
+          <!-- Card 3: Bed Occupancy -->
+          <div class="p-4 rounded-2xl bg-dark-900/90 border border-white/10 hover:border-brand-teal/40 transition-colors">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-[11px] font-medium">Bed Occupancy</span>
+              <div class="w-7 h-7 rounded-lg bg-brand-teal/15 flex items-center justify-center text-brand-teal">
+                <i data-lucide="bed" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <div class="text-xl sm:text-2xl font-black text-white font-display">84%</div>
+            <div class="text-[10px] text-slate-300 font-mono mt-1">42 / 50 Beds Occupied</div>
+          </div>
+
+          <!-- Card 4: Critical ICU -->
+          <div class="p-4 rounded-2xl bg-dark-900/90 border border-white/10 hover:border-brand-rose/40 transition-colors">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-[11px] font-medium">Critical ICU / CCU</span>
+              <div class="w-7 h-7 rounded-lg bg-brand-rose/15 flex items-center justify-center text-brand-rose">
+                <i data-lucide="heart-pulse" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <div class="text-xl sm:text-2xl font-black text-brand-rose font-display">3 Critical</div>
+            <div class="text-[10px] text-rose-400 font-mono mt-1">Ventilators Active: 2</div>
+          </div>
+
+          <!-- Card 5: Doctors On Duty -->
+          <div class="p-4 rounded-2xl bg-dark-900/90 border border-white/10 hover:border-brand-indigo/40 transition-colors">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-[11px] font-medium">Doctors Active</span>
+              <div class="w-7 h-7 rounded-lg bg-brand-indigo/15 flex items-center justify-center text-brand-indigo">
+                <i data-lucide="stethoscope" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <div class="text-xl sm:text-2xl font-black text-white font-display">14 Clinicians</div>
+            <div class="text-[10px] text-slate-400 font-mono mt-1">Cardio, Triage, Ortho</div>
+          </div>
+
+          <!-- Card 6: Revenue Today -->
+          <div class="p-4 rounded-2xl bg-dark-900/90 border border-white/10 hover:border-brand-emerald/40 transition-colors">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-[11px] font-medium">Today's Revenue</span>
+              <div class="w-7 h-7 rounded-lg bg-brand-emerald/15 flex items-center justify-center text-brand-emerald">
+                <i data-lucide="banknote" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <div class="text-xl sm:text-2xl font-black text-brand-emerald font-display">PKR 345k</div>
+            <div class="text-[10px] text-emerald-400 font-mono mt-1">Cash, Card &amp; Sehat Card</div>
+          </div>
+        </div>
+
+        <!-- Middle Section: Live OPD Token Broadcast & Ward Capacity Progress -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Live Token Call Board (Large Display) -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-brand-ember animate-ping"></span>
+                  <h3 class="font-bold text-sm text-white uppercase tracking-wider font-mono">OPD Calling Screen</h3>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-ember/20 text-brand-ember border border-brand-ember/30 font-bold">Room 304</span>
+              </div>
+
+              <!-- Active Called Token Big View -->
+              <div class="my-6 p-6 rounded-2xl bg-dark-950 border border-brand-teal/40 text-center relative overflow-hidden pulse-glow">
+                <div class="absolute top-2 right-2 text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-brand-teal/20 text-brand-teal font-bold">Now Serving</div>
+                <div class="text-[11px] font-mono uppercase tracking-widest text-slate-400">Token Number</div>
+                <div class="text-5xl font-black font-mono text-brand-teal mt-1 tracking-tight" id="displayActiveToken">#TK-108</div>
+                <div class="text-base font-bold text-white mt-2" id="displayActivePatient">Aisha Bano &bull; Age 34</div>
+                <div class="text-xs text-slate-400 font-mono mt-0.5" id="displayActiveDept">General Medicine &bull; Dr. Mustafa Shaikh</div>
+              </div>
+
+              <!-- Next 3 Tokens in Line -->
+              <div class="space-y-2">
+                <div class="text-[11px] font-mono uppercase text-slate-400 tracking-wider">Next in Queue:</div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5 text-xs">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono font-bold text-brand-ember">#TK-109</span>
+                    <span class="text-slate-200">Mohammad Zaid</span>
+                  </div>
+                  <span class="text-[10px] text-slate-400 font-mono">Cardiology</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5 text-xs">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono font-bold text-brand-amber">#TK-110</span>
+                    <span class="text-slate-200">Fatima Noor (Child)</span>
+                  </div>
+                  <span class="text-[10px] text-slate-400 font-mono">Pediatrics</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <button onclick="callNextToken()" class="w-full py-2.5 rounded-xl bg-brand-ember hover:bg-orange-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-brand-ember/30">
+                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                <span>Sound Chime &amp; Call Next</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hospital Wards & Occupancy Breakdown -->
+          <div class="lg:col-span-2 p-5 rounded-2xl bg-dark-900 border border-white/10 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="layout-grid" class="w-4 h-4 text-brand-teal"></i>
+                  <h3 class="font-bold text-sm text-white">Departmental Bed Occupancy</h3>
+                </div>
+                <button onclick="switchTab('beds')" class="text-xs text-brand-teal hover:underline font-medium flex items-center gap-1">
+                  <span>View Full Matrix</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+              <!-- Ward Capacity Bars -->
+              <div class="space-y-4 my-4">
+                <!-- Intensive Care Unit (ICU/CCU) -->
+                <div>
+                  <div class="flex items-center justify-between text-xs mb-1.5">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                      <span class="font-semibold text-white">Intensive Care Unit (ICU / CCU)</span>
+                    </div>
+                    <span class="font-mono font-bold text-rose-400">6 / 6 Beds (100% Full)</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-dark-950 overflow-hidden border border-white/10">
+                    <div class="h-full bg-rose-500 rounded-full w-[100%]"></div>
+                  </div>
+                </div>
+
+                <!-- Emergency Trauma Ward -->
+                <div>
+                  <div class="flex items-center justify-between text-xs mb-1.5">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-brand-ember"></span>
+                      <span class="font-semibold text-white">Emergency Trauma &amp; Resuscitation</span>
+                    </div>
+                    <span class="font-mono font-bold text-brand-ember">5 / 6 Beds (83%)</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-dark-950 overflow-hidden border border-white/10">
+                    <div class="h-full bg-brand-ember rounded-full w-[83%]"></div>
+                  </div>
+                </div>
+
+                <!-- General Ward (Male) -->
+                <div>
+                  <div class="flex items-center justify-between text-xs mb-1.5">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-brand-teal"></span>
+                      <span class="font-semibold text-white">General Inpatient Ward (Male)</span>
+                    </div>
+                    <span class="font-mono font-bold text-brand-teal">10 / 12 Beds (83%)</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-dark-950 overflow-hidden border border-white/10">
+                    <div class="h-full bg-brand-teal rounded-full w-[83%]"></div>
+                  </div>
+                </div>
+
+                <!-- General Ward (Female) -->
+                <div>
+                  <div class="flex items-center justify-between text-xs mb-1.5">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                      <span class="font-semibold text-white">General Inpatient Ward (Female)</span>
+                    </div>
+                    <span class="font-mono font-bold text-cyan-400">9 / 12 Beds (75%)</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-dark-950 overflow-hidden border border-white/10">
+                    <div class="h-full bg-cyan-400 rounded-full w-[75%]"></div>
+                  </div>
+                </div>
+
+                <!-- VIP Private Executive Suites -->
+                <div>
+                  <div class="flex items-center justify-between text-xs mb-1.5">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-brand-emerald"></span>
+                      <span class="font-semibold text-white">VIP Deluxe Executive Suites</span>
+                    </div>
+                    <span class="font-mono font-bold text-brand-emerald">3 / 4 Suites (75%)</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-dark-950 overflow-hidden border border-white/10">
+                    <div class="h-full bg-brand-emerald rounded-full w-[75%]"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Departmental Vitals Summary Mini Bar -->
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <span class="text-slate-300">Total Capacity: <strong class="text-white font-mono">50 Beds</strong></span>
+              <span class="text-emerald-400">Available: <strong class="font-mono">8 Beds</strong></span>
+              <span class="text-rose-400">Admissions Today: <strong class="font-mono">+11</strong></span>
+              <span class="text-cyan-300">Discharges Today: <strong class="font-mono">7 Cleared</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row: Recent Patient Clinical Activity Log -->
+        <div class="p-5 rounded-2xl bg-dark-900 border border-white/10">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-2">
+              <i data-lucide="clock-rewind" class="w-4 h-4 text-brand-teal"></i>
+              <h3 class="font-bold text-sm text-white">Live Clinical Triage &amp; Activity Stream</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Auto-refreshing &bull; WebSocket Synced</span>
+          </div>
+
+          <div class="space-y-2.5" id="clinicalActivityFeed">
+            <!-- Feed Item 1 -->
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <i data-lucide="file-check" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-white">Prescription Dispensed: Paracetamol 500mg &amp; Augmentin 625mg</div>
+                  <div class="text-[11px] text-slate-400">Patient: Tariq Aziz (MRN #GW-1048) &bull; Pharmacy Station B</div>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">2 mins ago</span>
+            </div>
+
+            <!-- Feed Item 2 -->
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <i data-lucide="test-tube-2" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-white">Diagnostic Report Ready: Complete Blood Count (CBC)</div>
+                  <div class="text-[11px] text-slate-400">Patient: Rabia Basri (MRN #GW-1039) &bull; Hb: 13.2 g/dL (Normal)</div>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">7 mins ago</span>
+            </div>
+
+            <!-- Feed Item 3 -->
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400">
+                  <i data-lucide="siren" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-white">Bed Admitted: ICU-03 (Acute Cardiac Arrhythmia)</div>
+                  <div class="text-[11px] text-slate-400">Patient: Haji Bashir Ahmed (MRN #GW-1050) &bull; Dr. Ayesha Al-Zahra</div>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">14 mins ago</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 2: PATIENT EHR & REGISTRATION -->
+      <!-- ========================================== -->
+      <section id="view-patients" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Patient Electronic Health Records (EHR)</h1>
+            <p class="text-xs sm:text-sm text-slate-400">Comprehensive medical files, vitals, allergy records, and diagnostic history.</p>
+          </div>
+          <button onclick="openNewPatientModal()" class="px-4 py-2.5 rounded-xl bg-brand-teal hover:bg-cyan-400 text-dark-950 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-brand-teal/20 transition-all">
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <span>Register New Patient</span>
+          </button>
+        </div>
+
+        <!-- Search & Filter Bar -->
+        <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-3">
+          <div class="relative w-full md:w-96">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input type="text" id="patientSearchInput" onkeyup="filterPatients()" placeholder="Search by Patient Name, MRN #, Phone, CNIC..." class="w-full bg-dark-950 border border-white/15 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-teal">
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+            <button onclick="setPatientFilter('all')" id="filterBtn-all" class="px-3 py-1.5 rounded-lg bg-brand-teal/20 text-brand-teal border border-brand-teal/30 font-semibold text-xs whitespace-nowrap">All Patients</button>
+            <button onclick="setPatientFilter('ipd')" id="filterBtn-ipd" class="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white border border-white/10 font-medium text-xs whitespace-nowrap">Admitted (IPD)</button>
+            <button onclick="setPatientFilter('opd')" id="filterBtn-opd" class="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white border border-white/10 font-medium text-xs whitespace-nowrap">Outpatients (OPD)</button>
+            <button onclick="setPatientFilter('critical')" id="filterBtn-critical" class="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white border border-white/10 font-medium text-xs whitespace-nowrap">Emergency / ICU</button>
+          </div>
+        </div>
+
+        <!-- Patients Roster Table -->
+        <div class="rounded-2xl bg-dark-900 border border-white/10 overflow-hidden shadow-xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-dark-950/80 text-slate-400 uppercase font-mono text-[10px] tracking-wider border-b border-white/10">
+                <tr>
+                  <th class="p-3.5">MRN / Patient ID</th>
+                  <th class="p-3.5">Patient Details</th>
+                  <th class="p-3.5">Vitals (BP / Pulse / SpO2)</th>
+                  <th class="p-3.5">Diagnosis / Triage</th>
+                  <th class="p-3.5">Attending Doctor</th>
+                  <th class="p-3.5">Status</th>
+                  <th class="p-3.5 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5" id="patientsTableBody">
+                <!-- Populated via JavaScript dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 3: OPD CONSULTATION & TOKEN QUEUE -->
+      <!-- ========================================== -->
+      <section id="view-opd" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">OPD Consultations &amp; Smart Token Triage</h1>
+            <p class="text-xs sm:text-sm text-slate-400">Doctor workstation, SOAP clinical notes, digital prescriptions, and token dispatch.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="callNextToken()" class="px-4 py-2.5 rounded-xl bg-brand-ember hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-brand-ember/25 transition-all">
+              <i data-lucide="megaphone" class="w-4 h-4"></i>
+              <span>Next Token &amp; Chime</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Left Column: Department OPD Queues -->
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-dark-900 border border-white/10">
+              <h3 class="font-bold text-sm text-white mb-3 flex items-center justify-between">
+                <span>OPD Specialty Clinics</span>
+                <span class="text-[10px] font-mono text-brand-teal">6 Departments Active</span>
+              </h3>
+              <div class="space-y-2" id="opdDeptsList">
+                <!-- Dept Item 1 -->
+                <div class="p-3 rounded-xl bg-brand-teal/15 border border-brand-teal/30 flex items-center justify-between text-xs cursor-pointer">
+                  <div>
+                    <div class="font-bold text-white">General Medicine &amp; Surgery</div>
+                    <div class="text-[11px] text-slate-400">Dr. Mustafa Shaikh &bull; Room 304</div>
+                  </div>
+                  <span class="font-mono px-2 py-0.5 rounded-full bg-brand-teal/20 text-brand-teal font-bold text-[10px]">8 in Queue</span>
+                </div>
+                <!-- Dept Item 2 -->
+                <div class="p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between text-xs cursor-pointer transition-colors">
+                  <div>
+                    <div class="font-bold text-white">Cardiology &amp; Vascular</div>
+                    <div class="text-[11px] text-slate-400">Dr. Ayesha Al-Zahra &bull; Room 308</div>
+                  </div>
+                  <span class="font-mono px-2 py-0.5 rounded-full bg-brand-amber/20 text-brand-amber font-bold text-[10px]">5 in Queue</span>
+                </div>
+                <!-- Dept Item 3 -->
+                <div class="p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between text-xs cursor-pointer transition-colors">
+                  <div>
+                    <div class="font-bold text-white">Pediatrics &amp; Child Health</div>
+                    <div class="text-[11px] text-slate-400">Dr. Tariq Mahmood &bull; Room 201</div>
+                  </div>
+                  <span class="font-mono px-2 py-0.5 rounded-full bg-cyan-400/20 text-cyan-400 font-bold text-[10px]">4 in Queue</span>
+                </div>
+                <!-- Dept Item 4 -->
+                <div class="p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-between text-xs cursor-pointer transition-colors">
+                  <div>
+                    <div class="font-bold text-white">Orthopedics &amp; Joint Replacement</div>
+                    <div class="text-[11px] text-slate-400">Dr. Salman Farooq &bull; Room 205</div>
+                  </div>
+                  <span class="font-mono px-2 py-0.5 rounded-full bg-slate-500/20 text-slate-300 font-bold text-[10px]">3 in Queue</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Token Queue List -->
+            <div class="p-4 rounded-2xl bg-dark-900 border border-white/10">
+              <h3 class="font-bold text-sm text-white mb-2 flex items-center justify-between">
+                <span>Waiting Token Queue</span>
+                <span class="text-[10px] font-mono text-slate-400">Auto FIFO</span>
+              </h3>
+              <div class="space-y-2" id="opdWaitingListContainer">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Doctor Clinical Workstation (SOAP Notes & Rx) -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl">
+              <div class="flex flex-wrap items-center justify-between pb-3 border-b border-white/10 gap-2 mb-4">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <div>
+                    <div class="text-sm font-bold text-white flex items-center gap-2">
+                      <span id="activeConsultPatientName">Aisha Bano</span>
+                      <span class="font-mono text-xs px-2 py-0.5 rounded bg-brand-teal/20 text-brand-teal" id="activeConsultMrn">MRN #GW-1042</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Female &bull; Age 34 &bull; Blood: B+ &bull; Contact: +92 300 8291042</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 text-xs font-mono font-bold border border-emerald-500/30">
+                    Token #TK-108
+                  </span>
+                </div>
+              </div>
+
+              <!-- Patient Vitals Capture Bar -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <div class="p-2.5 rounded-xl bg-dark-950 border border-white/5 text-center">
+                  <div class="text-[10px] font-mono text-slate-400 uppercase">Blood Pressure</div>
+                  <div class="text-sm font-bold text-white font-mono mt-0.5">120 / 80 mmHg</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-dark-950 border border-white/5 text-center">
+                  <div class="text-[10px] font-mono text-slate-400 uppercase">Heart Rate</div>
+                  <div class="text-sm font-bold text-emerald-400 font-mono mt-0.5">74 bpm (Normal)</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-dark-950 border border-white/5 text-center">
+                  <div class="text-[10px] font-mono text-slate-400 uppercase">Oxygen Saturation</div>
+                  <div class="text-sm font-bold text-cyan-400 font-mono mt-0.5">99% SpO2</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-dark-950 border border-white/5 text-center">
+                  <div class="text-[10px] font-mono text-slate-400 uppercase">Body Temp</div>
+                  <div class="text-sm font-bold text-amber-400 font-mono mt-0.5">98.6 °F</div>
+                </div>
+              </div>
+
+              <!-- SOAP Clinical Notes Form -->
+              <div class="space-y-3.5">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Chief Complaints &amp; History of Present Illness (Subjective):</label>
+                  <textarea id="consultSubjective" rows="2" class="w-full bg-dark-950 border border-white/10 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-teal" placeholder="e.g. Complains of productive cough, mild fever for 3 days, no chest pain.">Persistent dry cough, evening low-grade fever for 4 days, mild fatigue.</textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Physical Examination (Objective):</label>
+                    <input type="text" id="consultObjective" class="w-full bg-dark-950 border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal" value="Chest: Bilateral vesicular breathing, mild right basal crepitations." />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Clinical Assessment / Diagnosis:</label>
+                    <input type="text" id="consultAssessment" class="w-full bg-dark-950 border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal" value="Acute Upper Respiratory Tract Infection (URTI) with bronchospasm" />
+                  </div>
+                </div>
+
+                <!-- Digital Prescription Form (Rx) -->
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                      <i data-lucide="pill" class="w-3.5 h-3.5 text-brand-teal"></i>
+                      <span>Digital E-Prescription (Rx)</span>
+                    </span>
+                    <button onclick="addPrescriptionRow()" class="text-[11px] text-brand-teal hover:underline font-bold">+ Add Medicine</button>
+                  </div>
+
+                  <div class="space-y-2" id="prescriptionsListContainer">
+                    <div class="grid grid-cols-12 gap-2 text-xs items-center p-2 rounded-lg bg-dark-950/60 border border-white/5">
+                      <div class="col-span-5">
+                        <span class="text-white font-semibold block">Amoxicillin + Clavulanic Acid (Augmentin) 625mg</span>
+                        <span class="text-[10px] text-slate-400">Tablet &bull; Antibacterial</span>
+                      </div>
+                      <div class="col-span-3 text-slate-300 font-mono">1 tab TDS &bull; 5 Days</div>
+                      <div class="col-span-3 text-slate-400 text-[10px]">After meals</div>
+                      <div class="col-span-1 text-right text-emerald-400 font-bold">✓</div>
+                    </div>
+
+                    <div class="grid grid-cols-12 gap-2 text-xs items-center p-2 rounded-lg bg-dark-950/60 border border-white/5">
+                      <div class="col-span-5">
+                        <span class="text-white font-semibold block">Paracetamol 500mg (Panadol)</span>
+                        <span class="text-[10px] text-slate-400">Tablet &bull; Antipyretic</span>
+                      </div>
+                      <div class="col-span-3 text-slate-300 font-mono">1 tab SOS &bull; Max 3/day</div>
+                      <div class="col-span-3 text-slate-400 text-[10px]">For fever/bodyache</div>
+                      <div class="col-span-1 text-right text-emerald-400 font-bold">✓</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Diagnostic Lab Orders Checklist -->
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/10">
+                  <span class="text-xs font-bold text-white block mb-2">Requisite Diagnostic Tests:</span>
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                    <label class="flex items-center gap-2 p-2 rounded-lg bg-dark-950/60 border border-white/5 cursor-pointer">
+                      <input type="checkbox" id="chkCbc" checked class="rounded text-brand-teal focus:ring-0">
+                      <span class="text-slate-300">CBC (Blood Count)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 rounded-lg bg-dark-950/60 border border-white/5 cursor-pointer">
+                      <input type="checkbox" id="chkXray" checked class="rounded text-brand-teal focus:ring-0">
+                      <span class="text-slate-300">Chest X-Ray PA</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 rounded-lg bg-dark-950/60 border border-white/5 cursor-pointer">
+                      <input type="checkbox" id="chkEcg" class="rounded text-brand-teal focus:ring-0">
+                      <span class="text-slate-300">ECG 12-Lead</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 rounded-lg bg-dark-950/60 border border-white/5 cursor-pointer">
+                      <input type="checkbox" id="chkLft" class="rounded text-brand-teal focus:ring-0">
+                      <span class="text-slate-300">LFT / Renal Panel</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Complete Consultation Action Buttons -->
+                <div class="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                  <div class="text-[11px] text-slate-400 font-mono">
+                    Consultation Fee: <strong class="text-white">PKR 2,500</strong> &bull; Attending: Dr. Mustafa Shaikh
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button onclick="printPrescriptionDoc()" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition-colors">
+                      <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                      <span>Print Prescription</span>
+                    </button>
+                    <button onclick="completeConsultation()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-emerald-600/25 transition-all">
+                      <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                      <span>Finalize &amp; Route to Pharmacy</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 4: INPATIENT (IPD) & BED MATRIX -->
+      <!-- ========================================== -->
+      <section id="view-beds" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Inpatient Department (IPD) Bed Allocation Matrix</h1>
+            <p class="text-xs sm:text-sm text-slate-400">Interactive live ward map, patient admission, telemetry status, and discharge clearance.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1 text-[11px] text-slate-300 bg-dark-900 border border-white/10 px-3 py-1.5 rounded-lg">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Vacant
+            </span>
+            <span class="inline-flex items-center gap-1 text-[11px] text-slate-300 bg-dark-900 border border-white/10 px-3 py-1.5 rounded-lg">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span> Occupied
+            </span>
+            <span class="inline-flex items-center gap-1 text-[11px] text-slate-300 bg-dark-900 border border-white/10 px-3 py-1.5 rounded-lg">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span> Cleaning
+            </span>
+          </div>
+        </div>
+
+        <!-- 1. Intensive Care Unit (ICU / CCU) Grid -->
+        <div class="p-5 rounded-2xl bg-dark-900 border border-rose-500/20 shadow-xl">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="w-3 h-3 rounded-full bg-rose-500 animate-pulse"></span>
+              <h3 class="font-bold text-sm text-white font-display">Intensive Care Unit (ICU / CCU &bull; 6 Beds)</h3>
+            </div>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold">100% OCCUPIED</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5" id="icuBedsGrid">
+            <!-- Bed ICU-01 -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-br from-rose-950/40 via-dark-950 to-dark-950 border border-rose-500/40 relative">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="font-mono font-black text-rose-400">BED ICU-01</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">VENTILATOR</span>
+              </div>
+              <div class="font-bold text-white text-sm">Haji Bashir Ahmed</div>
+              <div class="text-[11px] text-slate-400 font-mono">MRN: GW-1050 &bull; Age: 68</div>
+              <div class="text-[11px] text-rose-300 mt-1">Diagnosis: Acute Myocardial Infarction</div>
+              <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-[11px]">
+                <span class="text-slate-400">SpO2: <strong class="text-emerald-400">96%</strong> &bull; HR: 88</span>
+                <button onclick="dischargeBed('ICU-01', 'Haji Bashir Ahmed', 4)" class="px-2 py-0.5 rounded bg-white/10 hover:bg-rose-600 text-white transition-colors text-[10px] font-semibold">Discharge</button>
+              </div>
+            </div>
+
+            <!-- Bed ICU-02 -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-br from-rose-950/40 via-dark-950 to-dark-950 border border-rose-500/40 relative">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="font-mono font-black text-rose-400">BED ICU-02</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">OXYGEN HIGH</span>
+              </div>
+              <div class="font-bold text-white text-sm">Zubair Siddiqui</div>
+              <div class="text-[11px] text-slate-400 font-mono">MRN: GW-1022 &bull; Age: 52</div>
+              <div class="text-[11px] text-rose-300 mt-1">Diagnosis: Severe Bilateral Pneumonia</div>
+              <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-[11px]">
+                <span class="text-slate-400">SpO2: <strong class="text-amber-400">92%</strong> &bull; HR: 104</span>
+                <button onclick="dischargeBed('ICU-02', 'Zubair Siddiqui', 6)" class="px-2 py-0.5 rounded bg-white/10 hover:bg-rose-600 text-white transition-colors text-[10px] font-semibold">Discharge</button>
+              </div>
+            </div>
+
+            <!-- Bed ICU-03 -->
+            <div class="p-3.5 rounded-xl bg-gradient-to-br from-rose-950/40 via-dark-950 to-dark-950 border border-rose-500/40 relative">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span class="font-mono font-black text-rose-400">BED ICU-03</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">POST-OP</span>
+              </div>
+              <div class="font-bold text-white text-sm">Nasreen Akhtar</div>
+              <div class="text-[11px] text-slate-400 font-mono">MRN: GW-1033 &bull; Age: 61</div>
+              <div class="text-[11px] text-rose-300 mt-1">Diagnosis: Post Coronary Bypass (CABG)</div>
+              <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-[11px]">
+                <span class="text-slate-400">SpO2: <strong class="text-emerald-400">98%</strong> &bull; HR: 78</span>
+                <button onclick="dischargeBed('ICU-03', 'Nasreen Akhtar', 3)" class="px-2 py-0.5 rounded bg-white/10 hover:bg-rose-600 text-white transition-colors text-[10px] font-semibold">Discharge</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. General Wards (Male & Female) Grid -->
+        <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="building" class="w-4 h-4 text-brand-teal"></i>
+              <h3 class="font-bold text-sm text-white font-display">General Inpatient Wards (Male / Female)</h3>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">19 Occupied &bull; 5 Vacant</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="generalBedsGrid">
+            <!-- Dynamically populated general beds -->
+          </div>
+        </div>
+
+        <!-- 3. VIP Executive Suites Grid -->
+        <div class="p-5 rounded-2xl bg-dark-900 border border-brand-emerald/20 shadow-xl">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="crown" class="w-4 h-4 text-brand-emerald"></i>
+              <h3 class="font-bold text-sm text-white font-display">VIP Deluxe Executive Suites</h3>
+            </div>
+            <span class="text-[11px] font-mono text-brand-emerald">PKR 25,000 / Day &bull; Private Attendant</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" id="vipBedsGrid">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 5: PHARMACY & PRESCRIPTIONS -->
+      <!-- ========================================== -->
+      <section id="view-pharmacy" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Pharmacy Inventory &amp; Prescription Dispensing</h1>
+            <p class="text-xs sm:text-sm text-slate-400">Drug inventory, batch numbers, digital doctor prescriptions, and point-of-sale dispensing.</p>
+          </div>
+          <button onclick="showRestockNotification()" class="px-4 py-2 rounded-xl bg-brand-teal hover:bg-cyan-400 text-dark-950 font-bold text-xs flex items-center gap-1.5 transition-all">
+            <i data-lucide="package-plus" class="w-4 h-4"></i>
+            <span>Restock Inventory</span>
+          </button>
+        </div>
+
+        <!-- Pending Prescription Orders from Doctors -->
+        <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-amber animate-ping"></span>
+              <h3 class="font-bold text-sm text-white">Pending Prescription Dispense Orders (OPD &amp; IPD)</h3>
+            </div>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-amber/20 text-brand-amber font-bold">3 Orders Ready</span>
+          </div>
+
+          <div class="space-y-3" id="pharmacyOrdersList">
+            <!-- Order 1 -->
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-white text-sm">Aisha Bano</span>
+                  <span class="text-slate-400 font-mono text-[10px]">MRN #GW-1042</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-teal/20 text-brand-teal font-bold">OPD Room 304</span>
+                </div>
+                <div class="text-slate-300 mt-1">Prescribed: <strong>Augmentin 625mg</strong> (14 tabs) + <strong>Panadol 500mg</strong> (10 tabs) + <strong>Ventolin Inhaler</strong> (1 unit)</div>
+                <div class="text-[10px] text-slate-400 font-mono mt-0.5">Doctor: Dr. Mustafa Shaikh &bull; Bill Amount: PKR 1,840</div>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <button onclick="dispensePharmacyOrder('Aisha Bano', 'GW-1042', 1840)" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-emerald-600/30">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                  <span>Dispense &amp; Add to Bill</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Order 2 -->
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-white text-sm">Tariq Aziz</span>
+                  <span class="text-slate-400 font-mono text-[10px]">MRN #GW-1048</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-rose/20 text-brand-rose font-bold">Ward GMW-04</span>
+                </div>
+                <div class="text-slate-300 mt-1">Prescribed: <strong>Ceftriaxone 1g IV</strong> (2 vials) + <strong>Omeprazole 40mg IV</strong> (2 amps) + <strong>Normal Saline 1000ml</strong></div>
+                <div class="text-[10px] text-slate-400 font-mono mt-0.5">Doctor: Dr. Salman Farooq &bull; Bill Amount: PKR 3,250</div>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <button onclick="dispensePharmacyOrder('Tariq Aziz', 'GW-1048', 3250)" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-emerald-600/30">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                  <span>Dispense &amp; Add to Bill</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pharmacy Medicine Inventory Table -->
+        <div class="rounded-2xl bg-dark-900 border border-white/10 overflow-hidden shadow-xl">
+          <div class="p-4 border-b border-white/10 flex items-center justify-between">
+            <h3 class="font-bold text-sm text-white">Essential Formulary Inventory</h3>
+            <span class="text-[10px] font-mono text-slate-400">Batch Tracing &bull; FIFO Expiry</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-dark-950 text-slate-400 uppercase font-mono text-[10px] tracking-wider border-b border-white/10">
+                <tr>
+                  <th class="p-3">Item / Generic Name</th>
+                  <th class="p-3">Dosage / Form</th>
+                  <th class="p-3">Stock Units</th>
+                  <th class="p-3">Unit Price (PKR)</th>
+                  <th class="p-3">Batch &bull; Expiry</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5" id="pharmacyStockTable">
+                <!-- Dynamically populated stock items -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 6: DIAGNOSTIC LAB & RADIOLOGY -->
+      <!-- ========================================== -->
+      <section id="view-lab" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Diagnostic Laboratory &amp; Radiology Reports</h1>
+            <p class="text-xs sm:text-sm text-slate-400">Pathology specimen tracking, automated analyzer integration, and report generator.</p>
+          </div>
+          <button onclick="openNewLabOrderModal()" class="px-4 py-2 rounded-xl bg-brand-teal hover:bg-cyan-400 text-dark-950 font-bold text-xs flex items-center gap-1.5 transition-all">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>+ New Lab Order</span>
+          </button>
+        </div>
+
+        <!-- Active Diagnostic Test Requisitions Table -->
+        <div class="rounded-2xl bg-dark-900 border border-white/10 overflow-hidden shadow-xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-dark-950 text-slate-400 uppercase font-mono text-[10px] tracking-wider border-b border-white/10">
+                <tr>
+                  <th class="p-3.5">Sample ID</th>
+                  <th class="p-3.5">Patient Details</th>
+                  <th class="p-3.5">Test Ordered</th>
+                  <th class="p-3.5">Status</th>
+                  <th class="p-3.5">Result Summary</th>
+                  <th class="p-3.5 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5" id="labOrdersTable">
+                <!-- Dynamically filled -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 7: MEDICAL BILLING & CASHIER -->
+      <!-- ========================================== -->
+      <section id="view-billing" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Medical Billing &amp; Cashier Invoicing</h1>
+            <p class="text-xs sm:text-sm text-slate-400">Itemized billing ledgers, Sehat Sahulat card settlement, insurance claims, and print invoices.</p>
+          </div>
+          <button onclick="printInvoiceDoc()" class="px-4 py-2 rounded-xl bg-brand-ember hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-brand-ember/25 transition-all">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            <span>Print Official Invoice (A4 / POS)</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Active Invoice Calculation Ledger -->
+          <div class="lg:col-span-2 p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+              <div>
+                <span class="text-xs font-mono text-brand-teal font-bold">INVOICE #INV-2026-8891</span>
+                <h3 class="font-bold text-base text-white">Patient Clearance Ledger: Aisha Bano</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold font-mono">
+                CLEARED &bull; PAID
+              </span>
+            </div>
+
+            <!-- Itemized Table -->
+            <div class="border border-white/10 rounded-xl overflow-hidden">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-dark-950 text-slate-400 font-mono text-[10px] uppercase border-b border-white/10">
+                  <tr>
+                    <th class="p-3">Department / Charge Description</th>
+                    <th class="p-3">Qty</th>
+                    <th class="p-3">Unit Rate</th>
+                    <th class="p-3 text-right">Total (PKR)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5 text-slate-300">
+                  <tr>
+                    <td class="p-3 font-medium text-white">OPD Specialist Consultation &bull; Dr. Mustafa Shaikh</td>
+                    <td class="p-3 font-mono">1</td>
+                    <td class="p-3 font-mono">2,500</td>
+                    <td class="p-3 font-mono text-right text-white">2,500</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-medium text-white">Laboratory: Complete Blood Count (CBC) with ESR</td>
+                    <td class="p-3 font-mono">1</td>
+                    <td class="p-3 font-mono">1,200</td>
+                    <td class="p-3 font-mono text-right text-white">1,200</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-medium text-white">Radiology: Digital Chest X-Ray PA View</td>
+                    <td class="p-3 font-mono">1</td>
+                    <td class="p-3 font-mono">1,800</td>
+                    <td class="p-3 font-mono text-right text-white">1,800</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-medium text-white">Pharmacy: Augmentin 625mg (14 tabs) + Panadol (10 tabs)</td>
+                    <td class="p-3 font-mono">1 pkg</td>
+                    <td class="p-3 font-mono">1,840</td>
+                    <td class="p-3 font-mono text-right text-white">1,840</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Totals & Payment Summary -->
+            <div class="p-4 rounded-xl bg-dark-950 border border-white/10 space-y-2 text-xs">
+              <div class="flex items-center justify-between text-slate-400">
+                <span>Subtotal Charges:</span>
+                <span class="font-mono text-white">PKR 7,340</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-400">
+                <span>Hospital Clinical Discount (Growech Care Promo):</span>
+                <span class="font-mono text-emerald-400">- PKR 500</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-400">
+                <span>Healthcare Tax / Levies:</span>
+                <span class="font-mono text-white">PKR 0.00 (Exempt)</span>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-base font-bold text-white">
+                <span>Net Payable:</span>
+                <span class="text-xl font-display font-black text-brand-teal">PKR 6,840</span>
+              </div>
+            </div>
+
+            <!-- Payment Tender Methods -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+              <button class="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-brand-teal text-left">
+                <span class="text-[10px] text-slate-400 block font-mono">METHOD 1</span>
+                <span class="text-xs font-bold text-white">💵 Cash</span>
+              </button>
+              <button class="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-brand-teal text-left">
+                <span class="text-[10px] text-slate-400 block font-mono">METHOD 2</span>
+                <span class="text-xs font-bold text-white">💳 Visa / Master</span>
+              </button>
+              <button class="p-2.5 rounded-xl bg-brand-teal/20 border border-brand-teal text-left">
+                <span class="text-[10px] text-brand-teal block font-mono">METHOD 3</span>
+                <span class="text-xs font-bold text-white">📱 Raast / Pay</span>
+              </button>
+              <button class="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-brand-teal text-left">
+                <span class="text-[10px] text-slate-400 block font-mono">METHOD 4</span>
+                <span class="text-xs font-bold text-white">🛡️ Sehat Card</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: Recent Billing History -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10">Today's Transactions</h3>
+            <div class="space-y-2.5" id="billingTransactionsList">
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">Tariq Aziz (GW-1048)</span>
+                  <span class="font-mono text-emerald-400 font-bold">PKR 14,250</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Ward Admission + Meds &bull; Card Tender</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">Rabia Basri (GW-1039)</span>
+                  <span class="font-mono text-emerald-400 font-bold">PKR 3,700</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-0.5">OPD + Lab Tests &bull; Cash</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white">Nasreen Akhtar (GW-1033)</span>
+                  <span class="font-mono text-emerald-400 font-bold">PKR 85,000</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-0.5">ICU Post-Op Care &bull; Sehat Card Panel</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE 8: WHATSAPP TELEHEALTH & ALERTS -->
+      <!-- ========================================== -->
+      <section id="view-whatsapp" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Automated WhatsApp CRM &amp; Telehealth Alerts</h1>
+            <p class="text-xs sm:text-sm text-slate-400">Instant appointment confirmations, lab test ready notifications, and digital prescriptions sent automatically via WhatsApp API.</p>
+          </div>
+          <a href="https://wa.me/923098178527?text=Salam%20Growech%2C%20I%20want%20WhatsApp%20API%20automation%20for%20my%20clinic" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Connect Your Clinic WhatsApp</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <!-- WhatsApp Interactive Message Triggers -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center gap-2">
+              <i data-lucide="zap" class="w-4 h-4 text-emerald-400"></i>
+              <span>One-Click WhatsApp Alert Simulator</span>
+            </h3>
+
+            <!-- Template 1: Appointment Confirmation -->
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/10 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white">1. Appointment Booking &amp; Token Notice</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Instant Delivery</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Sends patient their confirmed token number, scheduled time, and doctor room location.</p>
+              <button onclick="simulateWhatsApp('appointment')" class="w-full py-2 rounded-lg bg-emerald-600/30 hover:bg-emerald-600 text-emerald-300 hover:text-white font-bold text-xs border border-emerald-500/40 transition-all flex items-center justify-center gap-1.5">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>Simulate Appointment WhatsApp</span>
+              </button>
+            </div>
+
+            <!-- Template 2: Lab Report Ready -->
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/10 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white">2. Diagnostic Lab Report Ready Notice</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">With PDF Link</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Notifies patient when CBC, X-Ray, or blood tests are approved by the pathologist with secure link.</p>
+              <button onclick="simulateWhatsApp('lab')" class="w-full py-2 rounded-lg bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white font-bold text-xs border border-cyan-500/40 transition-all flex items-center justify-center gap-1.5">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>Simulate Lab Report Ready WhatsApp</span>
+              </button>
+            </div>
+
+            <!-- Template 3: Digital Prescription & Follow-up -->
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/10 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white">3. Digital Prescription &amp; Dosage Instructions</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-brand-teal/20 text-brand-teal">E-Prescription</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Sends complete medicine dosage schedule and next follow-up appointment date.</p>
+              <button onclick="simulateWhatsApp('prescription')" class="w-full py-2 rounded-lg bg-brand-teal/30 hover:bg-brand-teal hover:text-dark-950 text-brand-teal font-bold text-xs border border-brand-teal/40 transition-all flex items-center justify-center gap-1.5">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>Simulate Prescription WhatsApp</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Realistic WhatsApp Smartphone Mockup -->
+          <div class="flex justify-center">
+            <div class="w-full max-w-sm rounded-[36px] bg-[#111B21] border-4 border-slate-700 p-3 shadow-2xl overflow-hidden text-slate-100 font-sans">
+              <!-- Phone Header -->
+              <div class="flex items-center justify-between px-3 py-2 bg-[#202C33] rounded-2xl mb-3 text-xs">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center text-dark-950 font-bold text-[10px]">
+                    <i data-lucide="activity" class="w-4 h-4 text-white"></i>
+                  </div>
+                  <div>
+                    <div class="font-bold text-white text-[11px] flex items-center gap-1">
+                      <span>Growech Care Hospital</span>
+                      <i data-lucide="badge-check" class="w-3.5 h-3.5 text-emerald-400 fill-emerald-400"></i>
+                    </div>
+                    <div class="text-[9px] text-emerald-400 font-mono">Official Verified Business</div>
+                  </div>
+                </div>
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-slate-400"></i>
+              </div>
+
+              <!-- Message Chat Area -->
+              <div class="p-3 space-y-3 min-h-[360px] bg-[#0B141A] rounded-2xl flex flex-col justify-end" id="whatsappChatArea">
+                <!-- Message Bubble -->
+                <div class="p-3 rounded-2xl bg-[#005C4B] text-white text-xs space-y-1.5 shadow-md self-start max-w-[90%]">
+                  <div class="font-bold text-[11px] text-emerald-200">🏥 GROWECH CARE &bull; CLINIC PASS</div>
+                  <p class="text-[11px] leading-relaxed">
+                    Dear <strong>Aisha Bano</strong>,<br>
+                    Your consultation is scheduled at <strong>Room 304</strong>.<br>
+                    Token: <strong class="text-amber-300 font-mono text-sm">#TK-108</strong><br>
+                    Consultant: <strong>Dr. Mustafa Shaikh</strong>
+                  </p>
+                  <div class="pt-1 border-t border-white/10 flex items-center justify-between text-[9px] text-emerald-200 font-mono">
+                    <span>growech.site/care/pass/108</span>
+                    <span>11:42 AM ✓✓</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- WhatsApp Input Bar Mockup -->
+              <div class="mt-3 p-2 bg-[#202C33] rounded-xl flex items-center gap-2 text-xs text-slate-400">
+                <i data-lucide="smile" class="w-4 h-4"></i>
+                <span class="flex-1 text-[11px]">Type a reply...</span>
+                <i data-lucide="send" class="w-4 h-4 text-emerald-400"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: REGISTER NEW PATIENT -->
+  <!-- ========================================== -->
+  <div id="newPatientModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="w-full max-w-xl bg-dark-900 border border-white/20 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <div class="flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-5 h-5 text-brand-teal"></i>
+          <h2 class="font-bold text-base text-white">Smart Patient Registration &amp; Triage</h2>
+        </div>
+        <button onclick="closeNewPatientModal()" class="p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleNewPatientSubmit(event)" class="space-y-3.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Full Patient Name *</label>
+            <input type="text" id="formPatientName" required placeholder="e.g. Kamran Malik" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Contact Phone (WhatsApp) *</label>
+            <input type="text" id="formPatientPhone" required placeholder="+92 300 1234567" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Age *</label>
+            <input type="number" id="formPatientAge" required placeholder="42" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Gender *</label>
+            <select id="formPatientGender" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Blood Group</label>
+            <select id="formPatientBlood" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+              <option value="O+">O+</option>
+              <option value="A+">A+</option>
+              <option value="B+">B+</option>
+              <option value="AB+">AB+</option>
+              <option value="O-">O-</option>
+              <option value="A-">A-</option>
+              <option value="B-">B-</option>
+              <option value="AB-">AB-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Department / Doctor *</label>
+            <select id="formPatientDept" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+              <option value="General Medicine">General Medicine &bull; Dr. Mustafa</option>
+              <option value="Cardiology">Cardiology &bull; Dr. Ayesha</option>
+              <option value="Pediatrics">Pediatrics &bull; Dr. Tariq</option>
+              <option value="Orthopedics">Orthopedics &bull; Dr. Salman</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Triage Priority</label>
+            <select id="formPatientTriage" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+              <option value="OPD Standard">OPD Standard</option>
+              <option value="Priority OPD">Priority OPD</option>
+              <option value="Emergency Urgent">Emergency Urgent</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Chief Complaint &amp; Known Allergies</label>
+          <input type="text" id="formPatientNotes" placeholder="e.g. Chest tightness, allergic to Penicillin" class="w-full bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-brand-teal">
+        </div>
+
+        <div class="pt-3 border-t border-white/10 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeNewPatientModal()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold text-xs transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-teal hover:bg-cyan-400 text-dark-950 font-bold text-xs shadow-lg shadow-brand-teal/20 transition-all flex items-center gap-1.5">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Register &amp; Issue Token</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- HIDDEN PRINTABLE MEDICAL INVOICE / REPORT -->
+  <!-- ========================================== -->
+  <div id="printableMedicalDoc" class="hidden">
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #111;">
+      <!-- Header -->
+      <div style="border-bottom: 2px solid #00C2CB; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h1 style="margin: 0; font-size: 24px; color: #000; font-weight: bold;">GROWECH CARE HOSPITAL</h1>
+          <p style="margin: 2px 0; font-size: 12px; color: #555;">Central Hospital &amp; Cardiac Sciences Institute &bull; Karachi Main Campus</p>
+          <p style="margin: 2px 0; font-size: 11px; color: #777;">Emergency Helpline: +92 309 8178527 &bull; UAN: 111-GROWECH</p>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 14px; font-weight: bold; color: #00C2CB;">OFFICIAL MEDICAL INVOICE</div>
+          <div style="font-size: 11px; color: #555;">Date: <span id="printDocDate">OCT 29, 2026</span></div>
+          <div style="font-size: 11px; color: #555;">Doc ID: <span id="printDocId">INV-2026-8891</span></div>
+        </div>
+      </div>
+
+      <!-- Patient Data Box -->
+      <table style="width: 100%; font-size: 12px; margin-bottom: 20px; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 6px; background: #f4f6f8; font-weight: bold; width: 25%;">Patient Name:</td>
+          <td style="padding: 6px; border-bottom: 1px solid #ddd;" id="printPatientName">Aisha Bano</td>
+          <td style="padding: 6px; background: #f4f6f8; font-weight: bold; width: 20%;">MRN:</td>
+          <td style="padding: 6px; border-bottom: 1px solid #ddd; font-family: monospace;" id="printPatientMrn">GW-1042</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; background: #f4f6f8; font-weight: bold;">Age / Gender:</td>
+          <td style="padding: 6px; border-bottom: 1px solid #ddd;">34 Y / Female</td>
+          <td style="padding: 6px; background: #f4f6f8; font-weight: bold;">Attending Doctor:</td>
+          <td style="padding: 6px; border-bottom: 1px solid #ddd;">Dr. Mustafa Shaikh</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; background: #f4f6f8; font-weight: bold;">Diagnosis:</td>
+          <td style="padding: 6px; border-bottom: 1px solid #ddd;" colspan="3">Acute Upper Respiratory Tract Infection (URTI) &bull; Bronchospasm</td>
+        </tr>
+      </table>
+
+      <!-- Charges Table -->
+      <table style="width: 100%; font-size: 12px; border-collapse: collapse; margin-bottom: 20px;">
+        <thead>
+          <tr style="background: #00C2CB; color: #fff;">
+            <th style="padding: 8px; text-align: left;">Description</th>
+            <th style="padding: 8px; text-align: center;">Qty</th>
+            <th style="padding: 8px; text-align: right;">Unit Rate (PKR)</th>
+            <th style="padding: 8px; text-align: right;">Total (PKR)</th>
+          </tr>
+        </thead>
+        <tbody style="border-bottom: 2px solid #ddd;">
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">OPD Specialist Consultation Fee</td>
+            <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">1</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">2,500</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">2,500</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">Laboratory: Complete Blood Count (CBC) with ESR</td>
+            <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">1</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">1,200</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">1,200</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">Radiology: Chest X-Ray PA View</td>
+            <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">1</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">1,800</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">1,800</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">Pharmacy: Augmentin 625mg + Panadol 500mg</td>
+            <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">1</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">1,840</td>
+            <td style="padding: 8px; text-align: right; border-bottom: 1px solid #eee;">1,840</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Bottom Financials & Stamp -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px;">
+        <div style="font-size: 11px; color: #555; max-width: 400px;">
+          <p style="margin: 0;">Payment Received Via: <strong>Raast Digital Bank / Cashier St. A</strong></p>
+          <p style="margin: 4px 0 0 0;">This is a computer generated medical invoice under Growech Care Hospital Management OS. Zero recurring licensing fees.</p>
+        </div>
+        <div style="text-align: right; min-width: 200px;">
+          <div style="font-size: 12px; margin-bottom: 4px;">Discount Applied: - PKR 500</div>
+          <div style="font-size: 16px; font-weight: bold; color: #000; border-top: 2px solid #000; padding-top: 4px;">
+            Total Paid: PKR 6,840
+          </div>
+          <div style="margin-top: 40px; border-top: 1px dashed #777; padding-top: 4px; font-size: 11px; text-align: center;">
+            Authorized Medical Officer Signature
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION SCRIPTS -->
+  <script>
+    // State management
+    const state = {
+      facility: 'karachi',
+      audioEnabled: true,
+      activeTab: 'dashboard',
+      tokenCounter: 108,
+      patients: [
+        { mrn: 'GW-1042', name: 'Aisha Bano', age: 34, gender: 'Female', phone: '+92 300 8291042', blood: 'B+', dept: 'General Medicine', doctor: 'Dr. Mustafa Shaikh', vitals: '120/80 mmHg | 74 bpm | 99% SpO2', diagnosis: 'Acute URTI with Bronchospasm', status: 'In Consultation', type: 'opd' },
+        { mrn: 'GW-1048', name: 'Tariq Aziz', age: 48, gender: 'Male', phone: '+92 321 4455667', blood: 'O+', dept: 'Orthopedics', doctor: 'Dr. Salman Farooq', vitals: '135/85 mmHg | 80 bpm | 98% SpO2', diagnosis: 'Right Tibial Fracture Post-Reduction', status: 'Admitted (IPD)', type: 'ipd' },
+        { mrn: 'GW-1050', name: 'Haji Bashir Ahmed', age: 68, gender: 'Male', phone: '+92 333 9988776', blood: 'A+', dept: 'Cardiology', doctor: 'Dr. Ayesha Al-Zahra', vitals: '150/95 mmHg | 88 bpm | 96% SpO2', diagnosis: 'Acute Myocardial Infarction', status: 'Critical ICU', type: 'critical' },
+        { mrn: 'GW-1039', name: 'Rabia Basri', age: 29, gender: 'Female', phone: '+92 312 3344556', blood: 'AB+', dept: 'General Medicine', doctor: 'Dr. Mustafa Shaikh', vitals: '110/70 mmHg | 72 bpm | 99% SpO2', diagnosis: 'Severe Iron Deficiency Anemia', status: 'Waiting OPD', type: 'opd' },
+        { mrn: 'GW-1033', name: 'Nasreen Akhtar', age: 61, gender: 'Female', phone: '+92 301 7766554', blood: 'O-', dept: 'Cardiology', doctor: 'Dr. Ayesha Al-Zahra', vitals: '125/82 mmHg | 78 bpm | 98% SpO2', diagnosis: 'Post-CABG Day 3 Monitoring', status: 'Admitted (IPD)', type: 'ipd' },
+        { mrn: 'GW-1055', name: 'Mohammad Zaid', age: 41, gender: 'Male', phone: '+92 345 8899001', blood: 'B-', dept: 'Cardiology', doctor: 'Dr. Ayesha Al-Zahra', vitals: '140/90 mmHg | 82 bpm | 97% SpO2', diagnosis: 'Hypertensive Urgency / Chest Tightness', status: 'Waiting OPD', type: 'opd' },
+        { mrn: 'GW-1058', name: 'Fatima Noor', age: 6, gender: 'Female', phone: '+92 300 5544332', blood: 'A+', dept: 'Pediatrics', doctor: 'Dr. Tariq Mahmood', vitals: '100/65 mmHg | 98 bpm | 99% SpO2', diagnosis: 'Gastroenteritis with mild dehydration', status: 'Waiting OPD', type: 'opd' },
+      ],
+      pharmacyStock: [
+        { name: 'Augmentin 625mg', form: 'Tablet (Co-Amoxiclav)', stock: 480, price: 580, batch: 'B7891', exp: '11/2027', status: 'In Stock' },
+        { name: 'Panadol 500mg', form: 'Tablet (Paracetamol)', stock: 2400, price: 35, batch: 'P2041', exp: '08/2028', status: 'In Stock' },
+        { name: 'Ceftriaxone 1g IV', form: 'Vial Injection', stock: 120, price: 850, batch: 'C9912', exp: '04/2027', status: 'In Stock' },
+        { name: 'Ventolin Inhaler 100mcg', form: 'Inhaler (Salbutamol)', stock: 65, price: 420, batch: 'V3319', exp: '02/2028', status: 'Low Stock' },
+        { name: 'Omeprazole 40mg IV', form: 'Ampoule Injection', stock: 180, price: 320, batch: 'O1120', exp: '09/2027', status: 'In Stock' },
+        { name: 'Normal Saline 0.9% 1000ml', form: 'IV Infusion Bottle', stock: 350, price: 210, batch: 'N8830', exp: '12/2028', status: 'In Stock' },
+      ],
+      labOrders: [
+        { sampleId: 'LAB-9041', patient: 'Aisha Bano (GW-1042)', test: 'Complete Blood Count (CBC) + ESR', status: 'Completed', result: 'Hb: 13.2 g/dL | TLC: 7,800 | Platelets: 240k (Normal)' },
+        { sampleId: 'LAB-9042', patient: 'Aisha Bano (GW-1042)', test: 'Digital Chest X-Ray PA View', status: 'Completed', result: 'Clear lung fields, no pneumonic consolidation' },
+        { sampleId: 'LAB-9043', patient: 'Rabia Basri (GW-1039)', test: 'Serum Ferritin & Iron Profile', status: 'Testing', result: 'Sample in automated analyzer &bull; ETA 15 mins' },
+        { sampleId: 'LAB-9044', patient: 'Haji Bashir (GW-1050)', test: 'Cardiac Troponin-I & CK-MB', status: 'Completed', result: 'Troponin-I: 2.8 ng/mL (ELEVATED - Acute MI Confirmed)' },
+        { sampleId: 'LAB-9045', patient: 'Mohammad Zaid (GW-1055)', test: 'Lipid Profile & HbA1c', status: 'Sample Collected', result: 'Phlebotomy completed &bull; queued' },
+      ]
+    };
+
+    // Synthetic Audio Chime Synthesizer via Web Audio API (Zero external MP3 dependencies!)
+    function playChime(type = 'dingdong') {
+      if (!state.audioEnabled) return;
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        if (type === 'dingdong') {
+          // Play classic hospital chime (F5 then C5)
+          const osc1 = audioCtx.createOscillator();
+          const gain1 = audioCtx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(698.46, audioCtx.currentTime); // F5
+          gain1.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+          osc1.connect(gain1);
+          gain1.connect(audioCtx.destination);
+          osc1.start();
+          osc1.stop(audioCtx.currentTime + 0.6);
+
+          const osc2 = audioCtx.createOscillator();
+          const gain2 = audioCtx.createGain();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(523.25, audioCtx.currentTime + 0.35); // C5
+          gain2.gain.setValueAtTime(0.2, audioCtx.currentTime + 0.35);
+          gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+          osc2.connect(gain2);
+          gain2.connect(audioCtx.destination);
+          osc2.start(audioCtx.currentTime + 0.35);
+          osc2.stop(audioCtx.currentTime + 1.2);
+        } else if (type === 'beep') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.3);
+        }
+      } catch (e) {
+        console.warn('AudioContext unavailable or blocked:', e);
+      }
+    }
+
+    function toggleAudio() {
+      state.audioEnabled = !state.audioEnabled;
+      const icon = document.getElementById('audioIcon');
+      if (state.audioEnabled) {
+        icon.setAttribute('data-lucide', 'volume-2');
+        icon.className = 'w-4 h-4 text-brand-teal';
+        playChime('dingdong');
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+        icon.className = 'w-4 h-4 text-slate-500';
+      }
+      lucide.createIcons();
+    }
+
+    // Switch Navigation Tabs
+    function switchTab(tabId) {
+      state.activeTab = tabId;
+      const tabs = ['dashboard', 'patients', 'opd', 'beds', 'pharmacy', 'lab', 'billing', 'whatsapp'];
+      
+      tabs.forEach(t => {
+        const viewEl = document.getElementById('view-' + t);
+        const btnEl = document.getElementById('tabBtn-' + t);
+        if (viewEl) {
+          if (t === tabId) {
+            viewEl.classList.remove('hidden');
+          } else {
+            viewEl.classList.add('hidden');
+          }
+        }
+        if (btnEl) {
+          if (t === tabId) {
+            btnEl.className = 'nav-tab active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all bg-brand-teal/15 text-brand-teal border border-brand-teal/30';
+          } else {
+            btnEl.className = 'nav-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all';
+          }
+        }
+      });
+      playChime('beep');
+      lucide.createIcons();
+    }
+
+    // Call Next OPD Token
+    function callNextToken() {
+      state.tokenCounter++;
+      const nextNum = state.tokenCounter;
+      const displayActiveToken = document.getElementById('displayActiveToken');
+      const displayActivePatient = document.getElementById('displayActivePatient');
+      const displayActiveDept = document.getElementById('displayActiveDept');
+      
+      const samplePatients = [
+        { name: 'Mohammad Zaid', dept: 'Cardiology &bull; Dr. Ayesha', age: 41 },
+        { name: 'Fatima Noor', dept: 'Pediatrics &bull; Dr. Tariq', age: 6 },
+        { name: 'Bilal Tariq', dept: 'Orthopedics &bull; Dr. Salman', age: 27 },
+        { name: 'Sultana Begum', dept: 'General Medicine &bull; Dr. Mustafa', age: 58 },
+      ];
+
+      const p = samplePatients[(nextNum) % samplePatients.length];
+
+      if (displayActiveToken) displayActiveToken.innerText = '#TK-' + nextNum;
+      if (displayActivePatient) displayActivePatient.innerText = p.name + ' • Age ' + p.age;
+      if (displayActiveDept) displayActiveDept.innerHTML = p.dept;
+
+      const actPatientName = document.getElementById('activeConsultPatientName');
+      const actMrn = document.getElementById('activeConsultMrn');
+      if (actPatientName) actPatientName.innerText = p.name;
+      if (actMrn) actMrn.innerText = 'MRN #GW-1' + (nextNum * 7);
+
+      playChime('dingdong');
+      
+      // Update activity stream
+      const stream = document.getElementById('clinicalActivityFeed');
+      if (stream) {
+        const item = document.createElement('div');
+        item.className = 'p-3 rounded-xl bg-brand-ember/10 border border-brand-ember/30 flex items-center justify-between gap-3 text-xs animate-pulse';
+        item.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-ember/20 border border-brand-ember/40 flex items-center justify-center text-brand-ember font-bold">
+              <i data-lucide="megaphone" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <div class="font-bold text-white">Token #TK-${nextNum} Called to Room 304</div>
+              <div class="text-[11px] text-slate-300">Patient: ${p.name} &bull; Attending Clinician Consultation</div>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono text-brand-ember font-bold">JUST NOW</span>
+        `;
+        stream.prepend(item);
+        lucide.createIcons();
+      }
+    }
+
+    // Render Patients Table
+    function renderPatients(list = state.patients) {
+      const tbody = document.getElementById('patientsTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      list.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors';
+        
+        let statusBadge = '';
+        if (p.status.includes('Critical')) {
+          statusBadge = '<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold font-mono text-[10px]">CRITICAL ICU</span>';
+        } else if (p.status.includes('Admitted')) {
+          statusBadge = '<span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold font-mono text-[10px]">ADMITTED (IPD)</span>';
+        } else {
+          statusBadge = '<span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono text-[10px]">OPD ACTIVE</span>';
+        }
+
+        tr.innerHTML = `
+          <td class="p-3.5 font-mono font-bold text-brand-teal">${p.mrn}</td>
+          <td class="p-3.5">
+            <div class="font-bold text-white">${p.name}</div>
+            <div class="text-[11px] text-slate-400">${p.age} Y / ${p.gender} &bull; ${p.phone}</div>
+          </td>
+          <td class="p-3.5 font-mono text-slate-300">${p.vitals}</td>
+          <td class="p-3.5">
+            <div class="text-white font-medium">${p.diagnosis}</div>
+            <div class="text-[10px] text-slate-400 font-mono">Blood: <strong class="text-rose-400">${p.blood}</strong></div>
+          </td>
+          <td class="p-3.5 text-slate-300 font-medium">${p.doctor}</td>
+          <td class="p-3.5">${statusBadge}</td>
+          <td class="p-3.5 text-right space-x-1.5 whitespace-nowrap">
+            <button onclick="viewPatientProfile('${p.mrn}')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 text-[11px] font-semibold transition-colors">
+              Chart
+            </button>
+            <button onclick="switchTab('opd')" class="px-2.5 py-1 rounded-lg bg-brand-teal/20 hover:bg-brand-teal/30 text-brand-teal border border-brand-teal/30 text-[11px] font-bold transition-colors">
+              Consult
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Filter Patients
+    function filterPatients() {
+      const q = document.getElementById('patientSearchInput').value.toLowerCase();
+      const filtered = state.patients.filter(p => 
+        p.name.toLowerCase().includes(q) || 
+        p.mrn.toLowerCase().includes(q) || 
+        p.phone.toLowerCase().includes(q) ||
+        p.diagnosis.toLowerCase().includes(q)
+      );
+      renderPatients(filtered);
+    }
+
+    function setPatientFilter(type) {
+      ['all', 'ipd', 'opd', 'critical'].forEach(t => {
+        const btn = document.getElementById('filterBtn-' + t);
+        if (btn) {
+          if (t === type) {
+            btn.className = 'px-3 py-1.5 rounded-lg bg-brand-teal/20 text-brand-teal border border-brand-teal/30 font-semibold text-xs whitespace-nowrap';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white border border-white/10 font-medium text-xs whitespace-nowrap';
+          }
+        }
+      });
+
+      if (type === 'all') {
+        renderPatients(state.patients);
+      } else {
+        renderPatients(state.patients.filter(p => p.type === type));
+      }
+    }
+
+    // Bed Matrix Population
+    function renderBeds() {
+      const generalContainer = document.getElementById('generalBedsGrid');
+      if (generalContainer) {
+        generalContainer.innerHTML = '';
+        for (let i = 1; i <= 12; i++) {
+          const isOccupied = i <= 10;
+          const card = document.createElement('div');
+          card.className = `p-3 rounded-xl border text-xs ${isOccupied ? 'bg-dark-950/80 border-cyan-500/30' : 'bg-emerald-950/20 border-emerald-500/40 hover:border-emerald-400'}`;
+          card.innerHTML = `
+            <div class="flex items-center justify-between mb-1.5 font-mono">
+              <span class="font-bold ${isOccupied ? 'text-cyan-400' : 'text-emerald-400'}">GMW-${i < 10 ? '0' + i : i}</span>
+              <span class="w-2 h-2 rounded-full ${isOccupied ? 'bg-cyan-400' : 'bg-emerald-400'}"></span>
+            </div>
+            ${isOccupied ? `
+              <div class="font-semibold text-white truncate">Patient In Bed</div>
+              <div class="text-[10px] text-slate-400 font-mono">Occupied</div>
+              <button onclick="dischargeBed('GMW-${i}', 'General Patient', 2)" class="mt-2 w-full py-0.5 rounded bg-white/5 hover:bg-rose-600 text-white text-[9px] font-semibold transition-colors">Discharge</button>
+            ` : `
+              <div class="font-bold text-emerald-400">VACANT</div>
+              <div class="text-[10px] text-slate-400 font-mono">Sanitized Ready</div>
+              <button onclick="openNewPatientModal()" class="mt-2 w-full py-0.5 rounded bg-emerald-600/30 hover:bg-emerald-500 text-emerald-300 hover:text-white text-[9px] font-bold transition-colors">+ Admit</button>
+            `}
+          `;
+          generalContainer.appendChild(card);
+        }
+      }
+
+      const vipContainer = document.getElementById('vipBedsGrid');
+      if (vipContainer) {
+        vipContainer.innerHTML = '';
+        const suites = [
+          { num: 'VIP-101', patient: 'Malik Jahangir', days: 2, status: 'Occupied' },
+          { num: 'VIP-102', patient: 'Zahida Parveen', days: 4, status: 'Occupied' },
+          { num: 'VIP-103', patient: 'Sardar Qasim', days: 1, status: 'Occupied' },
+          { num: 'VIP-104', patient: 'Vacant', days: 0, status: 'Vacant' },
+        ];
+
+        suites.forEach(s => {
+          const isOcc = s.status === 'Occupied';
+          const card = document.createElement('div');
+          card.className = `p-3.5 rounded-xl border ${isOcc ? 'bg-dark-950 border-brand-emerald/30' : 'bg-emerald-950/20 border-emerald-500/50'}`;
+          card.innerHTML = `
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="font-mono font-bold text-brand-emerald">${s.num}</span>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded ${isOcc ? 'bg-brand-emerald/20 text-brand-emerald' : 'bg-emerald-500/20 text-emerald-300'} font-bold">${s.status.toUpperCase()}</span>
+            </div>
+            <div class="text-sm font-bold text-white">${s.patient}</div>
+            <div class="text-[11px] text-slate-400 font-mono">${isOcc ? s.days + ' Days Admitted &bull; Private Suite' : 'Ready for Immediate Booking'}</div>
+            <div class="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+              <span class="text-brand-emerald font-bold font-mono">PKR 25,000/d</span>
+              ${isOcc ? `
+                <button onclick="dischargeBed('${s.num}', '${s.patient}', ${s.days})" class="px-2.5 py-1 rounded bg-white/10 hover:bg-rose-600 text-white text-[10px] font-bold transition-colors">Discharge</button>
+              ` : `
+                <button onclick="openNewPatientModal()" class="px-2.5 py-1 rounded bg-brand-emerald hover:bg-emerald-400 text-dark-950 text-[10px] font-bold transition-colors">Book Suite</button>
+              `}
+            </div>
+          `;
+          vipContainer.appendChild(card);
+        });
+      }
+    }
+
+    // Render Pharmacy Stock
+    function renderPharmacyStock() {
+      const tbody = document.getElementById('pharmacyStockTable');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      state.pharmacyStock.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors';
+        tr.innerHTML = `
+          <td class="p-3 font-semibold text-white">${item.name}</td>
+          <td class="p-3 text-slate-400">${item.form}</td>
+          <td class="p-3 font-mono font-bold ${item.stock < 100 ? 'text-amber-400' : 'text-emerald-400'}">${item.stock} Units</td>
+          <td class="p-3 font-mono text-white">PKR ${item.price}</td>
+          <td class="p-3 font-mono text-[11px] text-slate-400">${item.batch} &bull; Exp: ${item.exp}</td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded-full ${item.stock < 100 ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'} font-bold font-mono text-[9px]">${item.status.toUpperCase()}</span>
+          </td>
+          <td class="p-3 text-right">
+            <button onclick="dispenseQuickStock('${item.name}')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-brand-teal hover:text-dark-950 text-brand-teal border border-brand-teal/30 text-[10px] font-bold transition-all">
+              Dispense
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Render Diagnostic Lab Table
+    function renderLabOrders() {
+      const tbody = document.getElementById('labOrdersTable');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      state.labOrders.forEach(lab => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors';
+        const isDone = lab.status === 'Completed';
+        tr.innerHTML = `
+          <td class="p-3.5 font-mono font-bold text-brand-teal">${lab.sampleId}</td>
+          <td class="p-3.5 font-bold text-white">${lab.patient}</td>
+          <td class="p-3.5 text-slate-200 font-medium">${lab.test}</td>
+          <td class="p-3.5">
+            <span class="px-2.5 py-0.5 rounded-full ${isDone ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border-amber-500/30'} border font-mono font-bold text-[10px]">${lab.status.toUpperCase()}</span>
+          </td>
+          <td class="p-3.5 text-slate-300 text-[11px]">${lab.result}</td>
+          <td class="p-3.5 text-right space-x-2">
+            <button onclick="printDiagnosticReport('${lab.sampleId}', '${lab.test}')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white border border-white/10 text-[11px] font-semibold transition-colors">
+              Print Lab Slip
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Patient Modal controls
+    function openNewPatientModal() {
+      document.getElementById('newPatientModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeNewPatientModal() {
+      document.getElementById('newPatientModal').classList.add('hidden');
+    }
+
+    function handleNewPatientSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('formPatientName').value;
+      const phone = document.getElementById('formPatientPhone').value;
+      const age = document.getElementById('formPatientAge').value;
+      const gender = document.getElementById('formPatientGender').value;
+      const blood = document.getElementById('formPatientBlood').value;
+      const dept = document.getElementById('formPatientDept').value;
+      const notes = document.getElementById('formPatientNotes').value || 'Standard consultation';
+
+      const newMrn = 'GW-10' + Math.floor(10 + Math.random() * 89);
+      const newPatient = {
+        mrn: newMrn,
+        name: name,
+        age: parseInt(age),
+        gender: gender,
+        phone: phone,
+        blood: blood,
+        dept: dept,
+        doctor: 'Dr. Mustafa Shaikh',
+        vitals: '120/80 mmHg | 76 bpm | 99% SpO2',
+        diagnosis: notes,
+        status: 'Waiting OPD',
+        type: 'opd'
+      };
+
+      state.patients.unshift(newPatient);
+      renderPatients();
+      closeNewPatientModal();
+      playChime('dingdong');
+      alert(`Patient ${name} registered successfully!\nAssigned MRN: ${newMrn}\nToken #TK-${state.tokenCounter + 1} queued.`);
+    }
+
+    // Complete Clinical Consultation
+    function completeConsultation() {
+      playChime('dingdong');
+      alert('Consultation finalized by Dr. Mustafa Shaikh!\nPrescription and diagnostic requisitions routed to Pharmacy and Laboratory.');
+      callNextToken();
+    }
+
+    // Dispense Pharmacy Order
+    function dispensePharmacyOrder(name, mrn, amount) {
+      playChime('beep');
+      alert(`Medicines dispensed for ${name} (${mrn})!\nAmount PKR ${amount} added to Patient Billing Ledger.`);
+    }
+
+    function dispenseQuickStock(medName) {
+      const item = state.pharmacyStock.find(i => i.name === medName);
+      if (item && item.stock > 0) {
+        item.stock--;
+        renderPharmacyStock();
+        playChime('beep');
+      }
+    }
+
+    // Discharge bed
+    function dischargeBed(bedId, patientName, days) {
+      const confirmDischarge = confirm(`Discharge patient ${patientName} from ${bedId}?\nLength of stay: ${days} days.\nPatient ledger will be generated.`);
+      if (confirmDischarge) {
+        playChime('beep');
+        alert(`${patientName} discharged from ${bedId}!\nBed status marked for sanitization and cleaning.`);
+        renderBeds();
+      }
+    }
+
+    // Print Invoice / Prescription
+    function printInvoiceDoc() {
+      window.print();
+    }
+
+    function printPrescriptionDoc() {
+      window.print();
+    }
+
+    function printDiagnosticReport(sampleId, testName) {
+      alert(`Sending ${testName} (Sample ${sampleId}) to laboratory report printer...`);
+      window.print();
+    }
+
+    // WhatsApp Simulation
+    function simulateWhatsApp(type) {
+      const chat = document.getElementById('whatsappChatArea');
+      if (!chat) return;
+      playChime('dingdong');
+
+      let text = '';
+      if (type === 'appointment') {
+        text = `
+          <div class="font-bold text-[11px] text-emerald-200">🏥 GROWECH CARE &bull; APPOINTMENT CONFIRMED</div>
+          <p class="text-[11px] leading-relaxed">
+            Dear <strong>Aisha Bano</strong>,<br>
+            Your OPD appointment is confirmed.<br>
+            Token: <strong class="text-amber-300 font-mono text-sm">#TK-108</strong><br>
+            Consultant: <strong>Dr. Mustafa Shaikh</strong> (Room 304)<br>
+            Please show this digital pass at the triage counter.
+          </p>
+          <div class="pt-1 border-t border-white/10 flex items-center justify-between text-[9px] text-emerald-200 font-mono">
+            <span>growech.site/care/pass/108</span>
+            <span>Just now ✓✓</span>
+          </div>
+        `;
+      } else if (type === 'lab') {
+        text = `
+          <div class="font-bold text-[11px] text-cyan-200">🧪 GROWECH CARE &bull; LAB REPORT READY</div>
+          <p class="text-[11px] leading-relaxed">
+            Dear <strong>Aisha Bano</strong>,<br>
+            Your diagnostic test <strong>Complete Blood Count (CBC)</strong> is finalized and signed by the Consultant Pathologist.<br>
+            Status: <strong>Normal (Hb: 13.2 g/dL)</strong>
+          </p>
+          <div class="pt-1 border-t border-white/10 flex items-center justify-between text-[9px] text-cyan-200 font-mono">
+            <span>Download PDF: growech.site/lab/9041</span>
+            <span>Just now ✓✓</span>
+          </div>
+        `;
+      } else if (type === 'prescription') {
+        text = `
+          <div class="font-bold text-[11px] text-teal-200">💊 GROWECH CARE &bull; DIGITAL PRESCRIPTION</div>
+          <p class="text-[11px] leading-relaxed">
+            Dear <strong>Aisha Bano</strong>,<br>
+            Dr. Mustafa Shaikh has issued your digital prescription:<br>
+            1. Augmentin 625mg &bull; 1 tab TDS for 5 days<br>
+            2. Panadol 500mg &bull; 1 tab SOS for bodyache<br>
+            Follow-up date: <strong>November 05, 2026</strong>.
+          </p>
+          <div class="pt-1 border-t border-white/10 flex items-center justify-between text-[9px] text-teal-200 font-mono">
+            <span>growech.site/rx/GW-1042</span>
+            <span>Just now ✓✓</span>
+          </div>
+        `;
+      }
+
+      const bubble = document.createElement('div');
+      bubble.className = 'p-3 rounded-2xl bg-[#005C4B] text-white text-xs space-y-1.5 shadow-md self-start max-w-[90%]';
+      bubble.innerHTML = text;
+      chat.appendChild(bubble);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function switchFacility(fac) {
+      state.facility = fac;
+      const lbl = document.getElementById('facilityLabelHeader');
+      if (fac === 'karachi') {
+        if (lbl) lbl.innerText = 'Growech Central Hospital & Cardiac Center • Karachi Main Campus';
+      } else if (fac === 'dubai') {
+        if (lbl) lbl.innerText = 'Growech Care Polyclinic & Day Surgery • Dubai Healthcare City';
+      } else if (fac === 'london') {
+        if (lbl) lbl.innerText = 'Royal Growech Medical Complex • London UK';
+      }
+      playChime('beep');
+    }
+
+    function toggleEmergencyModal() {
+      alert('EMERGENCY CODE BLUE ALERT:\nICU Bed 01 & Bed 02 under continuous cardiac telemetry.\nRapid Response Team (RRT) standing by.');
+    }
+
+    function viewPatientProfile(mrn) {
+      const p = state.patients.find(x => x.mrn === mrn);
+      if (p) {
+        alert(`PATIENT CLINICAL FILE: ${p.name}\nMRN: ${p.mrn}\nAge/Gender: ${p.age} Y / ${p.gender}\nBlood Group: ${p.blood}\nVitals: ${p.vitals}\nDiagnosis: ${p.diagnosis}\nAttending Doctor: ${p.doctor}\nStatus: ${p.status}`);
+      }
+    }
+
+    function showRestockNotification() {
+      playChime('beep');
+      alert('Formulary restock order generated & transmitted to Central Medical Warehouse.');
+    }
+
+    function openNewLabOrderModal() {
+      playChime('beep');
+      alert('Diagnostic Lab test order dialog & barcode generator initiated.');
+    }
+
+    // Real-time Clock
+    function updateClock() {
+      const now = new Date();
+      const clock = document.getElementById('digitalClock');
+      const dateEl = document.getElementById('digitalDate');
+      if (clock) clock.innerText = now.toLocaleTimeString('en-US');
+      if (dateEl) {
+        const options = { month: 'short', day: '2-digit', year: 'numeric' };
+        dateEl.innerText = now.toLocaleDateString('en-US', options).toUpperCase();
+      }
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderPatients();
+      renderBeds();
+      renderPharmacyStock();
+      renderLabOrders();
+      setInterval(updateClock, 1000);
+      updateClock();
+    });
+  </script>
+</body>
+</html>

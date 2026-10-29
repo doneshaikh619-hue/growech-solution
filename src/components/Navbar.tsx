@@ -264,24 +264,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                             </a>
                           </div>
 
-                          {/* 2. Hospital & Clinic Management Suite (Coming Soon - No Link) */}
-                          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-3">
+                          {/* 2. Hospital & Clinic Management Suite (Highlighted with Live Demo Button) */}
+                          <div className="p-3 rounded-xl bg-gradient-to-r from-cyan-500/25 via-cyan-500/10 to-white/[0.04] border border-cyan-500/40 flex items-center justify-between gap-3 shadow-md group">
                             <div className="flex items-center gap-3 min-w-0">
-                              <div className="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center flex-shrink-0">
-                                <Building2 className="w-4 h-4 text-cyan-300" />
+                              <div className="w-9 h-9 rounded-xl bg-cyan-500/25 border border-cyan-500/50 flex items-center justify-center flex-shrink-0 group-hover:bg-cyan-500/35 transition-colors shadow-inner">
+                                <Building2 className="w-5 h-5 text-cyan-300" />
                               </div>
                               <div className="min-w-0">
-                                <span className="text-xs sm:text-sm font-bold text-white truncate block">
-                                  Hospital &amp; Clinic Management
-                                </span>
-                                <p className="text-[11px] text-zinc-300 truncate mt-0.5">
-                                  Patient EHR, OPD triage, appointments &amp; pharmacy billing
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-xs sm:text-sm font-bold text-white truncate">
+                                    Hospital &amp; Clinic OS
+                                  </span>
+                                  <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/25 text-emerald-300 font-extrabold border border-emerald-400/50">
+                                    LIVE DEMO
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-zinc-200 truncate mt-0.5">
+                                  Patient EHR, OPD triage, bed matrix &amp; pharmacy billing
                                 </p>
                               </div>
                             </div>
-                            <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-bold whitespace-nowrap">
-                              COMING SOON
-                            </span>
+
+                            <a
+                              href="./care/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs shadow-md shadow-cyan-500/30 flex items-center gap-1 flex-shrink-0 transition-transform hover:scale-105"
+                            >
+                              <span>Live Demo</span>
+                              <ArrowUpRight className="w-3.5 h-3.5" />
+                            </a>
                           </div>
 
                           {/* 3. BaaS & Custom Enterprise Softwares (Coming Soon - No Link) */}
@@ -445,13 +457,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, isLoaded }) => {
                   </a>
                 </div>
 
-                {/* 2. Hospital & Clinic Management (Coming Soon - No Link) */}
-                <div className="px-3 py-2 rounded-lg bg-white/[0.02] border border-white/5 text-xs text-white flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-cyan-300" />
-                    <span className="font-semibold text-white">Hospital Management (HMS)</span>
+                {/* 2. Hospital & Clinic Management Highlighted Live Demo */}
+                <div className="p-3 rounded-xl bg-gradient-to-r from-cyan-500/25 via-cyan-500/10 to-white/[0.04] border border-cyan-500/40 flex items-center justify-between gap-2 shadow-sm">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <Building2 className="w-5 h-5 text-cyan-300 flex-shrink-0" />
+                    <div className="min-w-0">
+                      <div className="text-xs sm:text-sm font-bold text-white truncate">Hospital &amp; Clinic OS</div>
+                      <div className="text-[11px] text-zinc-200 truncate">Patient EHR, triage &amp; bed matrix</div>
+                    </div>
                   </div>
-                  <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-bold whitespace-nowrap">COMING SOON</span>
+                  <a
+                    href="./care/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs flex items-center gap-1 flex-shrink-0"
+                  >
+                    <span>Live Demo</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
                 </div>
 
                 {/* 3. BaaS & Custom Enterprise SaaS (Coming Soon - No Link) */}
