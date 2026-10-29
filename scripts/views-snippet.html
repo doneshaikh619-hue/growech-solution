@@ -1,0 +1,1278 @@
+      <!-- ========================================== -->
+      <!-- MODULE E: EMERGENCY & TRAUMA RESUSCITATION -->
+      <!-- ========================================== -->
+      <section id="view-er" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold border border-rose-500/40">MODULE E &bull; CODE RED READY</span>
+              <span class="text-xs text-slate-400">Level-1 Trauma &amp; Resuscitation Bay</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Emergency Department &amp; Rapid Triage</h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="toggleEmergencyModal()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-rose-600/30 transition-all animate-pulse">
+              <i data-lucide="siren" class="w-4 h-4"></i>
+              <span>Broadcast Code Blue Siren</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- 15-Second Minimal Emergency Intake -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-rose-500/30 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <div class="flex items-center gap-2">
+                <i data-lucide="zap" class="w-4 h-4 text-rose-400"></i>
+                <h3 class="font-bold text-sm text-white">15s Minimal Emergency Intake</h3>
+              </div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">STAT INTAKE</span>
+            </div>
+            <div class="space-y-3 text-xs">
+              <div>
+                <label class="block text-slate-400 mb-1">Temporary Trauma Alias *</label>
+                <input type="text" id="erAliasInput" value="Trauma-Unknown-Male-01" class="w-full bg-dark-950 border border-white/10 rounded-xl p-2.5 text-white font-mono focus:outline-none focus:border-rose-400">
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-slate-400 mb-1">Est. Age</label>
+                  <input type="number" id="erAgeInput" value="35" class="w-full bg-dark-950 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-rose-400">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1">Gender</label>
+                  <select id="erGenderInput" class="w-full bg-dark-950 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-rose-400">
+                    <option>Male</option><option>Female</option><option>Undetermined</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Presenting Emergency Condition</label>
+                <input type="text" id="erConditionInput" value="MVA Polytrauma &bull; Hemorrhagic Shock &bull; GCS 7" class="w-full bg-dark-950 border border-white/10 rounded-xl p-2.5 text-white focus:outline-none focus:border-rose-400">
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">3-Tier Triage Level</label>
+                <div class="grid grid-cols-3 gap-2 text-[11px] font-bold text-center">
+                  <div class="p-2 rounded-lg bg-rose-600 text-white border border-rose-400 cursor-pointer">RED (STAT)</div>
+                  <div class="p-2 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 cursor-pointer">YELLOW (15m)</div>
+                  <div class="p-2 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 cursor-pointer">GREEN (60m)</div>
+                </div>
+              </div>
+              <button onclick="admitErPatient()" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md shadow-rose-600/30">
+                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                <span>Assign Trauma Bed ETW-01</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Real-Time Trauma Resuscitation Log -->
+          <div class="lg:col-span-2 p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <div class="flex items-center gap-2">
+                <i data-lucide="activity" class="w-4 h-4 text-brand-teal"></i>
+                <h3 class="font-bold text-sm text-white">Trauma Resuscitation Chronological Log</h3>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">Patient: Trauma-Unknown-Male-01</span>
+            </div>
+
+            <!-- Quick Action Resuscitation Buttons -->
+            <div class="flex flex-wrap gap-2 text-xs">
+              <button onclick="addResuscitationLog('Endotracheal Intubation verified with capnography')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-3.5 h-3.5 text-brand-teal"></i>
+                <span>Airway Intubation</span>
+              </button>
+              <button onclick="addResuscitationLog('Dual 14-Gauge Large Bore IV Cannulas placed')" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-3.5 h-3.5 text-brand-teal"></i>
+                <span>Dual 14G IV Access</span>
+              </button>
+              <button onclick="addResuscitationLog('STAT O-Negative PRBC x 2 Units Initiated via Rapid Infuser')" class="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/30 text-rose-300 flex items-center gap-1.5">
+                <i data-lucide="droplet" class="w-3.5 h-3.5 text-rose-400"></i>
+                <span>STAT O-Neg Blood</span>
+              </button>
+              <button onclick="addResuscitationLog('Defibrillation 200J Biphasic Shock Delivered')" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 flex items-center gap-1.5">
+                <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Defibrillation 200J</span>
+              </button>
+            </div>
+
+            <!-- Log Stream Container -->
+            <div class="space-y-2 max-h-[280px] overflow-y-auto pr-1" id="erResuscitationLogStream">
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 flex items-start gap-3 text-xs">
+                <span class="font-mono text-[10px] text-brand-teal font-bold px-2 py-0.5 rounded bg-brand-teal/10">11:45:10</span>
+                <div class="flex-1">
+                  <div class="font-semibold text-white">Trauma Team Activated</div>
+                  <div class="text-[11px] text-slate-400">Attending Trauma Surgeon &bull; Emergency Anesthesiologist &bull; Blood Bank Alerted</div>
+                </div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 flex items-start gap-3 text-xs">
+                <span class="font-mono text-[10px] text-rose-400 font-bold px-2 py-0.5 rounded bg-rose-500/10">11:45:32</span>
+                <div class="flex-1">
+                  <div class="font-semibold text-white">Dual 14-Gauge Large Bore IV Cannulas placed</div>
+                  <div class="text-[11px] text-slate-400">Right and Left Antecubital fossa &bull; Blood samples sent for STAT crossmatch</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE G: SURGERY & OPERATING THEATRE -->
+      <!-- ========================================== -->
+      <section id="view-ot" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/40">MODULE G &bull; SURGICAL SUITE</span>
+              <span class="text-xs text-slate-400">Operating Theatre Management &amp; WHO Safety</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Operating Theatres &amp; PACU Recovery</h1>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-mono">
+            <span class="px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">OT-1: ACTIVE</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-bold">OT-2: PREP</span>
+            <span class="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 border border-white/10">OT-3: READY</span>
+            <span class="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 border border-white/10">OT-4: STERILE</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- WHO Surgical Safety Checklist -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <div class="flex items-center gap-2">
+                <i data-lucide="clipboard-check" class="w-4 h-4 text-cyan-400"></i>
+                <h3 class="font-bold text-sm text-white">WHO Surgical Safety Checklist</h3>
+              </div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">3 GATES</span>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              <!-- Gate 1: Sign-In -->
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/10 space-y-2">
+                <div class="flex items-center justify-between font-bold text-slate-200">
+                  <span>1. SIGN-IN (Before Induction)</span>
+                  <span class="text-[10px] text-emerald-400 font-mono" id="gate1Status">VERIFIED</span>
+                </div>
+                <div class="space-y-1.5 text-slate-400 text-[11px]">
+                  <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded border-white/20 text-cyan-500"> Patient identity, site &amp; consent confirmed</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded border-white/20 text-cyan-500"> Surgical site marked</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded border-white/20 text-cyan-500"> Pulse oximeter on patient &amp; functioning</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded border-white/20 text-cyan-500"> Known allergy checked (Penicillin / Latex)</label>
+                </div>
+              </div>
+
+              <!-- Gate 2: Time-Out -->
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/10 space-y-2">
+                <div class="flex items-center justify-between font-bold text-slate-200">
+                  <span>2. TIME-OUT (Before Incision)</span>
+                  <span class="text-[10px] text-cyan-400 font-mono" id="gate2Status">IN PROGRESS</span>
+                </div>
+                <div class="space-y-1.5 text-slate-400 text-[11px]">
+                  <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded border-white/20 text-cyan-500"> All team members introduced by name &amp; role</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" checked class="rounded border-white/20 text-cyan-500"> Surgeon, Anesthetist &amp; Nurse verbal confirmation</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-white/20 text-cyan-500"> Antibiotic prophylaxis given &lt; 60 mins</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-white/20 text-cyan-500"> Essential imaging displayed</label>
+                </div>
+              </div>
+
+              <!-- Gate 3: Sign-Out -->
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/10 space-y-2">
+                <div class="flex items-center justify-between font-bold text-slate-200">
+                  <span>3. SIGN-OUT (Before Closure)</span>
+                  <span class="text-[10px] text-slate-400 font-mono" id="gate3Status">PENDING</span>
+                </div>
+                <div class="space-y-1.5 text-slate-400 text-[11px]">
+                  <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-white/20 text-cyan-500"> Instrument, sponge &amp; needle counts correct</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-white/20 text-cyan-500"> Specimen labeled with patient MRN</label>
+                  <label class="flex items-center gap-2"><input type="checkbox" class="rounded border-white/20 text-cyan-500"> PACU post-op recovery plan reviewed</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PACU Aldrete Recovery Scoring & Consumables -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- PACU Aldrete Scoring Engine -->
+            <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+              <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="gauge" class="w-4 h-4 text-emerald-400"></i>
+                  <h3 class="font-bold text-sm text-white">PACU Aldrete Recovery Score (0 - 10)</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-400 font-mono">Current Score:</span>
+                  <span class="font-mono text-base font-black text-emerald-400 px-2.5 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/40" id="aldreteScoreDisplay">10 / 10</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Ready for Ward Step-Down</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                  <div class="font-bold text-slate-300">Activity / Motor</div>
+                  <select id="aldreteMotor" onchange="updateAldreteScore()" class="w-full bg-dark-900 border border-white/10 rounded-lg p-1.5 text-xs text-white">
+                    <option value="2">2 - Moves 4 limbs</option>
+                    <option value="1">1 - Moves 2 limbs</option>
+                    <option value="0">0 - No movement</option>
+                  </select>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                  <div class="font-bold text-slate-300">Respiration</div>
+                  <select id="aldreteResp" onchange="updateAldreteScore()" class="w-full bg-dark-900 border border-white/10 rounded-lg p-1.5 text-xs text-white">
+                    <option value="2">2 - Deep breathing</option>
+                    <option value="1">1 - Dyspneic / shallow</option>
+                    <option value="0">0 - Apneic</option>
+                  </select>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                  <div class="font-bold text-slate-300">Circulation (BP)</div>
+                  <select id="aldreteCirc" onchange="updateAldreteScore()" class="w-full bg-dark-900 border border-white/10 rounded-lg p-1.5 text-xs text-white">
+                    <option value="2">2 - BP +/- 20%</option>
+                    <option value="1">1 - BP +/- 20-50%</option>
+                    <option value="0">0 - BP +/- 50%</option>
+                  </select>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                  <div class="font-bold text-slate-300">Consciousness</div>
+                  <select id="aldreteConsc" onchange="updateAldreteScore()" class="w-full bg-dark-900 border border-white/10 rounded-lg p-1.5 text-xs text-white">
+                    <option value="2">2 - Fully awake</option>
+                    <option value="1">1 - Arousable</option>
+                    <option value="0">0 - Unresponsive</option>
+                  </select>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                  <div class="font-bold text-slate-300">O2 Saturation</div>
+                  <select id="aldreteO2" onchange="updateAldreteScore()" class="w-full bg-dark-900 border border-white/10 rounded-lg p-1.5 text-xs text-white">
+                    <option value="2">2 - &gt; 92% on room air</option>
+                    <option value="1">1 - Needs O2 mask</option>
+                    <option value="0">0 - &lt; 90% with O2</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Surgical Consumables Reconciliation -->
+            <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="package-check" class="w-4 h-4 text-brand-teal"></i>
+                  <h3 class="font-bold text-sm text-white">Surgical Consumables &amp; Implants Reconciliation</h3>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold">Debited to Patient Ledger</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5">
+                  <div class="font-bold text-white">Laparoscopic Trocar 10mm</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">Ethicon Endosurgery &bull; Qty: 2</div>
+                  <div class="text-xs font-mono text-emerald-400 font-bold mt-1">PKR 14,000</div>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5">
+                  <div class="font-bold text-white">Polypropylene Hernia Mesh 15x15</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">Bard Monofilament &bull; Qty: 1</div>
+                  <div class="text-xs font-mono text-emerald-400 font-bold mt-1">PKR 22,500</div>
+                </div>
+                <div class="p-3 rounded-xl bg-dark-950 border border-white/5">
+                  <div class="font-bold text-white">Vicryl 2-0 Absorbable Suture</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">Box of 12 &bull; Lot #VC-9921</div>
+                  <div class="text-xs font-mono text-emerald-400 font-bold mt-1">PKR 4,800</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE H: ICU CARDIAC & TELEMETRY -->
+      <!-- ========================================== -->
+      <section id="view-icu" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/40">MODULE H &bull; HIGH DEPENDENCY</span>
+              <span class="text-xs text-slate-400">Continuous 12-Lead Rhythm &amp; Hemodynamics Flow</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">ICU Cardiac Telemetry &amp; Critical Care</h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold flex items-center gap-1.5 border border-emerald-500/40">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>LIVE TELEMETRY STREAM</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Live Waveform & Hemodynamics Console -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <!-- Left 3 Cols: Animated Canvas ECG Waveform -->
+          <div class="lg:col-span-3 p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <div class="flex items-center gap-3">
+                <i data-lucide="activity" class="w-5 h-5 text-emerald-400"></i>
+                <div>
+                  <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                    <span>Bed ICU-01 &bull; Tariq Mehmood (GW-1019)</span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300">Lead II</span>
+                  </h3>
+                  <p class="text-[10px] text-slate-400 font-mono">Sinus Rhythm @ 74 bpm &bull; Cal: 10mm/mV &bull; Sweep: 25mm/s</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 text-xs">
+                <select id="ecgRhythmSelect" onchange="changeEcgRhythm(this.value)" class="bg-dark-950 border border-white/10 rounded-lg p-1.5 text-xs text-emerald-400 font-mono">
+                  <option value="sinus">Normal Sinus (74 bpm)</option>
+                  <option value="tachy">Sinus Tachycardia (138 bpm)</option>
+                  <option value="brady">Sinus Bradycardia (44 bpm)</option>
+                  <option value="st">ST-Elevation STEMI</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- ECG HTML5 Canvas Simulator -->
+            <div class="relative bg-black rounded-xl p-2 border border-emerald-500/30 overflow-hidden shadow-inner">
+              <canvas id="icuEcgCanvas" width="800" height="180" class="w-full h-44 block"></canvas>
+              <div class="absolute top-3 right-4 font-mono text-emerald-400 text-right leading-none">
+                <div class="text-3xl font-black" id="icuHeartRate">74</div>
+                <div class="text-[9px] text-slate-400">BPM &bull; ECG</div>
+              </div>
+            </div>
+
+            <!-- Hemodynamics Readouts Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="text-[10px] font-mono text-rose-400 font-bold">INVASIVE ABP</div>
+                <div class="text-lg font-black text-rose-300 font-mono">120 / 80</div>
+                <div class="text-[9px] text-slate-400">mmHg &bull; Radial Line</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="text-[10px] font-mono text-cyan-400 font-bold">MEAN ART. (MAP)</div>
+                <div class="text-lg font-black text-cyan-300 font-mono">93.3</div>
+                <div class="text-[9px] text-slate-400">mmHg &bull; Target &gt;65</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="text-[10px] font-mono text-indigo-400 font-bold">CENTRAL VENOUS (CVP)</div>
+                <div class="text-lg font-black text-indigo-300 font-mono">8.2</div>
+                <div class="text-[9px] text-slate-400">mmHg &bull; Internal Jugular</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="text-[10px] font-mono text-emerald-400 font-bold">PULSE OX (SpO2)</div>
+                <div class="text-lg font-black text-emerald-300 font-mono">98%</div>
+                <div class="text-[9px] text-slate-400">Plethysmograph Wave</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Col: Mechanical Ventilator & Fluid Flowsheet -->
+          <div class="space-y-4">
+            <!-- Mechanical Ventilator Panel -->
+            <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="wind" class="w-4 h-4 text-cyan-400"></i>
+                  <h4 class="font-bold text-xs text-white">Hamilton G5 Ventilator</h4>
+                </div>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300">SIMV-PC</span>
+              </div>
+              <div class="space-y-2 text-xs font-mono">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                  <span class="text-slate-400">FiO2 (Oxygen)</span>
+                  <span class="font-bold text-cyan-300">45%</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                  <span class="text-slate-400">PEEP</span>
+                  <span class="font-bold text-slate-200">6.0 cmH2O</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                  <span class="text-slate-400">Tidal Volume (Vt)</span>
+                  <span class="font-bold text-emerald-400">480 mL</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                  <span class="text-slate-400">Peak Pressure (PIP)</span>
+                  <span class="font-bold text-slate-200">22 cmH2O</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fluid Balance -->
+            <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-2 text-xs">
+              <h4 class="font-bold text-white flex items-center justify-between">
+                <span>24-Hr Fluid Balance</span>
+                <span class="font-mono text-emerald-400 font-bold">+600 mL</span>
+              </h4>
+              <div class="space-y-1 font-mono text-[11px] text-slate-400">
+                <div class="flex justify-between"><span>IV Crystalloids:</span><span class="text-slate-200">1800 mL</span></div>
+                <div class="flex justify-between"><span>Enteral Feeds:</span><span class="text-slate-200">400 mL</span></div>
+                <div class="flex justify-between"><span>Urine Output:</span><span class="text-rose-300">-1450 mL</span></div>
+                <div class="flex justify-between"><span>Surgical Drain:</span><span class="text-rose-300">-150 mL</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE J: RADIOLOGY & PACS IMAGING -->
+      <!-- ========================================== -->
+      <section id="view-radiology" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/40">MODULE J &bull; DIAGNOSTIC IMAGING</span>
+              <span class="text-xs text-slate-400">Digital X-Ray, 128-Slice CT, 1.5T MRI, Doppler Ultrasound</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Radiology RIS &amp; PACS Viewer Workstation</h1>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="simulateWhatsApp('lab')" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send PACS Link via WhatsApp</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Modality Worklists -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+              <span>Radiology Worklist</span>
+              <span class="text-[9px] font-mono text-cyan-400">4 Scans Pending</span>
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="p-3 rounded-xl bg-brand-teal/15 border border-brand-teal/30 cursor-pointer">
+                <div class="flex items-center justify-between font-bold text-white">
+                  <span>Chest X-Ray PA View</span>
+                  <span class="font-mono text-[10px] text-brand-teal">STAT ER</span>
+                </div>
+                <div class="text-[11px] text-slate-300 mt-1">Kamran Malik &bull; GW-1044</div>
+                <div class="text-[10px] text-slate-400 mt-0.5 font-mono">Modality: Digital Radiography (DR)</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 hover:border-white/20 cursor-pointer">
+                <div class="flex items-center justify-between font-bold text-white">
+                  <span>CT Brain Plain &bull; Multi-Slice</span>
+                  <span class="font-mono text-[10px] text-amber-400">URGENT</span>
+                </div>
+                <div class="text-[11px] text-slate-300 mt-1">Trauma-Unknown-Male-01 &bull; ER</div>
+                <div class="text-[10px] text-slate-400 mt-0.5 font-mono">Modality: 128-Slice CT Scanner</div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 hover:border-white/20 cursor-pointer">
+                <div class="flex items-center justify-between font-bold text-white">
+                  <span>MRI Lumbar Spine T1/T2</span>
+                  <span class="font-mono text-[10px] text-slate-400">ROUTINE</span>
+                </div>
+                <div class="text-[11px] text-slate-300 mt-1">Zahid Qureshi &bull; GW-1038</div>
+                <div class="text-[10px] text-slate-400 mt-0.5 font-mono">Modality: 1.5 Tesla Superconducting MRI</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PACS DICOM Interactive Simulator -->
+          <div class="lg:col-span-2 p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <div class="flex items-center gap-2">
+                <i data-lucide="scan" class="w-4 h-4 text-cyan-400"></i>
+                <h3 class="font-bold text-sm text-white">Interactive PACS DICOM Scan Viewer</h3>
+              </div>
+              <div class="flex items-center gap-3 text-xs text-slate-400 font-mono">
+                <span>WL: 40 &bull; WW: 350</span>
+                <span>Zoom: 100%</span>
+              </div>
+            </div>
+
+            <!-- Simulated High-Res Scan Display -->
+            <div class="relative bg-black rounded-2xl p-4 border border-cyan-500/30 flex flex-col items-center justify-center min-h-[260px] overflow-hidden">
+              <div class="w-48 h-48 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-800 to-black border border-white/20 flex flex-col items-center justify-center shadow-2xl relative">
+                <!-- Anatomy silhouette mockup -->
+                <i data-lucide="activity" class="w-20 h-20 text-cyan-500/40"></i>
+                <div class="absolute bottom-2 left-2 text-[9px] font-mono text-cyan-300">CHEST PA &bull; 120 kVp</div>
+                <div class="absolute top-2 right-2 text-[9px] font-mono text-slate-400">R</div>
+              </div>
+              <p class="text-xs text-slate-400 mt-3 font-mono">DICOM Series: 1042-CR &bull; 2560 x 2048 x 16-bit Grayscale</p>
+            </div>
+
+            <!-- Radiologist Findings & Report Entry -->
+            <div class="space-y-2 text-xs">
+              <div class="font-bold text-white flex items-center justify-between">
+                <span>Radiological Findings &amp; Impression:</span>
+                <span class="text-[10px] font-mono text-brand-teal">Dr. S. Farooq &bull; Consultant Radiologist</span>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/10 text-slate-300 text-xs space-y-1">
+                <p><strong>Findings:</strong> Bilateral lung fields are clear with normal vascular markings. Cardiothoracic ratio is within normal limits (&lt;50%). Costophrenic and cardiophrenic angles are sharp. Both hemidiaphragms are normal in contour.</p>
+                <p><strong>Impression:</strong> No active pulmonary infiltrates, consolidation, or pneumothorax identified.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE A: HOSPITAL ADMINISTRATION & SETUP -->
+      <!-- ========================================== -->
+      <section id="view-admin" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-teal/20 text-brand-teal font-mono text-[10px] font-bold border border-brand-teal/40">MODULE A &bull; SYSTEM CONFIGURATION</span>
+              <span class="text-xs text-slate-400">Master Hospital Setup, Multi-Branch &amp; RBAC Security</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Hospital Administration &amp; Master Tariffs</h1>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Multi-Branch Profiles -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center gap-2">
+              <i data-lucide="building-2" class="w-4 h-4 text-brand-teal"></i>
+              <span>Multi-Branch Facility Profiles</span>
+            </h3>
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-brand-teal/15 border border-brand-teal/30">
+                <div class="font-bold text-white">Karachi Central Hospital &amp; Cardiac Center</div>
+                <div class="text-[11px] text-slate-300 mt-0.5">Clifton Block 5, Karachi &bull; Currency: PKR (₨)</div>
+                <div class="text-[10px] text-brand-teal font-mono mt-1">Capacity: 40 Beds &bull; 8 OT Suites &bull; 24/7 ER</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5">
+                <div class="font-bold text-white">Growech Care Polyclinic &amp; Day Surgery</div>
+                <div class="text-[11px] text-slate-300 mt-0.5">Dubai Healthcare City &bull; Currency: AED (د.إ)</div>
+                <div class="text-[10px] text-slate-400 font-mono mt-1">Capacity: 12 Daybeds &bull; 2 Endoscopy Suites</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5">
+                <div class="font-bold text-white">Royal Growech Medical Complex</div>
+                <div class="text-[11px] text-slate-300 mt-0.5">Harley Street, London UK &bull; Currency: GBP (£)</div>
+                <div class="text-[10px] text-slate-400 font-mono mt-1">Specialty Outpatient &amp; Diagnostic Telehealth</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Master Fee Schedule Tariffs -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center gap-2">
+              <i data-lucide="receipt" class="w-4 h-4 text-amber-400"></i>
+              <span>Master Fee Schedule &amp; Tariffs</span>
+            </h3>
+            <div class="space-y-2 text-xs font-mono">
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="text-slate-300">OPD Specialist Consultation</span>
+                <span class="font-bold text-emerald-400">PKR 2,500</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="text-slate-300">VIP Private Suite (Per Day)</span>
+                <span class="font-bold text-emerald-400">PKR 25,000</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="text-slate-300">ICU Telemetry Bed (Per Day)</span>
+                <span class="font-bold text-emerald-400">PKR 45,000</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="text-slate-300">Complete Blood Count (CBC)</span>
+                <span class="font-bold text-emerald-400">PKR 1,200</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="text-slate-300">Troponin-I STAT Cardiac</span>
+                <span class="font-bold text-emerald-400">PKR 3,500</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7-Role RBAC Security Matrix -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center gap-2">
+              <i data-lucide="shield" class="w-4 h-4 text-indigo-400"></i>
+              <span>7-Role RBAC Permissions</span>
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="font-bold text-white">Superuser / Administrator</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">ALL ACCESS</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="font-bold text-white">Doctor / Consultant</span>
+                <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 font-mono text-[10px]">EHR &bull; Rx &bull; SOAP</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="font-bold text-white">Nurse / Inpatient Duty</span>
+                <span class="px-2 py-0.5 rounded bg-brand-teal/20 text-brand-teal font-mono text-[10px]">Vitals &bull; eMAR &bull; Beds</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="font-bold text-white">Pharmacist</span>
+                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-[10px]">FEFO &bull; Dispense</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="font-bold text-white">Lab Technologist</span>
+                <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-mono text-[10px]">LIS &bull; Barcodes</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="font-bold text-white">Cashier / Billing</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Invoicing &bull; POS</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-dark-950">
+                <span class="font-bold text-white">Receptionist / Kiosk</span>
+                <span class="px-2 py-0.5 rounded bg-white/10 text-slate-300 font-mono text-[10px]">Registration &bull; Tokens</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE M: HR ROSTERS & PMDC MONITORING -->
+      <!-- ========================================== -->
+      <section id="view-hr" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold border border-indigo-500/40">MODULE M &bull; CLINICAL WORKFORCE</span>
+              <span class="text-xs text-slate-400">Doctor Credentials, PMDC Expiry &amp; Duty Shift Rostering</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Medical Staff Rosters &amp; Compliance</h1>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- PMDC Licensing Compliance Table -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+              <span>Doctor Credentialing &amp; PMDC License Tracker</span>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">100% Compliant</span>
+            </h3>
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Dr. Mustafa Shaikh &bull; FCPS, FRCS</div>
+                  <div class="text-[11px] text-slate-400">PMDC # 34910-S &bull; General &amp; Laparoscopic Surgery</div>
+                </div>
+                <div class="text-right font-mono">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">Active (Exp: 2028)</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Dr. Ayesha Al-Zahra &bull; MRCP, FACC</div>
+                  <div class="text-[11px] text-slate-400">PMDC # 48201-P &bull; Interventional Cardiology</div>
+                </div>
+                <div class="text-right font-mono">
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">Active (Exp: 2027)</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white">Dr. Bilquis Edhi &bull; MCPS, DCH</div>
+                  <div class="text-[11px] text-slate-400">PMDC # 19302-K &bull; Consultant Pediatrician</div>
+                </div>
+                <div class="text-right font-mono">
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold text-[10px]">Renewal Due &lt;60d</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Duty Shift Rosters Matrix -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+              <span>Duty Shift Coverage Matrix</span>
+              <span class="text-[10px] font-mono text-slate-400">Today: OCT 29, 2026</span>
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="flex items-center justify-between font-bold">
+                  <span class="text-brand-teal">Morning Shift (08:00 - 16:00)</span>
+                  <span class="font-mono text-emerald-400">Full Staff (18 On Duty)</span>
+                </div>
+                <p class="text-[11px] text-slate-400">4 Consultants, 6 RMOs, 8 Staff Nurses across OPD, ICU &amp; Inpatient Wards.</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="flex items-center justify-between font-bold">
+                  <span class="text-amber-400">Evening Shift (16:00 - 00:00)</span>
+                  <span class="font-mono text-amber-300">Active (12 On Duty)</span>
+                </div>
+                <p class="text-[11px] text-slate-400">2 On-call Surgeons, 4 Emergency Medical Officers, 6 Inpatient Nurses.</p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="flex items-center justify-between font-bold">
+                  <span class="text-indigo-400">Night Shift (00:00 - 08:00)</span>
+                  <span class="font-mono text-indigo-300">Coverage Ready (8 On Duty)</span>
+                </div>
+                <p class="text-[11px] text-slate-400">Emergency Lead Physician, ICU Specialist, 4 Inpatient Nurses, 2 Security.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE N: BLOOD BANK MANAGEMENT -->
+      <!-- ========================================== -->
+      <section id="view-bloodbank" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold border border-rose-500/40">MODULE N &bull; TRANSFUSION MEDICINE</span>
+              <span class="text-xs text-slate-400">ABO/Rh Inventory, Component Separation &amp; Cross-Match</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Blood Bank &amp; Component Inventory</h1>
+          </div>
+        </div>
+
+        <!-- 8 Blood Group Units Matrix -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3 text-center">
+          <div class="p-3 rounded-xl bg-dark-900 border border-white/10">
+            <div class="font-black text-lg text-rose-400 font-mono">A+</div>
+            <div class="text-base font-bold text-white font-mono mt-0.5">14 Units</div>
+            <div class="text-[9px] text-slate-400 mt-1">Sufficient</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 border border-white/10">
+            <div class="font-black text-lg text-rose-400 font-mono">B+</div>
+            <div class="text-base font-bold text-white font-mono mt-0.5">22 Units</div>
+            <div class="text-[9px] text-slate-400 mt-1">Optimal</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 border border-white/10">
+            <div class="font-black text-lg text-rose-400 font-mono">O+</div>
+            <div class="text-base font-bold text-white font-mono mt-0.5">31 Units</div>
+            <div class="text-[9px] text-emerald-400 mt-1">High</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 border border-white/10">
+            <div class="font-black text-lg text-rose-400 font-mono">AB+</div>
+            <div class="text-base font-bold text-white font-mono mt-0.5">9 Units</div>
+            <div class="text-[9px] text-slate-400 mt-1">Normal</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 border border-white/10">
+            <div class="font-black text-lg text-rose-400 font-mono">A-</div>
+            <div class="text-base font-bold text-white font-mono mt-0.5">4 Units</div>
+            <div class="text-[9px] text-amber-400 mt-1">Low</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 border border-white/10">
+            <div class="font-black text-lg text-rose-400 font-mono">B-</div>
+            <div class="text-base font-bold text-white font-mono mt-0.5">3 Units</div>
+            <div class="text-[9px] text-amber-400 mt-1">Low</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 border border-rose-500/40 bg-rose-500/10">
+            <div class="font-black text-lg text-rose-400 font-mono">O-</div>
+            <div class="text-base font-bold text-rose-300 font-mono mt-0.5">2 Units</div>
+            <div class="text-[9px] text-rose-400 font-bold mt-1 animate-pulse">CRITICAL</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-900 border border-white/10">
+            <div class="font-black text-lg text-rose-400 font-mono">AB-</div>
+            <div class="text-base font-bold text-white font-mono mt-0.5">2 Units</div>
+            <div class="text-[9px] text-amber-400 mt-1">Rare</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+              <span>Component Units Breakdown</span>
+              <span class="text-[10px] font-mono text-brand-teal">85 Total Units</span>
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between items-center p-2.5 rounded-lg bg-dark-950 font-mono">
+                <span class="text-slate-300">Packed Red Blood Cells (PRBC)</span>
+                <span class="text-emerald-400 font-bold">48 Units</span>
+              </div>
+              <div class="flex justify-between items-center p-2.5 rounded-lg bg-dark-950 font-mono">
+                <span class="text-slate-300">Fresh Frozen Plasma (FFP)</span>
+                <span class="text-cyan-400 font-bold">24 Units</span>
+              </div>
+              <div class="flex justify-between items-center p-2.5 rounded-lg bg-dark-950 font-mono">
+                <span class="text-slate-300">Platelet Concentrates (Random Donor)</span>
+                <span class="text-amber-400 font-bold">13 Units</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+              <span>Active Cross-Match Requests</span>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">STAT ER</span>
+            </h3>
+            <div class="p-3 rounded-xl bg-dark-950 border border-white/5 text-xs space-y-1 font-mono">
+              <div class="flex justify-between text-white font-bold">
+                <span>Trauma-Unknown-Male-01 &bull; ER-01</span>
+                <span class="text-rose-400">O-Negative STAT</span>
+              </div>
+              <div class="text-[11px] text-slate-400">Major: COMPATIBLE &bull; Minor: COMPATIBLE &bull; Anti-D: Negative</div>
+              <div class="text-[10px] text-emerald-400 mt-1 font-bold">✓ Cleared for Transfusion &bull; Bag #BB-2026-0914</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE O: CSSD STERILIZATION -->
+      <!-- ========================================== -->
+      <section id="view-cssd" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-teal/20 text-brand-teal font-mono text-[10px] font-bold border border-brand-teal/40">MODULE O &bull; INFECTION CONTROL</span>
+              <span class="text-xs text-slate-400">Autoclave Sterilization, Spore Testing &amp; Sterile Surgical Packs</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">CSSD Central Sterilization Department</h1>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+              <span>Autoclave Unit #1</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">COMPLETED</span>
+            </h3>
+            <div class="space-y-2 text-xs font-mono">
+              <div class="flex justify-between text-slate-300"><span>Sterilization Temp:</span><span class="text-emerald-400 font-bold">134°C (273°F)</span></div>
+              <div class="flex justify-between text-slate-300"><span>Chamber Pressure:</span><span class="text-emerald-400 font-bold">2.1 Bar</span></div>
+              <div class="flex justify-between text-slate-300"><span>Holding Time:</span><span class="text-emerald-400 font-bold">3.5 Minutes</span></div>
+              <div class="flex justify-between text-slate-300"><span>Chemical Indicator:</span><span class="text-emerald-400 font-bold">Color Changed (Pass)</span></div>
+              <div class="flex justify-between text-slate-300"><span>Biological Spore:</span><span class="text-emerald-400 font-bold">Negative (Zero Growth)</span></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2 p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+              <span>Sterile Surgical Packs Tracking</span>
+              <span class="text-[10px] font-mono text-slate-400">Batch Exp: 30 Days</span>
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex justify-between">
+                  <span>Major Laparotomy Set #04</span>
+                  <span class="text-emerald-400 font-mono text-[10px]">STERILE</span>
+                </div>
+                <div class="text-[11px] text-slate-400">Pack Barcode: CSSD-2026-881 &bull; Autoclaved: Today 09:30 AM</div>
+              </div>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+                <div class="font-bold text-white flex justify-between">
+                  <span>Total Knee Arthroplasty Kit</span>
+                  <span class="text-emerald-400 font-mono text-[10px]">STERILE</span>
+                </div>
+                <div class="text-[11px] text-slate-400">Pack Barcode: CSSD-2026-882 &bull; Autoclaved: Today 08:15 AM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE P: DIETARY & CLINICAL NUTRITION -->
+      <!-- ========================================== -->
+      <section id="view-dietary" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/40">MODULE P &bull; CLINICAL NUTRITION</span>
+              <span class="text-xs text-slate-400">Dietary Categories, Inpatient Meals &amp; Allergy Precautions</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Inpatient Dietary &amp; Kitchen Orders</h1>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-1">
+            <div class="font-bold text-white">Diabetic Diet (1800 kcal)</div>
+            <div class="text-2xl font-black text-amber-400 font-mono mt-1">11 Patients</div>
+            <p class="text-[11px] text-slate-400">Low Glycemic Index &bull; Zero added refined sugars</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-1">
+            <div class="font-bold text-white">Renal Low-Potassium</div>
+            <div class="text-2xl font-black text-cyan-400 font-mono mt-1">4 Patients</div>
+            <p class="text-[11px] text-slate-400">Restricted Sodium &amp; Potassium &bull; Monitored fluids</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-1">
+            <div class="font-bold text-white">Cardiac Low-Sodium</div>
+            <div class="text-2xl font-black text-rose-400 font-mono mt-1">8 Patients</div>
+            <p class="text-[11px] text-slate-400">&lt; 2g Sodium daily &bull; Heart healthy Mediterranean</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-1">
+            <div class="font-bold text-white">NPO (Nil per Os)</div>
+            <div class="text-2xl font-black text-indigo-400 font-mono mt-1">5 Patients</div>
+            <p class="text-[11px] text-slate-400">Strictly nothing by mouth &bull; Pre-operative OT</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE Q: AMBULANCE FLEET & DISPATCH -->
+      <!-- ========================================== -->
+      <section id="view-ambulance" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold border border-rose-500/40">MODULE Q &bull; EMERGENCY TRANSPORT</span>
+              <span class="text-xs text-slate-400">GPS Fleet Tracking, ACLS / BLS Units &amp; Onboard Equipment Checks</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Ambulance Fleet &amp; Dispatch Hub</h1>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <span class="font-bold text-sm text-white">Unit AMB-01 (ACLS Mobile ICU)</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">ON BASE &bull; READY</span>
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-300">
+              <div><strong>Driver:</strong> Tariq Rafique &bull; <strong>Paramedic:</strong> Saeed Ahmed</div>
+              <div><strong>Oxygen Cylinders:</strong> 2x 2000 PSI (Full)</div>
+              <div><strong>Defibrillator:</strong> Zoll X-Series &bull; Battery 100%</div>
+              <div class="text-[11px] text-brand-teal font-mono mt-2">Vehicle Location: ER Ambulance Bay 1</div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <span class="font-bold text-sm text-white">Unit AMB-02 (Cardiac Rapid Unit)</span>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px]">EN ROUTE &bull; CALL-OUT</span>
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-300">
+              <div><strong>Incident:</strong> Acute Chest Pain Call &bull; Shahrah-e-Faisal</div>
+              <div><strong>ETA to Hospital:</strong> ~8 Mins with Siren</div>
+              <div class="text-[11px] text-amber-300 font-mono mt-2">Telemetry Transmitting: V-Tach Alert</div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <span class="font-bold text-sm text-white">Unit AMB-03 (Neonatal Transport)</span>
+              <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px]">STANDBY</span>
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-300">
+              <div><strong>Equipment:</strong> Atom Transport Incubator &bull; Draeger BabyLog</div>
+              <div><strong>Temperature:</strong> 36.8°C Pre-warmed</div>
+              <div class="text-[11px] text-slate-400 font-mono mt-2">Designated for NICU Inter-hospital Transfer</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MODULE R: BIOMEDICAL ENGINEERING -->
+      <!-- ========================================== -->
+      <section id="view-biomedical" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-brand-teal/20 text-brand-teal font-mono text-[10px] font-bold border border-brand-teal/40">MODULE R &bull; CLINICAL ENGINEERING</span>
+              <span class="text-xs text-slate-400">Medical Asset Registry, Calibration Schedules &amp; Breakdown Tickets</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Biomedical Engineering Assets</h1>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-4">
+          <h3 class="font-bold text-sm text-white pb-2 border-b border-white/10 flex items-center justify-between">
+            <span>Critical Medical Devices Registry</span>
+            <span class="text-[10px] font-mono text-emerald-400">Zero Critical Faults</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+              <div class="font-bold text-white">Hamilton G5 ICU Ventilator</div>
+              <div class="text-[11px] text-slate-400">Asset: BME-2024-0012 &bull; ICU-01</div>
+              <div class="text-xs font-mono text-emerald-400 mt-1">Calibrated: 14 Oct 2026 (Pass)</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+              <div class="font-bold text-white">GE Datex-Ohmeda Anesthesia</div>
+              <div class="text-[11px] text-slate-400">Asset: BME-2023-0089 &bull; OT-2</div>
+              <div class="text-xs font-mono text-emerald-400 mt-1">Calibrated: 02 Oct 2026 (Pass)</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+              <div class="font-bold text-white">Siemens C-Arm Mobile Fluoroscopy</div>
+              <div class="text-[11px] text-slate-400">Asset: BME-2022-0044 &bull; Ortho OT</div>
+              <div class="text-xs font-mono text-emerald-400 mt-1">Dosimetry Checked (Pass)</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-dark-950 border border-white/5 space-y-1">
+              <div class="font-bold text-white">Mindray BeneHeart D6 Defibrillator</div>
+              <div class="text-[11px] text-slate-400">Asset: BME-2025-0103 &bull; ER Trauma</div>
+              <div class="text-xs font-mono text-emerald-400 mt-1">Energy Test: 200J +/- 2J</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- PATIENT SELF-SERVICE MOBILE PORTAL -->
+      <!-- ========================================== -->
+      <section id="view-portal" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/40">PATIENT EXPERIENCE &bull; SELF-SERVICE</span>
+              <span class="text-xs text-slate-400">Smartphone Portal Simulator for Appointments, Digital Rx &amp; Lab Reports</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Mobile Patient Self-Service Portal</h1>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <!-- Smartphone Simulator -->
+          <div class="w-full max-w-sm rounded-[40px] bg-dark-900 border-4 border-slate-700 p-4 shadow-2xl overflow-hidden text-slate-100 font-sans space-y-4">
+            <!-- Notch & Status -->
+            <div class="flex items-center justify-between px-3 text-[10px] font-mono text-slate-400">
+              <span>9:41 AM</span>
+              <div class="w-20 h-4 bg-slate-950 rounded-full"></div>
+              <span>5G 100%</span>
+            </div>
+
+            <!-- Patient Card Header -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-brand-teal/20 via-cyan-500/20 to-emerald-500/20 border border-brand-teal/30 flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-brand-teal/30 border border-brand-teal flex items-center justify-center font-bold text-base text-brand-teal">
+                AB
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm">Aisha Bano</div>
+                <div class="text-[10px] text-slate-300 font-mono">MRN: GW-1042 &bull; Blood: B+</div>
+                <div class="text-[9px] text-emerald-400 font-mono">Pakistan Sehat Card Active</div>
+              </div>
+            </div>
+
+            <!-- Active Appointment QR Pass -->
+            <div class="p-4 rounded-2xl bg-dark-950 border border-white/10 space-y-3 text-center">
+              <div class="text-xs font-bold text-white flex items-center justify-between">
+                <span>Digital Clinic Appointment Pass</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[9px]">TODAY</span>
+              </div>
+              <div class="flex justify-center p-2 bg-white rounded-xl inline-block mx-auto">
+                <!-- SVG Code128 / QR mockup -->
+                <div class="w-32 h-32 bg-slate-950 rounded-lg p-2 flex flex-col items-center justify-center text-center">
+                  <i data-lucide="qr-code" class="w-20 h-20 text-brand-teal"></i>
+                  <span class="font-mono text-[8px] text-slate-300 mt-1">TOKEN #TK-108</span>
+                </div>
+              </div>
+              <div class="text-xs text-slate-300">
+                <div>Dr. Mustafa Shaikh &bull; Consultation Room 304</div>
+                <div class="text-[10px] text-slate-400 font-mono mt-0.5">Est. Time: 12:15 PM (~12 min wait)</div>
+              </div>
+            </div>
+
+            <!-- Quick Action Links -->
+            <div class="grid grid-cols-2 gap-2 text-xs font-semibold">
+              <button onclick="printPrescriptionDoc()" class="p-3 rounded-xl bg-dark-950 border border-white/10 hover:border-brand-teal/40 flex flex-col items-center gap-1.5 transition-all text-slate-200">
+                <i data-lucide="file-text" class="w-4 h-4 text-brand-teal"></i>
+                <span>Digital Rx</span>
+              </button>
+              <button onclick="printDiagnosticReport()" class="p-3 rounded-xl bg-dark-950 border border-white/10 hover:border-brand-teal/40 flex flex-col items-center gap-1.5 transition-all text-slate-200">
+                <i data-lucide="flask-conical" class="w-4 h-4 text-cyan-400"></i>
+                <span>Lab PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 8 CORE HOSPITAL AUTOMATIONS ENGINE -->
+      <!-- ========================================== -->
+      <section id="view-automations" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/40">CORE AUTOMATION ENGINE</span>
+              <span class="text-xs text-slate-400">8 End-to-End Hospital Event Pipelines</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">8 Core Hospital Automations Suite</h1>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Automation 1 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">1. Appointment Booking to Token Queue</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Triggered upon reception kiosk booking -> allocates slot -> generates #TK-token -> sounds dual-tone chime.</p>
+            <button onclick="executeAutomation(1)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-brand-teal text-xs font-bold border border-brand-teal/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 1</span>
+            </button>
+          </div>
+
+          <!-- Automation 2 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">2. E-Prescription to FEFO Pharmacy Dispense</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Doctor signs digital Rx -> checks allergy contraindications -> auto-allocates earliest expiring batch -> debits bill.</p>
+            <button onclick="executeAutomation(2)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-400 text-xs font-bold border border-cyan-500/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 2</span>
+            </button>
+          </div>
+
+          <!-- Automation 3 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">3. Lab Order to Vector SVG Barcode &amp; Panic Alerts</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Doctor orders STAT Troponin-I -> generates Code128 vector label -> critical value triggers hospital panic banner.</p>
+            <button onclick="executeAutomation(3)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-rose-400 text-xs font-bold border border-rose-500/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 3</span>
+            </button>
+          </div>
+
+          <!-- Automation 4 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">4. Emergency Influx to Code Blue &amp; Bed Reserve</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Code Red polytrauma arrives -> broadcasts 880Hz Code Blue alarm -> auto-reserves trauma bed ETW-01.</p>
+            <button onclick="executeAutomation(4)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-amber-400 text-xs font-bold border border-amber-500/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 4</span>
+            </button>
+          </div>
+
+          <!-- Automation 5 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">5. 4-Gate Discharge to Sanitation Cycle</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Doctor -> Nurse -> Pharmacy -> Cashier -> bed status marks Cleaning -> janitorial alert -> Vacant.</p>
+            <button onclick="executeAutomation(5)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-emerald-400 text-xs font-bold border border-emerald-500/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 5</span>
+            </button>
+          </div>
+
+          <!-- Automation 6 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">6. Cashier Closing Multi-Tender Reconciliation</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Shift ends -> aggregates Cash, Visa, Raast, Sehat Card -> checks drawer balance -> prints 80mm thermal closing.</p>
+            <button onclick="executeAutomation(6)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-indigo-400 text-xs font-bold border border-indigo-500/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 6</span>
+            </button>
+          </div>
+
+          <!-- Automation 7 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">7. Multi-Branch Tariff &amp; Currency Switcher</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Select Karachi (PKR), Dubai (AED), or London (GBP) -> updates symbol, master tariff, and letterhead.</p>
+            <button onclick="executeAutomation(7)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-400 text-xs font-bold border border-cyan-500/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 7</span>
+            </button>
+          </div>
+
+          <!-- Automation 8 -->
+          <div class="p-4 rounded-2xl bg-dark-900 border border-white/10 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-xs text-white">8. WhatsApp Telehealth CRM Notification</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">Active</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Instant delivery of appointment pass, lab ready notification, and digital prescription via official WhatsApp API.</p>
+            <button onclick="executeAutomation(8)" class="w-full py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-emerald-400 text-xs font-bold border border-emerald-500/30 flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span>Simulate Pipeline 8</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- AI OPERATIONAL ASSISTANTS SUITE -->
+      <!-- ========================================== -->
+      <section id="view-ai" class="space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold border border-indigo-500/40">INTELLIGENT HOSPITAL SUITE</span>
+              <span class="text-xs text-slate-400">Voice/Chat AI Receptionist (Roman Urdu &amp; English) &bull; Clinical Summarizer</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-white font-display">Growech AI Operational Assistants</h1>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <!-- Voice & Chat AI Receptionist Simulator -->
+          <div class="p-5 rounded-2xl bg-dark-900 border border-indigo-500/30 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-white/10">
+              <div class="flex items-center gap-2">
+                <i data-lucide="bot" class="w-5 h-5 text-indigo-400"></i>
+                <div>
+                  <h3 class="font-bold text-sm text-white">AI Hospital Receptionist (Roman Urdu &amp; English)</h3>
+                  <p class="text-[10px] text-slate-400 font-mono">Real-time Natural Language Triage &amp; FAQ</p>
+                </div>
+              </div>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">ONLINE</span>
+            </div>
+
+            <!-- Quick Question Chips -->
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <button onclick="askAiAssistant('Doctor Mustafa ki OPD timings kya hain?')" class="px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">"Dr. Mustafa OPD timings?"</button>
+              <button onclick="askAiAssistant('Cardiology appointment book karna hai')" class="px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">"Cardiology appointment"</button>
+              <button onclick="askAiAssistant('Emergency ambulance number chahiye')" class="px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">"Ambulance number"</button>
+              <button onclick="askAiAssistant('Sehat Sahulat card accept hota hai?')" class="px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-colors">"Sehat Sahulat Card"</button>
+            </div>
+
+            <!-- Chat Stream -->
+            <div class="p-3 space-y-2.5 min-h-[220px] max-h-[300px] overflow-y-auto bg-dark-950 rounded-2xl border border-white/5 font-sans" id="aiChatStream">
+              <div class="p-3 rounded-xl bg-indigo-600/20 border border-indigo-500/30 text-indigo-100 text-xs space-y-1">
+                <div class="font-bold text-[11px] text-indigo-300">🤖 GROWECH AI ASSISTANT:</div>
+                <p>Assalam-o-Alaikum! Main Growech Care ka AI Receptionist hoon. Aap OPD doctor schedule, clinic pass, emergency ambulance ya fee tariffs ke mutaliq mujh se Roman Urdu ya English mein pooch sakte hain.</p>
+              </div>
+            </div>
+
+            <!-- Chat Input Bar -->
+            <div class="flex items-center gap-2">
+              <input type="text" id="aiChatInput" placeholder="Roman Urdu ya English mein poochiye..." class="flex-1 bg-dark-950 border border-white/15 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-indigo-400">
+              <button onclick="submitAiQuery()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>Send</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Clinical Note Summarizer & Complaint Classifier -->
+          <div class="space-y-4">
+            <!-- Clinical Summarizer -->
+            <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="file-check" class="w-4 h-4 text-brand-teal"></i>
+                  <h3 class="font-bold text-sm text-white">AI Clinical Note Summarizer</h3>
+                </div>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-brand-teal/20 text-brand-teal">ICD-10 Mapped</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Converts unstructured doctor voice dictations into standardized SOAP notes with automatic ICD-10 code extraction.</p>
+              <div class="p-3 rounded-xl bg-dark-950 border border-white/5 text-xs font-mono space-y-1">
+                <div class="text-brand-teal font-bold">Detected ICD-10: J06.9 (Acute Upper Respiratory Infection)</div>
+                <div class="text-slate-300">SOAP Structure verified &bull; Prescribed Amoxicillin/Clavulanate 625mg &bull; Zero contraindications detected.</div>
+              </div>
+            </div>
+
+            <!-- Complaint Classifier -->
+            <div class="p-5 rounded-2xl bg-dark-900 border border-white/10 shadow-xl space-y-3">
+              <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="message-circle-warning" class="w-4 h-4 text-amber-400"></i>
+                  <h3 class="font-bold text-sm text-white">AI Patient Feedback &amp; Grievance Classifier</h3>
+                </div>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Sentiment Engine</span>
+              </div>
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between items-center p-2 rounded-lg bg-dark-950">
+                  <span class="text-slate-300">Wait-Time &bull; Priority High</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px]">Routed to OPD Manager</span>
+                </div>
+                <div class="flex justify-between items-center p-2 rounded-lg bg-dark-950">
+                  <span class="text-slate-300">Clinical Care &bull; Positive Feedback</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px]">Logged to Doctor Score</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

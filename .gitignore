@@ -28,3 +28,4 @@ video_assets/
 .env
 *.env
 scripts/reddit-radar/.env
+.agents/
