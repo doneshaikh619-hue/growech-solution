@@ -1,5 +1,18 @@
 [
   {
+    "id": "https://www.threads.com/@aibekintech/post/DfYUzA5iWK_",
+    "platform": "Threads",
+    "category": "Workflow & AI Automation",
+    "author": "aibekintech",
+    "content": "aibekintech 22h as a dev, do you work with ai agents? 9 15 1",
+    "budget": "Not Specified",
+    "postUrl": "https://www.threads.com/@aibekintech/post/DfYUzA5iWK_",
+    "freshnessBadge": "🕒 TODAY (23h ago)",
+    "minutesAgo": 1371,
+    "timestamp": "2026-11-06T00:31:25.000Z",
+    "pitch": "Yeah, building them with custom n8n pipelines and LLM nodes mostly. Usually set them up for lead routing or data extraction. \n\nWant to see a quick one-minute loom demo of a customer support agent we deployed last week? \n\nMustafa | Growech Solution\nPortfolio: growech.site"
+  },
+  {
     "id": "https://www.threads.com/@__krishna64__/post/DfaE3evGXlz",
     "platform": "Threads",
     "category": "Website Development",
