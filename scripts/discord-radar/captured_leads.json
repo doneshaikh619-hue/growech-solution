@@ -1,5 +1,33 @@
 [
   {
+    "id": "https://www.reddit.com/r/webdev/comments/1xw32uo/showoff_saturday_i_built_a_tool_that_finds_local/",
+    "serverName": "The Programmer's Hangout (218k+ Devs)",
+    "serverInvite": "https://discord.gg/programming",
+    "category": "Website Development",
+    "title": "Showoff Saturday: I built a tool that finds local businesses with no real website, by trade and city",
+    "author": "tkmremiiiii",
+    "content": "Showoff Saturday: I built a tool that finds local businesses with no real website, by trade and city — &lt;!-- SC_OFF --&gt;&lt;div class=&quot;md&quot;&gt;&lt;p&gt;I wanted a quick way to see which local businesses actually need a website, without opening hundreds of Google Maps listings by hand. So I built LeadsIt: you pick a trade and a city, it pulls the public business listings, opens each busin",
+    "budget": "Negotiable / Market Rate",
+    "discordContact": null,
+    "postUrl": "https://www.reddit.com/r/webdev/comments/1xw32uo/showoff_saturday_i_built_a_tool_that_finds_local/",
+    "timestamp": "2026-11-14T16:58:30.772Z",
+    "pitch": "Saw your LeadsIt post on TPH. Scraping and filtering local map listings like that is a solid lead gen angle. \n\nIf you ever want to scale it into a full SaaS or need clean Next.js frontends built out for clients, hit me up.\n\nMustafa | Growech Solution\nPortfolio: growech.site"
+  },
+  {
+    "id": "https://www.reddit.com/r/forhire/comments/1xw36mw/hiring_looking_for_6_iphone_testflight_testers/",
+    "serverName": "Devs For Hire & Jobs (33k+ Members)",
+    "serverInvite": "https://discord.gg/awHZtSf89q",
+    "category": "Website Development",
+    "title": "[hiring] Looking for 6 iPhone TestFlight Testers — Short Testing Assignments",
+    "author": "ToughInternal1580",
+    "content": "[hiring] Looking for 6 iPhone TestFlight Testers — Short Testing Assignments — &lt;!-- SC_OFF --&gt;&lt;div class=&quot;md&quot;&gt;&lt;p&gt;**[Paid] Looking for 6 iPhone TestFlight Testers — Short Testing **&lt;br/&gt; Hi everyone!&lt;br/&gt; I’m looking for 6 reliable iPhone users for two paid iOS beta testing projects.&lt;br/&gt; &lt;strong&gt;Project 1 — 5 testers needed&l",
+    "budget": "Negotiable / Market Rate",
+    "discordContact": null,
+    "postUrl": "https://www.reddit.com/r/forhire/comments/1xw36mw/hiring_looking_for_6_iphone_testflight_testers/",
+    "timestamp": "2026-11-14T16:58:25.984Z",
+    "pitch": "Hey, saw your post for TestFlight testers. We run a web agency (Growech Solution) and have a team of developers who can thoroughly test your iOS build across multiple devices and catch edge-case bugs fast. \n\nWant to check out our work first? \n\nMustafa | Growech Solution  \nPortfolio: growech.site"
+  },
+  {
     "id": "https://www.reddit.com/r/hiring/comments/1xvu1xy/hiring_looking_for_a_creative_instagram_tik_tok/",
     "serverName": "Devs For Hire & Jobs (33k+ Members)",
     "serverInvite": "https://discord.gg/awHZtSf89q",
